@@ -5,10 +5,8 @@
 - clean: ['~']
 
 - link:
-    ~/.config/coc: config/coc
     ~/.config/git: config/git
     ~/.config/nvim: config/nvim
-    ~/.dotfiles: ''
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zsh: zsh

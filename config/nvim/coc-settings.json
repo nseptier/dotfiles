@@ -1,0 +1,20 @@
+{
+  "coc.preferences.enableFloatHighlight": true,
+  "diagnostic.errorSign": ">>",
+  "diagnostic.virtualText": false,
+  "diagnostic.warningSign": "--",
+  "eslint.autoFix": false,
+  "eslint.autoFixOnSave": false,
+  "eslint.run": "onSave",
+  "javascript.showUnused": false,
+  "javascript.suggestionActions.enabled": false,
+  "javascript.validate.enable": false,
+  "suggest.autoTrigger": "trigger",
+  "suggest.detailField": "preview",
+  "suggest.noselect": false,
+  "tsserver.formatOnType": false,
+  "tsserver.implicitProjectConfig.experimentalDecorators": true,
+  "typescript.showUnused": false,
+  "typescript.suggestionActions.enabled": false,
+  "typescript.validate.enable": false
+}

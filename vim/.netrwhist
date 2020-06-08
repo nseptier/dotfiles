@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/nico/dev/matera/app-core/src/core/unpaid'
+let g:netrw_dirhist_3='/Users/nico/Dev/sandbox/src'
+let g:netrw_dirhist_2='/Users/nico/Dev/sandbox/src/components'
+let g:netrw_dirhist_1='/Users/nico/Dev/sandbox/src/components/app'
