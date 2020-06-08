@@ -1,0 +1,44 @@
+[alias]
+  clb = "!git branch --v | grep \"\\[gone\\]\" | awk '{print $1}' | xargs git branch -D"
+  clear = reset --hard
+  amend = commit --amend
+  no-edit = commit --amend --no-edit
+	tree = log --abbrev-commit --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(magenta bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
+[core]
+	editor = vim
+	excludesfile = /Users/nico/.gitignore-global
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[push]
+	default = simple
+[user]
+	name = Nicolas SEPTIER
+	email = nicolas.septier@gmail.com
+[fetch]
+	prune = true
+
+[color "diff"]
+  new = green bold
+  old = red bold
+
+[color "status"]
+  header = white bold # the header text of the status message
+  added = green #
+  updated = green # files which are added but not committed
+  changed = red bold # files which are changed but not added in the index
+  untracked = yellow # files which are not tracked by git
+  branch = white  # the current branch
+  nobranch = red # the color the no branch warning is shown in, defaulting to red
+  localBranch = red #
+  remoteBranch = red # the local and remote branch names, respectively, when branch and tracking information is displayed in the status short-format
+  unmerged = cyan # files which have unmerged changes
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[mergetool]
+	keepBackup = false
