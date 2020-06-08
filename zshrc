@@ -84,13 +84,7 @@ source ~/.profile
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# powerline
-# export PATH=$PATH:/usr/local/sbin
-export LC_ALL=en_US.UTF-8
-export PATH=$HOME/Library/Python/2.7/bin:$PATH
-. /Users/nico/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
-
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
