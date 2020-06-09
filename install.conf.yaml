@@ -9,10 +9,8 @@
     ~/.config/git: config/git
     ~/.config/nvim: config/nvim
     ~/.gitconfig: gitconfig
+    ~/.gitignore: gitignore
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zsh: zsh
     ~/.zshrc: zshrc
-
-- shell:
-  - [git submodule update --init --recursive, Installing submodules]

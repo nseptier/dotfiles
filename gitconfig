@@ -6,7 +6,7 @@
 	tree = log --abbrev-commit --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(magenta bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
 [core]
 	editor = vim
-	excludesfile = /Users/nico/.gitignore-global
+	excludesfile = /Users/nico/.gitignore
 [filter "media"]
 	required = true
 	clean = git media clean %f
