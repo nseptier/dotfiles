@@ -3,11 +3,11 @@ set autoread
 set backupdir=~/.vim/backup//
 set clipboard=unnamed
 set cmdheight=1
-set nocursorline
-set nocursorcolumn
+set conceallevel=2
 set directory=~/.vim/swap//
+set encoding=utf-8
 set expandtab
-set fillchars=fold:-
+set fillchars=fold:-,vert:
 set foldcolumn=0
 set foldlevelstart=99
 set foldmethod=indent
@@ -15,16 +15,24 @@ set foldnestmax=20
 set foldopen-=block
 set foldtext=
 set hidden
+set ignorecase
+set incsearch
 set laststatus=2
 set list
-set listchars=eol:↲,tab:→\ ,trail:×,precedes:‹,extends:›,nbsp:~,space:·
-set nohlsearch
+set listchars=eol:↲,tab:→\ ,trail:×,precedes:‹,extends:›,nbsp:~,space:\ 
+set nocompatible
+set nocursorcolumn
+set cursorline
+set noswapfile
 set nowrap
 set number relativenumber
 set path=$PWD/**
+set rtp+=/usr/local/opt/fzf
 set ruler
 set scrolloff=2
 set shiftwidth=2
+set showtabline=0
+set smartcase
 set smarttab
 set softtabstop=2
 set splitbelow
@@ -33,53 +41,109 @@ set tabstop=2
 set undodir=~/.vim/undo//
 set wildignore+=*/node_modules/**
 
+let g:sql_type_default = 'pgsql'
+
+autocmd VimResized * wincmd =
+
 " plug
 call plug#begin()
-" Plug 'dense-analysis/ale'
-" Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'michaeljsmith/vim-indent-object'
-" Plug 'othree/yajs.vim'
-" Plug 'yuezk/vim-js'
 Plug 'arithran/vim-delete-hidden-buffers'
 Plug 'ayu-theme/ayu-vim'
+Plug 'chrisbra/Colorizer'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'elzr/vim-json'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'haya14busa/incsearch.vim'
 Plug 'jesseleite/vim-agriculture'
-Plug 'junegunn/fzf'
+Plug 'jparise/vim-graphql'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
+Plug 'lifepillar/pgsql.vim'
+Plug 'machakann/vim-sandwich'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'milch/vim-fastlane'
 Plug 'moll/vim-bbye'
+Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pangloss/vim-javascript'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'preservim/nerdtree'
+Plug 'preservim/vimux'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'sveltejs/prettier-plugin-svelte'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-unimpaired'
+Plug 'tveskag/nvim-blame-line'
+Plug 'udalov/kotlin-vim'
+Plug 'uiiaoo/java-syntax.vim'
+Plug 'wavded/vim-stylus'
+Plug 'Yggdroot/indentLine'
+Plug 'gerw/vim-HiLinkTrace'
+Plug 'phaazon/hop.nvim'
+Plug 'logico/typewriter-vim'
 call plug#end()
 
+let g:svelte_preprocessors = ['typescript']
+
+let g:blameLineUseVirtualText = 1
+let g:blameLineVirtualTextHighlight = 'Directory'
+let g:blameLineGitFormat = '  %an, %ar in #%h - %s'
+" nnoremap <silent> <leader>tb :ToggleBlameLine<CR>
+" augroup GitBlame
+"   au!
+"   au VimEnter,WinEnter,BufWinEnter * EnableBlameLine
+"   au WinLeave,BufWinLeave * DisableBlameLine
+" augroup END
+
 " some keymaps
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-inoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-nnoremap <up> <nop>
-noremap <leader>s :sort i<cr>
-nmap <C-p> :Files<Cr>
-nnoremap <leader>bd :DeleteHiddenBuffers<CR>
-nnoremap <leader>qq :Bdelete<cr>
-nnoremap <Leader>r :%s///g<Left><Left>
-nnoremap <Leader>ii :%s/I18n\.t("\([^.]\+\)./t("\1:/g
+noremap <silent> <leader>s :sort i<cr>
+nnoremap <silent> <leader>Q :DeleteHiddenBuffers<CR>
+nnoremap <silent> <leader>qq :Bdelete!<cr>
+nmap <silent> <Esc><Esc> :noh<cr>
+nnoremap <silent> <leader>w :HopChar1<cr>
+
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+
+lua require'hop'.setup()
+
+" colorscheme
+set termguicolors
+syntax enable
+" let ayucolor="mirage"
+let ayucolor="bronzevine"
+color ayu
+autocmd BufEnter * :syntax sync fromstart
+"
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+nnoremap <silent> <leader>tc :ColorToggle<CR>
+
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
+let g:indentLine_char = '⋮'
+let g:indentLine_first_char = '⋮'
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setConceal = 0
+" let g:indentLine_defaultGroup = 'LineNr'
+
+let g:vim_json_syntax_conceal = 0
+
+" Prompt for a command to run
+map <Leader>tt :VimuxPromptCommand<CR>
 
 " search
-map <Leader>/ <Plug>(incsearch-forward)
-map <Leader>? <Plug>(incsearch-backward)
 set hlsearch
 let g:incsearch#auto_nohlsearch = 1
 
@@ -87,49 +151,135 @@ let g:incsearch#auto_nohlsearch = 1
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#config_precedence = 'cli-override'
 let g:prettier#config#print_width = 80
-let g:prettier#config#semi = 'true'
+let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#tab_width = 'auto'
 let g:prettier#config#trailing_comma = 'all'
 let g:prettier#config#use_tabs = 'auto'
+let g:prettier#plugin_search_dir = '.'
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 0
 
 " fzf
-let g:fzf_preview_window = 'right:60%'
+let g:fzf_preview_window = ['right:60%', 'ctrl-/']
+let g:fzf_layout = { 'down': '50%' }
+let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'NormalFloat'],
+    \ 'hl':      ['fg', 'NERDTreeClosable'],
+    \ 'fg+':     ['fg', 'SpellCap', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLineNr', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'DiffDelete'],
+    \ 'info':    ['fg', 'Directory'],
+    \ 'border':  ['fg', 'NonText'],
+    \ 'prompt':  ['fg', 'Title'],
+    \ 'pointer': ['fg', 'Title'],
+    \ 'marker':  ['fg', 'SpellRare'],
+    \ 'spinner': ['fg', 'SpellRare'],
+    \ 'header':  ['fg', 'SpellRare'] }
+" let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let g:fzf_commits_log_options = '--graph --color=always --abbrev-commit --author-date-order --date=relative --decorate --format="%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(cyan bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)"'
+
+nmap <silent> <C-p> :Files<Cr>
+nmap <silent> <C-b> :Buffers<Cr>
+nmap <silent> <C-c> :Commits<Cr>
 
 " vim-jsx-pretty
 let g:vim_jsx_pretty_colorful_config = 0
 let g:vim_jsx_pretty_disable_tsx = 1
 
 " agriculture
-nmap <Leader>ff <Plug>RgRawSearch
-vmap <Leader>ff <Plug>RgRawVisualSelection
-nmap <Leader>g <Plug>RgRawWordUnderCursor
+let g:agriculture#rg_options = '--hidden --smart-case'
+
+nmap <Leader>f <Plug>RgRawSearch
+nmap <Leader>F <Plug>RgRawWordUnderCursor<cr>
 
 " nerdtree
-map <C-b> :NERDTreeToggle %<CR>
+let g:NERDTreeWinSize=40
+nnoremap <Leader>e :NERDTreeFocus<cr>
+nnoremap <Leader>E :NERDTreeFind<cr>zt
 let g:NERDTreeShowHidden = 1
+" autocmd BufEnter * lcd %:p:h
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
-" colorscheme
-set termguicolors
-syntax sync minlines=256
-syntax enable
-let ayucolor="mirage"
-colo ayu
+" multiline macros
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
-hi Folded guibg=NONE
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
 
 " statusline
+let g:currentmode={
+      \ 'n': 'n',
+      \ 'no': 'no',
+      \ 'nov': 'nov',
+      \ 'noV': 'noV',
+      \ 'noCTRL-V': 'noCTRL-V',
+      \ 'niI': 'niI',
+      \ 'niR': 'niR',
+      \ 'niV': 'niV',
+      \ 'v': 'v',
+      \ 'V': 'V',
+      \ "\<C-V>": 'CTRL-V',
+      \ 's': 's',
+      \ 'S': 'S',
+      \ "\<C-S>": 'CTRL-S',
+      \ 'i': 'i',
+      \ 'ic': 'i',
+      \ 'ix': 'ix',
+      \ 'R': 'R',
+      \ 'Rc': 'Rc',
+      \ 'Rv': 'Rv',
+      \ 'Rx': 'Rx',
+      \ 'c': 'c',
+      \ 'cv': 'cv',
+      \ 'ce': 'ce',
+      \ 'r': 'r',
+      \ 'rm': 'rm',
+      \ 'r?': 'r?',
+      \ '!': '!',
+      \ 't': 't',
+      \}
+
 set statusline=
-set statusline+=\ [%n]    " buffer number
-set statusline+=\ %f      " file path
-set statusline+=\ %m%r%w  " modified,read-only,preview?
+" buffer
+set statusline+=%#BufferNr#\ %n\ 
+set statusline+=%#ActiveBufferNrArrow#%{g:actual_curwin==win_getid()?'':''}
+set statusline+=%#BufferNrArrow#%{g:actual_curwin!=win_getid()?'':''}
+
+set statusline+=%#ActiveFilename#%{g:actual_curwin==win_getid()?'\ \ '.(expand('%:f')==''?'':expand('%:f').'\ '):''}
+set statusline+=%{g:actual_curwin==win_getid()?(&modified?'\ ✱\ ':''):''}
+set statusline+=%{g:actual_curwin==win_getid()?(&readonly?'\ \ ':''):''}
+set statusline+=%#ActiveFilenameArrow#%{g:actual_curwin==win_getid()?'\ ':''}
+set statusline+=%#Filename#%{g:actual_curwin!=win_getid()?'\ \ '.(expand('%:f')==''?'':expand('%:f').'\ '):''}
+set statusline+=%{g:actual_curwin!=win_getid()?(&modified?'\ ✱\ ':''):''}
+set statusline+=%{g:actual_curwin!=win_getid()?(&readonly?'\ \ ':''):''}
+set statusline+=%#FilenameArrow#%{g:actual_curwin!=win_getid()?'\ ':''}
+
+set statusline+=%*\ %l:%c
+set statusline+=%*
+set statusline+=\ 
+
+" mode
+set statusline+=%#NormalMode#%{g:actual_curwin==#win_getid()&&(g:currentmode[mode()]==#'n')?'\ NORMAL\ ':''}
+set statusline+=%#EditMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'i')?'\ INSERT\ ':''}
+set statusline+=%#EditMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'r')?'\ REPLACE\ ':''}
+set statusline+=%#EditMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'rv')?'\ VISUAL\ REPLACE\ ':''}
+set statusline+=%#VisualMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'v')?'\ VISUAL\ ':''}
+set statusline+=%#VisualMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'V')?'\ VISUAL\ LINE\ ':''}
+set statusline+=%#VisualMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'CTRL-V')?'\ VISUAL\ BLOCK\ ':''}
+set statusline+=%#CommandMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'c')?'\ COMMAND\ ':''}
+set statusline+=%#CommandMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'f')?'\ TERMINAL\ ':''}
+
+set statusline+=%*
 set statusline+=%=
-set statusline+=%l:%c\    " line:column
-hi StatusLine guibg=#3D4751 guifg=#ffffff ctermbg=8 ctermfg=15
-hi StatusLineNC guibg=#14191F guifg=#5C6773 ctermbg=0 ctermfg=15
 
 " Highlight past column 80
-let &colorcolumn=join(range(81, 120), ',')
+" let &colorcolumn=join(range(81, 120), ',')
 
 " In Git commit messages, let’s make it 72 characters
 autocmd FileType gitcommit set textwidth=72
@@ -155,7 +305,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+set signcolumn=no
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -205,14 +355,14 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" " Formatting selected code.
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -251,7 +401,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.

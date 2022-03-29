@@ -1,11 +1,11 @@
 [alias]
   clb = "!git branch --v | grep \"\\[gone\\]\" | awk '{print $1}' | xargs git branch -D"
-  clear = reset --hard
-  amend = commit --amend
-  no-edit = commit --amend --no-edit
-	tree = log --abbrev-commit --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(magenta bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
+  co = checkout
+  ca = commit --amend
+  ce = commit --amend --no-edit
+	graph = log --abbrev-commit --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(cyan bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = /Users/nico/.gitignore
 [filter "media"]
 	required = true
@@ -19,9 +19,20 @@
 [fetch]
 	prune = true
 
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+  showbranch = auto
+	ui = true
+
 [color "diff"]
+  context = white bold
+  frag = yellow
+  meta = blue
   new = green bold
   old = red bold
+  whitespace = blue reverse
 
 [color "status"]
   header = white bold # the header text of the status message
@@ -34,6 +45,13 @@
   localBranch = red #
   remoteBranch = red # the local and remote branch names, respectively, when branch and tracking information is displayed in the status short-format
   unmerged = cyan # files which have unmerged changes
+
+[color "decorate"]
+  head = green
+  branch = magenta
+  remoteBranch = blue
+  tag = yellow
+
 [diff]
 	tool = vimdiff
 [merge]
@@ -42,3 +60,5 @@
 	prompt = false
 [mergetool]
 	keepBackup = false
+[pull]
+	rebase = true

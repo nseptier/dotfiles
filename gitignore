@@ -1,1 +1,7 @@
+.cs_files
+.cs_workspaces
+.rgignore
+.settings
+.vim/
 Session.vim
+.tmuxp.yaml
