@@ -140,6 +140,8 @@ let g:indentLine_setConceal = 0
 
 let g:vim_json_syntax_conceal = 0
 
+autocmd FileType fzf IndentLinesDisable
+
 " Prompt for a command to run
 map <Leader>tt :VimuxPromptCommand<CR>
 
