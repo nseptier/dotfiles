@@ -1,0 +1,9 @@
+session_name: trpc-sdk-js-telco
+start_directory: .
+windows:
+  - window_name: vim
+    focus: true
+    panes:
+      - shell_command:
+        - vim
+        focus: true

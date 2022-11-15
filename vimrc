@@ -3,7 +3,7 @@ set autoread
 set backupdir=~/.vim/backup//
 set clipboard=unnamed
 set cmdheight=1
-set conceallevel=2
+" set conceallevel=2
 set directory=~/.vim/swap//
 set encoding=utf-8
 set expandtab
@@ -53,13 +53,14 @@ Plug 'chrisbra/Colorizer'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'elzr/vim-json'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
+Plug 'gerw/vim-HiLinkTrace'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jesseleite/vim-agriculture'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'leafgarland/typescript-vim'
 Plug 'lifepillar/pgsql.vim'
+Plug 'logico/typewriter-vim'
 Plug 'machakann/vim-sandwich'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'milch/vim-fastlane'
@@ -67,7 +68,7 @@ Plug 'moll/vim-bbye'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'phaazon/hop.nvim'
 Plug 'preservim/nerdtree'
 Plug 'preservim/vimux'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -85,10 +86,18 @@ Plug 'udalov/kotlin-vim'
 Plug 'uiiaoo/java-syntax.vim'
 Plug 'wavded/vim-stylus'
 Plug 'Yggdroot/indentLine'
-Plug 'gerw/vim-HiLinkTrace'
-Plug 'phaazon/hop.nvim'
-Plug 'logico/typewriter-vim'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'vim-ruby/vim-ruby'
+
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
+Plug 'luukvbaal/stabilize.nvim'
+Plug 'beauwilliams/focus.nvim'
 call plug#end()
+
+lua require("focus").setup({signcolumn = false})
+lua require("stabilize").setup()
 
 let g:svelte_preprocessors = ['typescript']
 
@@ -111,7 +120,7 @@ nnoremap <silent> <leader>w :HopChar1<cr>
 
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
-lua require'hop'.setup()
+lua require('hop').setup()
 
 " colorscheme
 set termguicolors
@@ -119,10 +128,17 @@ syntax enable
 " let ayucolor="mirage"
 let ayucolor="bronzevine"
 color ayu
-autocmd BufEnter * :syntax sync fromstart
+" autocmd BufEnter * :syntax sync fromstart
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+autocmd BufEnter * :set signcolumn=no
+
+"
+map <Leader>rb :call VimuxRunCommand("clear; npx jest " . bufname("%"))<CR>
 "
 " set filetypes as typescriptreact
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufNewFile,BufRead,BufEnter *.tsx,*.jsx set filetype=typescriptreact
 
 nnoremap <silent> <leader>tc :ColorToggle<CR>
 
@@ -133,10 +149,12 @@ augroup CursorLine
 augroup END
 
 let g:indentLine_char = '⋮'
-let g:indentLine_first_char = '⋮'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setConceal = 0
-" let g:indentLine_defaultGroup = 'LineNr'
+let g:indentLine_defaultGroup = 'LineNr'
+
+lua require('indent_blankline').setup()
+let g:indent_blankline_char = '⋮'
+let g:indent_blankline_show_end_of_line = v:false
+let g:indent_blankline_show_trailing_blankline_indent = v:false
 
 let g:vim_json_syntax_conceal = 0
 
@@ -160,11 +178,11 @@ let g:prettier#config#trailing_comma = 'all'
 let g:prettier#config#use_tabs = 'auto'
 let g:prettier#plugin_search_dir = '.'
 let g:prettier#exec_cmd_async = 1
-let g:prettier#autoformat = 0
+let g:prettier#autoformat = 1
 
 " fzf
-let g:fzf_preview_window = ['right:60%', 'ctrl-/']
-let g:fzf_layout = { 'down': '50%' }
+let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 1 } }
 let g:fzf_colors =
   \ { 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'NormalFloat'],
@@ -179,12 +197,19 @@ let g:fzf_colors =
     \ 'marker':  ['fg', 'SpellRare'],
     \ 'spinner': ['fg', 'SpellRare'],
     \ 'header':  ['fg', 'SpellRare'] }
-" let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 let g:fzf_commits_log_options = '--graph --color=always --abbrev-commit --author-date-order --date=relative --decorate --format="%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(cyan bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)"'
+
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 nmap <silent> <C-p> :Files<Cr>
 nmap <silent> <C-b> :Buffers<Cr>
 nmap <silent> <C-c> :Commits<Cr>
+
+let $BAT_THEME="Nord"
+
+command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, {'options': ['--info=hidden', '--preview', 'bat --style=plain --color=always {}']}, <bang>0)
 
 " vim-jsx-pretty
 let g:vim_jsx_pretty_colorful_config = 0
@@ -192,19 +217,17 @@ let g:vim_jsx_pretty_disable_tsx = 1
 
 " agriculture
 let g:agriculture#rg_options = '--hidden --smart-case'
+" let g:agriculture#disable_smart_quoting = 1
 
 nmap <Leader>f <Plug>RgRawSearch
 nmap <Leader>F <Plug>RgRawWordUnderCursor<cr>
 
 " nerdtree
 let g:NERDTreeWinSize=40
-nnoremap <Leader>e :NERDTreeFocus<cr>
-nnoremap <Leader>E :NERDTreeFind<cr>zt
+nnoremap <silent> <Leader>e :NERDTreeFocus<cr> <bar> <C-w>H <bar> :exec "vertical resize" . g:NERDTreeWinSize<cr>
+nnoremap <silent> <Leader>E :NERDTreeFind<cr>zz
 let g:NERDTreeShowHidden = 1
-" autocmd BufEnter * lcd %:p:h
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+let NERDTreeIgnore=["lib$", "coverage", "node_modules", ".git", ".yarn", "Session.vim", "tmuxp.yaml", "dist", ".DS_Store", ".vim"]
 
 " multiline macros
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
@@ -253,11 +276,13 @@ set statusline+=%#BufferNr#\ %n\
 set statusline+=%#ActiveBufferNrArrow#%{g:actual_curwin==win_getid()?'':''}
 set statusline+=%#BufferNrArrow#%{g:actual_curwin!=win_getid()?'':''}
 
-set statusline+=%#ActiveFilename#%{g:actual_curwin==win_getid()?'\ \ '.(expand('%:f')==''?'':expand('%:f').'\ '):''}
+" expand('%f:p:~:.:h')
+
+set statusline+=%#ActiveFilename#%{g:actual_curwin==win_getid()?'\ \ '.(expand('%:~')==''?'':expand('%:~:.').'\ '):''}
 set statusline+=%{g:actual_curwin==win_getid()?(&modified?'\ ✱\ ':''):''}
 set statusline+=%{g:actual_curwin==win_getid()?(&readonly?'\ \ ':''):''}
 set statusline+=%#ActiveFilenameArrow#%{g:actual_curwin==win_getid()?'\ ':''}
-set statusline+=%#Filename#%{g:actual_curwin!=win_getid()?'\ \ '.(expand('%:f')==''?'':expand('%:f').'\ '):''}
+set statusline+=%#Filename#%{g:actual_curwin!=win_getid()?'\ \ '.(expand('%:~')==''?'':expand('%:~:.').'\ '):''}
 set statusline+=%{g:actual_curwin!=win_getid()?(&modified?'\ ✱\ ':''):''}
 set statusline+=%{g:actual_curwin!=win_getid()?(&readonly?'\ \ ':''):''}
 set statusline+=%#FilenameArrow#%{g:actual_curwin!=win_getid()?'\ ':''}
@@ -422,3 +447,21 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+inoremap <silent><expr> <TAB>
+  \ coc#pum#visible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ?
+  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+

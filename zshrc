@@ -79,12 +79,7 @@ unset -f bind-git-helper
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --ignore-case --hidden --follow --ignore-file ".rgignore" --glob "!{node_modules/*,.git/*}" "$@"'
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#cbccc6,bg:#1f2430,hl:#707a8c
- --color=fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66
- --color=info:#73d0ff,prompt:#707a8c,pointer:#cbccc6
- --color=marker:#73d0ff,spinner:#73d0ff,header:#d4bfff'
-
+export FZF_DEFAULT_OPTS='--color=bg+:#1D2227,bg:#1D2227,border:#3D4751,spinner:#457B9C,hl:#FC9D9A,fg:#D9D7CE,header:-1,info:#607080,pointer:#3B8686,marker:#457B9C,fg+:#79BD9A,prompt:#3B8686,hl+:#F07178'
 # Load Git completion
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
@@ -113,9 +108,13 @@ PATH=$PATH:/usr/local/bin
 # source ~/.profile
 
 # android
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0)
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export ANDROID_SDK_ROOT=~/Library/Android/sdk/
 export PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
 # # heroku autocomplete setup
 # HEROKU_AC_ZSH_SETUP_PATH=/Users/nico/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
+export REACT_EDITOR=vim
+
+export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk

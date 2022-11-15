@@ -1,0 +1,14 @@
+session_name: bytel-mobius-mobile-app
+start_directory: .
+windows:
+  - window_name: vim
+    focus: true
+    panes:
+      - shell_command:
+        - vim
+        focus: true
+  - window_name: zsh
+    panes:
+      - shell_command:
+        - yarn start
+      - focus: true
