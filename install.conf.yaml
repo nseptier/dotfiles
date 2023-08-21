@@ -3,15 +3,15 @@
       create: true
       relink: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - link:
     ~/.config/git: config/git
     ~/.config/nvim: config/nvim
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
-    ~/.tmux.conf tmux.conf
-    ~/.tmuxp tmuxp
+    ~/.tmux.conf: tmux.conf
+    ~/.tmuxp: tmuxp
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zsh: zsh
