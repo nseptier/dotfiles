@@ -3,11 +3,21 @@
 # alias python='python3'
 alias ls="ls -lhG"
 alias G="git"
+alias vv="vifm"
+alias vim=v
 
+
+# -- ZSH Z ---------------------------------------------------------------------
+
+ZSHZ_CASE=smart
+ZSHZ_TILDE=1
+source ~/dev/.zsh-z/zsh-z.plugin.zsh
+autoload -U compinit; compinit
+zstyle ':completion:*' menu select
 
 # -- Vim sessions --------------------------------------------------------------
 
-function vim() {
+function v() {
   if test $# -gt 0; then
     env nvim "$@"
   elif test -f Session.vim; then
@@ -85,11 +95,16 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+[[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
+
+
+# -- NNN -----------------------------------------------------------------------
+
+export NNN_PLUG='f:fzplug'
 
 
 # -- SPACESHIP PROMPT ----------------------------------------------------------
@@ -103,18 +118,34 @@ SPACESHIP_CHAR_SYMBOL="$ "
 
 # -- Paths ---------------------------------------------------------------------
 
-# ruby
-PATH=$PATH:/usr/local/bin
-# source ~/.profile
+#brew
+PATH=$PATH:/opt/homebrew/bin
+
+#node
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # android
+# export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
+export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export ANDROID_SDK_ROOT=~/Library/Android/sdk/
-export PATH=$PATH:~/Library/Android/sdk/platform-tools/
+PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
-# # heroku autocomplete setup
-# HEROKU_AC_ZSH_SETUP_PATH=/Users/nico/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+# rbenv
+eval "$(rbenv init - zsh)"
+
+PATH="/opt/homebrew/opt/ncurses/bin:$PATH"
+
+# flutter
+PATH="$PATH:/Users/nico/fvm/default/bin"
+PATH="$PATH":"$HOME/.pub-cache/bin"
+PATH="/Users/nico/fvm/versions/stable/bin:$PATH"
+PATH="$PATH:/Volumes/class-dump-3.5/class-dump"
 
 export REACT_EDITOR=vim
+export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
 
-export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
+export PATH=$PATH

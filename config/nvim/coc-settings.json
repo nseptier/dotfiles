@@ -24,5 +24,7 @@
   "typescript.showUnused": false,
   "typescript.suggest.enabled": true,
   "typescript.suggestionActions.enabled": false,
-  "typescript.validate.enable": true
+  "typescript.validate.enable": true,
+  "snippets.ultisnips.pythonPrompt": false,
+  "flutter.selectedDeviceId": "0B261FDD4003U8"
 }

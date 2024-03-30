@@ -3,7 +3,9 @@
   co = checkout
   ca = commit --amend
   ce = commit --amend --no-edit
-	graph = log --abbrev-commit --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(cyan bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
+  cp = cherry-pick
+  rb = rebase
+  graph = log --abbrev-commit --color=always --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(cyan bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
 [core]
 	editor = nvim
 	excludesfile = /Users/nico/.gitignore
@@ -15,7 +17,7 @@
 	default = simple
 [user]
 	name = Nicolas SEPTIER
-	email = nicolas.septier@gmail.com
+	email = nicolas.septier@tripica.com
 [fetch]
 	prune = true
 
@@ -62,3 +64,5 @@
 	keepBackup = false
 [pull]
 	rebase = true
+[init]
+	defaultBranch = master
