@@ -11,7 +11,6 @@ alias vim=v
 
 ZSHZ_CASE=smart
 ZSHZ_TILDE=1
-source ~/dev/.zsh-z/zsh-z.plugin.zsh
 autoload -U compinit; compinit
 zstyle ':completion:*' menu select
 
@@ -95,7 +94,7 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-[[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -119,25 +118,30 @@ SPACESHIP_CHAR_SYMBOL="$ "
 # -- Paths ---------------------------------------------------------------------
 
 #brew
-PATH=$PATH:/opt/homebrew/bin
+CPU=$(uname -p)
+if [[ "$CPU" == "arm" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+else
+    export PATH="/usr/local/bin:$PATH"
+fi
 
 #node
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$(brew --prefix nvm)/nvm.sh" ] && \. "$(brew --prefix nvm)/nvm.sh"  # This loads nvm
+[ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # android
-# export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
-export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+# export CPPFLAGS="-I$(brew --prefix openjdk@11)/include"
+export PATH="$(brew --prefix openjdk@11)/bin:$PATH"
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export ANDROID_SDK_ROOT=~/Library/Android/sdk/
 PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
-# rbenv
-eval "$(rbenv init - zsh)"
+# # rbenv
+# eval "$(rbenv init - zsh)"
 
-PATH="/opt/homebrew/opt/ncurses/bin:$PATH"
+PATH="$(brew --prefix ncurses)/bin:$PATH"
 
 # flutter
 PATH="$PATH:/Users/nico/fvm/default/bin"

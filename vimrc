@@ -90,7 +90,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'luukvbaal/stabilize.nvim'
-Plug 'nvim-focus/focus.nvim'
 Plug 'vifm/vifm.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'thosakwe/vim-flutter'
@@ -99,7 +98,6 @@ Plug 'vim-test/vim-test'
 call plug#end()
 
 lua require("stabilize").setup()
-lua require("focus").setup()
 
 let g:svelte_preprocessors = ['typescript']
 
