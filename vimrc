@@ -69,7 +69,8 @@ Plug 'moll/vim-bbye'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
-Plug 'phaazon/hop.nvim'
+" Plug 'phaazon/hop.nvim'
+Plug 'smoka7/hop.nvim'
 Plug 'preservim/vimux'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
@@ -118,19 +119,31 @@ noremap <silent> <leader>s :sort i<cr>
 nnoremap <silent> <leader>Q :DeleteHiddenBuffers<CR>
 nnoremap <silent> <leader>qq :Bdelete!<cr>
 nmap <silent> <Esc><Esc> :noh<cr>
-nnoremap <silent> ff :HopChar1<cr>
 
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
-lua require('hop').setup()
+lua << EOF
+local hop = require( 'hop')
+local directions = require('hop.hint').HintDirection
+vim.keymap.set('', 'f', function()
+  hop.hint_char1()
+end, {remap=true})
+EOF
 
 " colorscheme
 set termguicolors
 syntax enable
-" let ayucolor="mirage"
-let ayucolor="bronzelemon"
-" let ayucolor="bronzevine"
-color ayu
+color lorem
+
+" function! SynStack()
+"     for i1 in synstack(line("."), col("."))
+"         let i2 = synIDtrans(i1)
+"         let n1 = synIDattr(i1, "name")
+"         let n2 = synIDattr(i2, "name")
+"         echo n1 "->" n2
+"     endfor
+" endfunc
+
 " autocmd BufEnter * :syntax sync fromstart
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
@@ -151,13 +164,19 @@ augroup CursorLine
   au WinLeave * setlocal nocursorline
 augroup END
 
-let g:indentLine_char = '⋮'
-let g:indentLine_defaultGroup = 'LineNr'
+" let g:indentLine_char = '⋮'
+" let g:indentLine_defaultGroup = 'LineNr'
 
-lua require('indent_blankline').setup()
-let g:indent_blankline_char = '⋮'
-let g:indent_blankline_show_end_of_line = v:false
-let g:indent_blankline_show_trailing_blankline_indent = v:false
+lua << EOF
+require("ibl").setup {
+    indent = { char = "⋮" },
+    scope = { enabled = true },
+}
+EOF
+
+" let g:ibl.config.indent.char = ''
+" let g:indent_blankline_show_end_of_line = v:false
+" let g:indent_blankline_show_trailing_blankline_indent = v:false
 
 let g:vim_json_syntax_conceal = 0
 
@@ -228,10 +247,6 @@ let g:agriculture#rg_options = '--hidden --smart-case --multiline --pcre2'
 nmap <Leader>f <Plug>RgRawSearch
 nmap <Leader>F <Plug>RgRawWordUnderCursor<cr>
 
-" neo-tree
-:lua << EOF
-EOF
-
 " multiline macros
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -272,6 +287,16 @@ let g:currentmode={
       \ '!': '!',
       \ 't': 't',
       \}
+
+" hi! StatusLine          guibg=#8b8b79 guifg=black
+" hi! StatusLineNC        guifg=white
+" hi! BufferNr            guibg=white   guifg=#222222
+" hi! ActiveBufferNrArrow guibg=#222222 guifg=white
+" hi! BufferNrArrow       guibg=#222222 guifg=white
+" hi! ActiveFilename      guibg=#222222 guifg=white
+" hi! ActiveFilenameArrow guibg=#8b8b79    guifg=#222222
+" hi! Filename            guibg=#222222 guifg=white
+" hi!FilenameArrow        guibg=NONE    guifg=#222222
 
 set statusline=
 " buffer

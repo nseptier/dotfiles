@@ -153,3 +153,5 @@ export REACT_EDITOR=vim
 export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
 
 export PATH=$PATH
+
+export TERM=screen-256color-bce
