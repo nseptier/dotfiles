@@ -7,7 +7,9 @@
 
 - link:
     ~/.config/git: config/git
+    ~/.config/iterm2: config/iterm2
     ~/.config/nvim: config/nvim
+    ~/.config/vifm: config/vifm
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.tmux.conf: tmux.conf
