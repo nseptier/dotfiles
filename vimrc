@@ -166,10 +166,6 @@ augroup CursorLine
 augroup END
 
 lua << EOF
-local highlight = {
-    "CursorColumn",
-    "Whitespace",
-}
 require("ibl").setup {
     indent = { char = "▏" },
 }
