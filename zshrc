@@ -141,7 +141,7 @@ export ANDROID_SDK_ROOT=~/Library/Android/sdk/
 PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
 # # rbenv
-# eval "$(rbenv init - zsh)"
+eval "$(rbenv init - zsh)"
 
 PATH="$(brew --prefix ncurses)/bin:$PATH"
 

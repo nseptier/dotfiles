@@ -7,12 +7,13 @@ let colors_name = "lorem"
 " ==============================================================================
 " ------------------------------------------------------------------------------
 
-let s:background = '#24272d'
+let s:background = '#252a2e'
 let s:background_dark = '#1e2026'
+let s:background_light = '#2a2e33'
 let s:none = 'NONE'
 
 let s:neutral_0 = '#ffffff'
-let s:neutral_1 = '#efe2d2'
+let s:neutral_1 = '#e8e1d9'
 let s:neutral_2 = '#dccbb7'
 let s:neutral_3 = '#ccbcab'
 let s:neutral_4 = '#bfa68c'
@@ -44,7 +45,7 @@ let s:secondary_3 = '#fbaf87'
 let s:secondary_4 = '#fb878e'
 
 let s:error = '#ff6361'
-let s:warning = '#e0bb4d'
+let s:warning = '#ffea60'
 
 " ==============================================================================
 " ------------------------------------------------------------------------------
@@ -175,21 +176,21 @@ exe 'hi SpellRare guifg='.s:primary_5.' guibg='.s:none
 
 exe 'hi SpellLocal guifg='.'#bdb2ff'.' guibg='.s:none
 
-exe 'hi Pmenu guifg='.s:neutral_1.' guibg='.s:background_dark
+exe 'hi Pmenu guifg='.s:neutral_1.' guibg='.s:background
 hi! link PmenuKind Pmenu
 hi! link PmenuExtra Pmenu
 hi! link NormalFloat Pmenu
 hi! link CocFloating Pmenu
 hi! link CocPumMenu Pmenu
 
-exe 'hi PmenuSel guifg='.s:neutral_0.' guibg='.s:none
+exe 'hi PmenuSel guifg='.'#ff00ff'.' guibg='.s:none
 hi! link PmenuKindSel PmenuSel
 hi! link PmenuExtraSel PmenuSel
 
-exe 'hi PmenuSbar guifg='.'#ffd6a5'.' guibg='.s:none
+exe 'hi PmenuSbar guifg='.'#ffd6a5'.' guibg='.s:none.' gui=reverse'
 hi! link CocFloatSbar PmenuSbar
 
-exe 'hi PmenuThumb guifg='.'#fdffb6'.' guibg='.s:none
+exe 'hi PmenuThumb guifg='.s:accent_3.' guibg='.s:none.' gui=reverse'
 hi! link CocFloatThumb PmenuThumb
 
 exe 'hi TabLine guifg='.'#caffbf'.' guibg='.s:none
@@ -204,7 +205,7 @@ hi! link CocHighlightRead CursorColumn
 hi! link CocHighlightWrite CursorColumn
 hi! link CocSelectedRange CursorColumn
 
-exe 'hi CursorLine guifg='.s:none.' guibg='.s:neutral_10
+exe 'hi CursorLine guifg='.s:none.' guibg='.s:background_light
 hi! link CocTreeSelected CursorLine
 
 exe 'hi ColorColumn guifg='.'#ffadad'.' guibg='.s:none
@@ -229,10 +230,11 @@ exe 'hi typescriptParens guifg='.s:neutral_4.' guibg='.s:none
 hi! link typescriptSymbols Normal
 hi! link cssMediaComma Normal
 hi! link dtdTag Normal
+exe 'hi @variable guifg='.s:neutral_1.' guibg='.s:none
 
-exe 'hi FloatShadow guifg='.'#a0c4ff'.' guibg='.s:none
+exe 'hi FloatShadow guifg='.'#a0c4ff'.' guibg='.s:error.' blend=90'
 
-exe 'hi FloatShadowThrough guifg='.'#bdb2ff'.' guibg='.s:warning
+exe 'hi FloatShadowThrough guifg='.'#bdb2ff'.' guibg='.s:warning.' blend=90'
 
 exe 'hi RedrawDebugNormal guifg='.'#ffc6ff'.' guibg='.s:none
 
@@ -564,7 +566,7 @@ hi! link xmlDocTypeDecl Function
 hi! link dtdFunction Function
 hi! link dtdCard Function
 
-exe 'hi Identifier guifg='.s:accent_4.' guibg='.s:none
+exe 'hi Identifier guifg='.s:neutral_1.' guibg='.s:none
 hi! link NvimIdentifier Identifier
 hi! link NvimIdentifierScope Identifier
 hi! link NvimIdentifierScopeDelimiter Identifier
@@ -769,6 +771,11 @@ hi! link typescriptDOMFormMethod Statement
 hi! link typescriptConstructor Statement
 hi! link typescriptAutoAccessor Statement
 exe 'hi typescriptAsyncFuncKeyword guifg='.s:accent_4.' guibg='.s:none
+exe 'hi @keyword.tsx guifg='.s:primary_4.' guibg='.s:none
+exe 'hi @keyword.import.tsx guifg='.s:primary_5.' guibg='.s:none
+exe 'hi @keyword.return.tsx guifg='.s:accent_3.' guibg='.s:none
+exe 'hi @keyword.conditional.tsx guifg='.s:primary_2.' guibg='.s:none
+exe 'hi @keyword.coroutine.tsx guifg='.s:accent_3.' guibg='.s:none
 hi! link typescriptClassExtends Statement
 hi! link typescriptInterfaceExtends Statement
 hi! link typescriptAsyncFunc Statement
@@ -810,7 +817,7 @@ hi! link xmlDocTypeKeyword Statement
 hi! link dtdTagName Statement
 hi! link dtdEntity Statement
 
-exe 'hi Operator guifg='.s:neutral_4.' guibg='.s:none
+exe 'hi Operator guifg='.s:neutral_5.' guibg='.s:none
 hi! link Operator Operator
 hi! link NvimAssignment Operator
 hi! link NvimPlainAssignment Operator
@@ -906,7 +913,7 @@ hi! link jsEnvComment PreProc
 hi! link jsDomElemFuncs PreProc
 hi! link jsHtmlElemFuncs PreProc
 
-exe 'hi Type guifg='.s:primary_5.' guibg='.s:none
+exe 'hi Type guifg='.s:accent_4.' guibg='.s:none
 hi! link StorageClass Type
 hi! link Typedef Type
 hi! link Type Type
@@ -952,6 +959,7 @@ hi! link typescriptDocNamedParamType Type
 hi! link typescriptDocParamName Type
 hi! link typescriptDocParamType Type
 exe 'hi typescriptPredefinedType guifg='.s:accent_3.' guibg='.s:none
+exe 'hi @type.builtin.tsx guifg='.s:accent_1.' guibg='.s:none
 hi! link typescriptClassStatic Type
 hi! link typescriptArrowFunc Type
 hi! link typescriptType Type
@@ -1044,6 +1052,11 @@ hi! link helpStructure Structure
 exe 'hi fugitiveUnstagedModifier guifg='.s:neutral_7.' guibg='.s:none
 
 exe 'hi Special guifg='.s:neutral_5.' guibg='.s:none
+exe 'hi @punctuation.bracket.tsx guifg='.s:neutral_5.' guibg='.s:none
+exe 'hi @punctuation.delimiter.tsx guifg='.s:neutral_6.' guibg='.s:none
+exe 'hi @tag.builtin.tsx guifg='.s:primary_3.' guibg='.s:none
+exe 'hi @tag.tsx guifg='.s:accent_2.' guibg='.s:none
+exe 'hi @tag.attribute.tsx guifg='.s:neutral_4.' guibg='.s:none
 hi! link Tag Special
 hi! link SpecialChar Special
 hi! link Delimiter Special
@@ -1186,7 +1199,7 @@ hi! link CocNotificationInfo DiagnosticInfo
 hi! link CocInfoSign DiagnosticInfo
 hi! link CocInfoVirtualText DiagnosticInfo
 
-exe 'hi DiagnosticHint guifg='.s:neutral_3.' guibg='.s:none
+exe 'hi DiagnosticHint guifg='.s:warning.' guibg='.s:none
 hi! link DiagnosticVirtualTextHint DiagnosticHint
 hi! link DiagnosticFloatingHint DiagnosticHint
 hi! link DiagnosticSignHint DiagnosticHint
@@ -1199,16 +1212,16 @@ hi! link DiagnosticVirtualTextOk DiagnosticOk
 hi! link DiagnosticFloatingOk DiagnosticOk
 hi! link DiagnosticSignOk DiagnosticOk
 
-exe 'hi DiagnosticUnderlineError guifg='.s:error.' guibg='.s:none
+exe 'hi DiagnosticUnderlineError guifg='.s:error.' guibg='.s:none.' gui=reverse'
 hi! link CocErrorHighlight DiagnosticUnderlineError
 
-exe 'hi DiagnosticUnderlineWarn guifg='.s:warning.' guibg='.s:none
+exe 'hi DiagnosticUnderlineWarn guifg='.s:warning.' guibg='.s:none.' gui=reverse'
 hi! link CocWarningHighlight DiagnosticUnderlineWarn
 
-exe 'hi DiagnosticUnderlineInfo guifg='.s:neutral_3.' guibg='.s:none
+exe 'hi DiagnosticUnderlineInfo guifg='.s:neutral_7.' guibg='.s:none
 hi! link CocInfoHighlight DiagnosticUnderlineInfo
 
-exe 'hi DiagnosticUnderlineHint guifg='.'#ffd6a5'.' guibg='.s:none
+exe 'hi DiagnosticUnderlineHint guifg='.s:none.' guibg='.s:none.' gui=none'
 hi! link CocHintHighlight DiagnosticUnderlineHint
 
 exe 'hi DiagnosticUnderlineOk guifg='.'#fdffb6'.' guibg='.s:none
@@ -1400,7 +1413,7 @@ exe 'hi CocSymbolString guifg='.s:neutral_8.' guibg='.s:none
 exe 'hi CocSymbolEnumMember guifg='.s:neutral_8.' guibg='.s:none
 
 exe 'hi htmlTag guifg='.s:primary_5.' guibg='.s:none
-hi! link tsxCloseString htmlTag
+hi! link @tag.delimiter.tsx htmlTag
 
 exe 'hi htmlTagName guifg='.s:primary_3.' guibg='.s:none
 
@@ -1409,3 +1422,5 @@ exe 'hi floatBorder guifg='.s:neutral_8.' guibg='.s:none
 exe 'hi typescriptProperty guifg='.s:neutral_4.' guibg='.s:none
 
 exe 'hi fugitiveHunk guifg='.s:neutral_7.' guibg='.s:none
+
+exe 'hi BlameLineNvim guifg='.s:neutral_8.' guibg='.s:none
