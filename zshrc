@@ -9,6 +9,8 @@ alias vim=v
 
 # -- ZSH Z ---------------------------------------------------------------------
 
+source "$(brew --prefix z)/etc/profile.d/z.sh"
+
 ZSHZ_CASE=smart
 ZSHZ_TILDE=1
 autoload -U compinit; compinit

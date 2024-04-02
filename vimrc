@@ -7,7 +7,7 @@ set cmdheight=1
 set directory=~/.vim/swap//
 set encoding=utf-8
 set expandtab
-set fillchars=fold:-,vert:
+set fillchars=fold:-,vert:▏
 set foldcolumn=0
 set foldlevelstart=99
 set foldmethod=indent
@@ -69,7 +69,6 @@ Plug 'moll/vim-bbye'
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
-" Plug 'phaazon/hop.nvim'
 Plug 'smoka7/hop.nvim'
 Plug 'preservim/vimux'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -123,9 +122,10 @@ nmap <silent> <Esc><Esc> :noh<cr>
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 lua << EOF
-local hop = require( 'hop')
+local hop = require('hop')
+hop.setup({})
 local directions = require('hop.hint').HintDirection
-vim.keymap.set('', 'f', function()
+vim.keymap.set('', 'ff', function()
   hop.hint_char1()
 end, {remap=true})
 EOF
@@ -133,16 +133,17 @@ EOF
 " colorscheme
 set termguicolors
 syntax enable
+let ayucolor="bronzelemon"
 color lorem
 
-" function! SynStack()
-"     for i1 in synstack(line("."), col("."))
-"         let i2 = synIDtrans(i1)
-"         let n1 = synIDattr(i1, "name")
-"         let n2 = synIDattr(i2, "name")
-"         echo n1 "->" n2
-"     endfor
-" endfunc
+function! SynStack()
+    for i1 in synstack(line("."), col("."))
+        let i2 = synIDtrans(i1)
+        let n1 = synIDattr(i1, "name")
+        let n2 = synIDattr(i2, "name")
+        echo n1 "->" n2
+    endfor
+endfunc
 
 " autocmd BufEnter * :syntax sync fromstart
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
@@ -154,7 +155,7 @@ autocmd BufEnter * :set signcolumn=no
 map <Leader>rb :call VimuxRunCommand("clear; npx jest " . bufname("%"))<CR>
 "
 " set filetypes as typescriptreact
-autocmd BufNewFile,BufRead,BufEnter *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufNewFile,BufRead,BufEnter *.tsx,*.jsx,*.js,*.ts set filetype=typescriptreact
 
 nnoremap <silent> <leader>tc :ColorToggle<CR>
 
@@ -164,19 +165,21 @@ augroup CursorLine
   au WinLeave * setlocal nocursorline
 augroup END
 
-" let g:indentLine_char = '⋮'
-" let g:indentLine_defaultGroup = 'LineNr'
-
 lua << EOF
-require("ibl").setup {
-    indent = { char = "⋮" },
-    scope = { enabled = true },
+local highlight = {
+    "CursorColumn",
+    "Whitespace",
 }
-EOF
+require("ibl").setup {
+    indent = { char = "▏" },
+}
 
-" let g:ibl.config.indent.char = ''
-" let g:indent_blankline_show_end_of_line = v:false
-" let g:indent_blankline_show_trailing_blankline_indent = v:false
+local hooks = require("ibl.hooks")
+hooks.register(
+  hooks.type.WHITESPACE,
+  hooks.builtin.hide_first_space_indent_level
+)
+EOF
 
 let g:vim_json_syntax_conceal = 0
 
@@ -256,56 +259,12 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 " statusline
-let g:currentmode={
-      \ 'n': 'n',
-      \ 'no': 'no',
-      \ 'nov': 'nov',
-      \ 'noV': 'noV',
-      \ 'noCTRL-V': 'noCTRL-V',
-      \ 'niI': 'niI',
-      \ 'niR': 'niR',
-      \ 'niV': 'niV',
-      \ 'v': 'v',
-      \ 'V': 'V',
-      \ "\<C-V>": 'CTRL-V',
-      \ 's': 's',
-      \ 'S': 'S',
-      \ "\<C-S>": 'CTRL-S',
-      \ 'i': 'i',
-      \ 'ic': 'i',
-      \ 'ix': 'ix',
-      \ 'R': 'R',
-      \ 'Rc': 'Rc',
-      \ 'Rv': 'Rv',
-      \ 'Rx': 'Rx',
-      \ 'c': 'c',
-      \ 'cv': 'cv',
-      \ 'ce': 'ce',
-      \ 'r': 'r',
-      \ 'rm': 'rm',
-      \ 'r?': 'r?',
-      \ '!': '!',
-      \ 't': 't',
-      \}
-
-" hi! StatusLine          guibg=#8b8b79 guifg=black
-" hi! StatusLineNC        guifg=white
-" hi! BufferNr            guibg=white   guifg=#222222
-" hi! ActiveBufferNrArrow guibg=#222222 guifg=white
-" hi! BufferNrArrow       guibg=#222222 guifg=white
-" hi! ActiveFilename      guibg=#222222 guifg=white
-" hi! ActiveFilenameArrow guibg=#8b8b79    guifg=#222222
-" hi! Filename            guibg=#222222 guifg=white
-" hi!FilenameArrow        guibg=NONE    guifg=#222222
 
 set statusline=
 " buffer
 set statusline+=%#BufferNr#\ %n\ 
 set statusline+=%#ActiveBufferNrArrow#%{g:actual_curwin==win_getid()?'':''}
 set statusline+=%#BufferNrArrow#%{g:actual_curwin!=win_getid()?'':''}
-
-" expand('%f:p:~:.:h')
-
 set statusline+=%#ActiveFilename#%{g:actual_curwin==win_getid()?'\ \ '.(expand('%:~')==''?'':expand('%:~:.').'\ '):''}
 set statusline+=%{g:actual_curwin==win_getid()?(&modified?'\ ✱\ ':''):''}
 set statusline+=%{g:actual_curwin==win_getid()?(&readonly?'\ \ ':''):''}
@@ -314,27 +273,11 @@ set statusline+=%#Filename#%{g:actual_curwin!=win_getid()?'\ \ '.(expand('%:~')=
 set statusline+=%{g:actual_curwin!=win_getid()?(&modified?'\ ✱\ ':''):''}
 set statusline+=%{g:actual_curwin!=win_getid()?(&readonly?'\ \ ':''):''}
 set statusline+=%#FilenameArrow#%{g:actual_curwin!=win_getid()?'\ ':''}
-
 set statusline+=%*\ %l:%c
 set statusline+=%*
 set statusline+=\ 
-
-" mode
-set statusline+=%#NormalMode#%{g:actual_curwin==#win_getid()&&(g:currentmode[mode()]==#'n')?'\ NORMAL\ ':''}
-set statusline+=%#EditMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'i')?'\ INSERT\ ':''}
-set statusline+=%#EditMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'r')?'\ REPLACE\ ':''}
-set statusline+=%#EditMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'rv')?'\ VISUAL\ REPLACE\ ':''}
-set statusline+=%#VisualMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'v')?'\ VISUAL\ ':''}
-set statusline+=%#VisualMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'V')?'\ VISUAL\ LINE\ ':''}
-set statusline+=%#VisualMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'CTRL-V')?'\ VISUAL\ BLOCK\ ':''}
-set statusline+=%#CommandMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'c')?'\ COMMAND\ ':''}
-set statusline+=%#CommandMode#%{g:actual_curwin==win_getid()&&(g:currentmode[mode()]==#'f')?'\ TERMINAL\ ':''}
-
 set statusline+=%*
 set statusline+=%=
-
-" Highlight past column 60
-" let &colorcolumn=join(range(81, 120), ',')
 
 " In Git commit messages, let’s make it 72 characters
 autocmd FileType gitcommit set textwidth=72
@@ -481,7 +424,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics
