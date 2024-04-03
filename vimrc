@@ -12,6 +12,7 @@ set encoding=utf-8
 set expandtab
 set fillchars=fold:-,vert:▏
 set foldcolumn=0
+set foldlevel=99
 set foldlevelstart=99
 set foldmethod=indent
 set foldnestmax=20

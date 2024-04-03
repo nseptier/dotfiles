@@ -14,6 +14,15 @@ return {
       vim.g['prettier#autoformat_require_pragma'] = 0
     end
   },
+  {
+    'rbong/vim-flog',
+    init = function()
+      vim.g.flog_permanent_default_opts = {
+        format = '[%h]%d %ad {%an} %s',
+        date = 'short',
+      }
+    end
+  },
   'reisub0/hot-reload.vim',
   'tpope/vim-abolish',
   'tpope/vim-commentary',
