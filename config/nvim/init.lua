@@ -1,4 +1,4 @@
--- use vimrc config, for now
+-- source vimrc config
 vim.cmd([[
   set runtimepath^=~/.vim runtimepath+=~/.vim/after
   let &packpath = &runtimepath
@@ -20,3 +20,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
+
+vim.opt.rtp:append(vim.fn.stdpath "config" .. "~/.local/share/nvim/plugged")

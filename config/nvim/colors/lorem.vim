@@ -50,7 +50,7 @@ let s:warning = '#ffea60'
 " ==============================================================================
 " ------------------------------------------------------------------------------
 
-exe 'hi SpecialKey guifg='.'#ffadad'.' guibg='.s:none
+exe 'hi SpecialKey guifg='.s:accent_3.' guibg='.s:none
 
 exe 'hi TermCursor guifg='.s:neutral_8.' guibg='.s:none
 
@@ -70,15 +70,10 @@ exe 'hi Search guifg='.s:none.' guibg='.s:none.' gui=reverse'
 hi! link CurSearch IncSearch
 hi! link QuickFixLine Search
 hi! link Substitute Search
-hi! link CocHoverRange Search
-hi! link CocCursorRange Search
-hi! link CocLinkedEditing Search
 
 exe 'hi MoreMsg guifg='.s:neutral_3.' guibg='.s:none
-hi! link CocSymbolDefault MoreMsg 
 
 exe 'hi ModeMsg guifg='.s:neutral_3.' guibg='.s:none
-hi! link CocListMode ModeMsg
 
 exe 'hi LineNr guifg='.s:neutral_7.' guibg='.s:none
 hi! link LineNrAbove LineNr
@@ -104,41 +99,8 @@ hi! link FloatBorder VertSplit
 
 exe 'hi Title guifg='.s:neutral_2.' guibg='.s:none
 hi! link FloatTitle Title
-hi! link CocTreeTitle Title
-hi! link typescriptAnimationEvent Title
-hi! link typescriptCSSEvent Title
-hi! link typescriptDatabaseEvent Title
-hi! link typescriptDocumentEvent Title
-hi! link typescriptDOMMutationEvent Title
-hi! link typescriptDragEvent Title
-hi! link typescriptElementEvent Title
-hi! link typescriptFocusEvent Title
-hi! link typescriptFormEvent Title
-hi! link typescriptFrameEvent Title
-hi! link typescriptInputDeviceEvent Title
-hi! link typescriptMediaEvent Title
-hi! link typescriptMenuEvent Title
-hi! link typescriptNetworkEvent Title
-hi! link typescriptProgressEvent Title
-hi! link typescriptResourceEvent Title
-hi! link typescriptScriptEvent Title
-hi! link typescriptSensorEvent Title
-hi! link typescriptSessionHistoryEvent Title
-hi! link typescriptStorageEvent Title
-hi! link typescriptSVGEvent Title
-hi! link typescriptTabEvent Title
-hi! link typescriptTextEvent Title
-hi! link typescriptTouchEvent Title
-hi! link typescriptUpdateEvent Title
-hi! link typescriptValueChangeEvent Title
-hi! link typescriptViewEvent Title
-hi! link typescriptWebsocketEvent Title
-hi! link typescriptWindowEvent Title
-hi! link typescriptUncategorizedEvent Title
-hi! link typescriptServiceWorkerEvent Title
 
 exe 'hi Visual guifg='.s:neutral_1.' guibg='.s:none.' gui=reverse'
-hi! link CocSnippetVisual Visual
 
 exe 'hi WarningMsg guifg='.s:warning.' guibg='.s:none
 hi! link vimWarn WarningMsg
@@ -165,8 +127,6 @@ exe 'hi SignColumn guifg='.'#ffd6a5'.' guibg='.s:none
 hi! link CursorLineSign SignColumn
 
 exe 'hi Conceal guifg='.'#fdffb6'.' guibg='.s:none
-hi! link CocFadeOut Conceal
-hi! link CocUnusedHighlight Conceal
 
 exe 'hi SpellBad guifg='.'#caffbf'.' guibg='.s:none
 
@@ -180,18 +140,14 @@ exe 'hi Pmenu guifg='.s:neutral_1.' guibg='.s:background
 hi! link PmenuKind Pmenu
 hi! link PmenuExtra Pmenu
 hi! link NormalFloat Pmenu
-hi! link CocFloating Pmenu
-hi! link CocPumMenu Pmenu
 
 exe 'hi PmenuSel guifg='.'#ff00ff'.' guibg='.s:none
 hi! link PmenuKindSel PmenuSel
 hi! link PmenuExtraSel PmenuSel
 
 exe 'hi PmenuSbar guifg='.'#ffd6a5'.' guibg='.s:none.' gui=reverse'
-hi! link CocFloatSbar PmenuSbar
 
 exe 'hi PmenuThumb guifg='.s:accent_3.' guibg='.s:none.' gui=reverse'
-hi! link CocFloatThumb PmenuThumb
 
 exe 'hi TabLine guifg='.'#caffbf'.' guibg='.s:none
 
@@ -200,13 +156,8 @@ exe 'hi TabLineSel guifg='.'#9bf6ff'.' guibg='.s:none
 exe 'hi TabLineFill guifg='.'#a0c4ff'.' guibg='.s:none
 
 exe 'hi CursorColumn guifg='.s:none.' guibg='.s:none
-hi! link CocHighlightText CursorColumn
-hi! link CocHighlightRead CursorColumn
-hi! link CocHighlightWrite CursorColumn
-hi! link CocSelectedRange CursorColumn
 
 exe 'hi CursorLine guifg='.s:none.' guibg='.s:background_light
-hi! link CocTreeSelected CursorLine
 
 exe 'hi ColorColumn guifg='.'#ffadad'.' guibg='.s:none
 
@@ -226,8 +177,6 @@ exe 'hi Normal guifg='.s:neutral_1.' guibg='.s:none
 hi! link NvimSpacing Normal
 hi! link vimUserFunc Normal
 hi! link vimEmbedError Normal
-exe 'hi typescriptParens guifg='.s:neutral_4.' guibg='.s:none
-hi! link typescriptSymbols Normal
 hi! link cssMediaComma Normal
 hi! link dtdTag Normal
 exe 'hi @variable guifg='.s:neutral_1.' guibg='.s:none
@@ -334,7 +283,6 @@ hi! link vimHiCtermError Error
 hi! link vimHiAttribList Error
 hi! link vimHiKeyError Error
 hi! link tsxCommentInvalid Error
-hi! link typescriptReserved Error
 hi! link cssError Error
 hi! link cssBraceError Error
 hi! link cssDeprecated Error
@@ -348,7 +296,6 @@ hi! link dtdError Error
 exe 'hi Todo guifg='.'#9bf6ff'.' guibg='.s:none
 hi! link vimTodo Todo
 hi! link luaTodo Todo
-hi! link typescriptCommentTodo Todo
 hi! link helpNote Todo
 hi! link helpWarning Todo
 hi! link helpDeprecated Todo
@@ -389,15 +336,6 @@ hi! link luaString2 String
 hi! link luaString String
 hi! link luaStringDelimiter String
 hi! link tsxString String
-hi! link typescriptTemplate String
-hi! link typescriptEventString String
-hi! link typescriptDestructureString String
-hi! link typescriptString String
-hi! link typescriptRegexpString String
-hi! link typescriptStringProperty String
-hi! link typescriptStringLiteralType String
-hi! link typescriptTemplateLiteralType String
-hi! link typescriptStringMember String
 hi! link graphqlString String
 hi! link graphqlTemplateString String
 hi! link cssStringQ String
@@ -443,9 +381,6 @@ hi! link vimHiGuiRgb Constant
 hi! link vimHiNmbr Constant
 hi! link luaConstant Constant
 hi! link luaNumber Constant
-hi! link typescriptNumber Constant
-hi! link typescriptBoolean Constant
-exe 'hi typescriptNull guifg='.s:secondary_3.' guibg='.s:none
 hi! link graphqlBoolean Constant
 hi! link graphqlNumber Constant
 hi! link cssUnitDecorators Constant
@@ -531,18 +466,6 @@ hi! link vimFuncName Function
 hi! link luaMetaMethod Function
 hi! link luaFunction Function
 exe 'hi tsxTagName guifg='.s:accent_2.' guibg='.s:none
-exe 'hi typescriptBraces guifg='.s:neutral_4.' guibg='.s:none
-hi! link typescriptDestructureLabel Function
-hi! link typescriptDocParam Function
-hi! link typescriptDocNumParam Function
-hi! link typescriptDocEventRef Function
-hi! link typescriptConstructorType Function
-hi! link typescriptFuncTypeArrow Function
-hi! link typescriptTestGlobal Function
-hi! link typescriptMember Function
-hi! link typescriptInterfaceName Function
-hi! link typescriptFuncName Function
-hi! link typescriptDocNGParam Function
 hi! link tsxNameSpace Function
 hi! link cssClassNameDot Function
 hi! link cssClassName Function
@@ -583,18 +506,7 @@ hi! link vimFuncVar Identifier
 hi! link vimSpecFileMod Identifier
 hi! link luaFunc Identifier
 hi! link vimKeyCode Identifier
-hi! link CocSemTypeStruct Identifier
 hi! link tsxCloseString Identifier
-hi! link typescriptKeywordOp Identifier
-exe 'hi typescriptVariable guifg='.s:neutral_4.' guibg='.s:none
-hi! link typescriptUsing Identifier
-hi! link typescriptEnumKeyword Identifier
-exe 'hi typescriptOperator guifg='.s:primary_4.' guibg='.s:none
-hi! link typescriptTypeParameter Identifier
-hi! link typescriptTypeReference Identifier
-exe 'hi typescriptTypeBracket guifg='.s:accent_4.' guibg='.s:none
-hi! link typescriptConstructSignature Identifier
-hi! link typescriptAliasDeclaration Identifier
 hi! link graphqlName Identifier
 hi! link graphqlVariable Identifier
 hi! link helpHyperTextJump Identifier
@@ -657,128 +569,11 @@ hi! link vimCondHL Statement
 hi! link vimElseif Statement
 hi! link vimKeyword Statement
 hi! link vimStatement Statement
-hi! link typescriptLabel Statement
-hi! link typescriptDOMStyle Statement
-hi! link typescriptTemplateSB Statement
-hi! link typescriptObjectAsyncKeyword Statement
-hi! link typescriptForOperator Statement
-hi! link typescriptMessage Statement
-hi! link typescriptConditional Statement
-hi! link typescriptConditionalElse Statement
-hi! link typescriptRepeat Statement
-hi! link typescriptAsyncFor Statement
-hi! link typescriptBranch Statement
-hi! link typescriptCase Statement
-exe 'hi typescriptDefault guifg='.s:accent_5.' guibg='.s:none
-exe 'hi typescriptObjectColon guifg='.s:primary_3.' guibg='.s:none
-hi! link typescriptClassKeyword Statement
-hi! link typescriptInterfaceKeyword Statement
-hi! link typescriptStatementKeyword Statement
-hi! link typescriptEndColons Statement
-hi! link typescriptFuncKeyword Statement
-hi! link typescriptConstraint Statement
-hi! link typescriptTypeQuery Statement
-hi! link typescriptReadonlyArrayKeyword Statement
-hi! link typescriptAssertType Statement
-hi! link typescriptUserDefinedType Statement
-hi! link typescriptAccessibilityModifier Statement
-hi! link typescriptReadonlyModifier Statement
-hi! link typescriptTupleLable Statement
-hi! link typescriptAliasKeyword Statement
-hi! link typescriptNumberStaticProp Statement
-hi! link typescriptNumberStaticMethod Statement
-hi! link typescriptNumberMethod Statement
-hi! link typescriptStringStaticMethod Statement
-hi! link typescriptStringMethod Statement
-hi! link typescriptArrayStaticMethod Statement
-hi! link typescriptArrayMethod Statement
-hi! link typescriptObjectStaticMethod Statement
-hi! link typescriptObjectMethod Statement
-hi! link typescriptSymbolStaticProp Statement
-hi! link typescriptSymbolStaticMethod Statement
-hi! link typescriptFunctionMethod Statement
-hi! link typescriptMathStaticProp Statement
-hi! link typescriptMathStaticMethod Statement
-hi! link typescriptDateStaticMethod Statement
-hi! link typescriptDateMethod Statement
-hi! link typescriptJSONStaticMethod Statement
-hi! link typescriptRegExpStaticProp Statement
-hi! link typescriptRegExpProp Statement
-hi! link typescriptRegExpMethod Statement
-hi! link typescriptES6MapProp Statement
-hi! link typescriptES6MapMethod Statement
-hi! link typescriptES6SetProp Statement
-hi! link typescriptES6SetMethod Statement
-hi! link typescriptProxyAPI Statement
-hi! link typescriptPromiseStaticMethod Statement
-hi! link typescriptPromiseMethod Statement
-hi! link typescriptReflectMethod Statement
-hi! link typescriptIntlMethod Statement
-hi! link typescriptBOMWindowEvent Statement
-hi! link typescriptBOMNavigatorProp Statement
-hi! link typescriptBOMNavigatorMethod Statement
-hi! link typescriptServiceWorkerMethod Statement
-hi! link typescriptBOMLocationProp Statement
-hi! link typescriptBOMLocationMethod Statement
-hi! link typescriptBOMHistoryProp Statement
-hi! link typescriptBOMHistoryMethod Statement
-hi! link typescriptConsoleMethod Statement
-hi! link typescriptXHRProp Statement
-hi! link typescriptXHRMethod Statement
-hi! link typescriptURLStaticMethod Statement
-hi! link typescriptFileMethod Statement
-hi! link typescriptFileReaderProp Statement
-hi! link typescriptFileReaderMethod Statement
-hi! link typescriptFileListMethod Statement
-hi! link typescriptBlobMethod Statement
-hi! link typescriptURLUtilsProp Statement
-hi! link typescriptSubtleCryptoMethod Statement
-hi! link typescriptCryptoProp Statement
-hi! link typescriptCryptoMethod Statement
-hi! link typescriptHeadersMethod Statement
-hi! link typescriptRequestProp Statement
-hi! link typescriptRequestMethod Statement
-hi! link typescriptResponseProp Statement
-hi! link typescriptResponseMethod Statement
-hi! link typescriptServiceWorkerProp Statement
-hi! link typescriptCacheMethod Statement
-hi! link typescriptEncodingProp Statement
-hi! link typescriptEncodingMethod Statement
-hi! link typescriptGeolocationMethod Statement
-hi! link typescriptBOMNetworkProp Statement
-hi! link typescriptPaymentMethod Statement
-hi! link typescriptPaymentProp Statement
-hi! link typescriptPaymentEvent Statement
-hi! link typescriptPaymentResponseMethod Statement
-hi! link typescriptPaymentResponseProp Statement
-hi! link typescriptPaymentAddressProp Statement
-hi! link typescriptPaymentShippingOptionProp Statement
-hi! link typescriptDOMNodeProp Statement
-hi! link typescriptDOMNodeMethod Statement
-hi! link typescriptDOMNodeType Statement
-hi! link typescriptDOMElemAttrs Statement
-hi! link typescriptDOMElemFuncs Statement
-hi! link typescriptDOMDocProp Statement
-hi! link typescriptDOMDocMethod Statement
-hi! link typescriptDOMEventTargetMethod Statement
-hi! link typescriptDOMEventProp Statement
-hi! link typescriptDOMEventMethod Statement
-hi! link typescriptDOMStorage Statement
-hi! link typescriptDOMStorageProp Statement
-hi! link typescriptDOMStorageMethod Statement
-hi! link typescriptDOMFormProp Statement
-hi! link typescriptDOMFormMethod Statement
-hi! link typescriptConstructor Statement
-hi! link typescriptAutoAccessor Statement
-exe 'hi typescriptAsyncFuncKeyword guifg='.s:accent_4.' guibg='.s:none
 exe 'hi @keyword.tsx guifg='.s:primary_4.' guibg='.s:none
 exe 'hi @keyword.import.tsx guifg='.s:primary_5.' guibg='.s:none
 exe 'hi @keyword.return.tsx guifg='.s:accent_3.' guibg='.s:none
 exe 'hi @keyword.conditional.tsx guifg='.s:primary_2.' guibg='.s:none
 exe 'hi @keyword.coroutine.tsx guifg='.s:accent_3.' guibg='.s:none
-hi! link typescriptClassExtends Statement
-hi! link typescriptInterfaceExtends Statement
-hi! link typescriptAsyncFunc Statement
 hi! link graphqlNull Statement
 hi! link graphqlKeyword Statement
 hi! link cssTagName Statement
@@ -848,9 +643,6 @@ hi! link vimOper Operator
 hi! link vimoperStar Operator
 hi! link luaOperator Operator
 hi! link luaSymbolOperator Operator
-hi! link typescriptUnion Operator
-hi! link typescriptFuncComma Operator
-hi! link typescriptMethodAccessor Operator
 hi! link graphqlOperator Operator
 hi! link helpOperator Operator
 hi! link jsOf Operator
@@ -884,14 +676,6 @@ hi! link vimFgBgAttrib PreProc
 hi! link vimCommentTitle PreProc
 hi! link vimAutoCmdOpt PreProc
 hi! link vimHLMod PreProc
-hi! link CocSemTypeNamespace PreProc
-hi! link typescriptFuncCallArg PreProc
-hi! link typescriptDestructureVariable PreProc
-hi! link typescriptRef PreProc
-hi! link typescriptOptionalMark PreProc
-hi! link typescriptCall PreProc
-hi! link typescriptArrowFuncArg PreProc
-hi! link typescriptParamImpl PreProc
 hi! link graphqlDirective PreProc
 hi! link cssAtRule PreProc
 hi! link cssPseudoClassId PreProc
@@ -954,15 +738,7 @@ hi! link vimUserAttrbCmplt Type
 hi! link vimSynType Type
 hi! link vimFTOption Type
 exe 'hi tsxAttrib guifg='.s:neutral_4.' guibg='.s:none
-hi! link typescriptPrototype Type
-hi! link typescriptDocNamedParamType Type
-hi! link typescriptDocParamName Type
-hi! link typescriptDocParamType Type
-exe 'hi typescriptPredefinedType guifg='.s:accent_3.' guibg='.s:none
 exe 'hi @type.builtin.tsx guifg='.s:accent_1.' guibg='.s:none
-hi! link typescriptClassStatic Type
-hi! link typescriptArrowFunc Type
-hi! link typescriptType Type
 hi! link graphqlType Type
 hi! link cssCustomPositioningPrefix Type
 hi! link cssProp Type
@@ -1035,18 +811,6 @@ hi! link dtdEntityPunct Type
 
 exe 'hi Structure guifg='.s:primary_5.' guibg='.s:none
 hi! link luaTable Structure
-hi! link typescriptGlobal Structure
-hi! link typescriptIdentifier Structure
-hi! link typescriptGlobalMethod Structure
-hi! link typescriptNodeGlobal Structure
-hi! link typescriptBOM Normal
-hi! link typescriptBOMWindowProp Structure
-hi! link typescriptBOMWindowMethod Structure
-hi! link typescriptBOMWindowCons Structure
-hi! link typescriptXHRGlobal Structure
-hi! link typescriptCryptoGlobal Structure
-hi! link typescriptEncodingGlobal Structure
-hi! link typescriptDOMEventCons Structure
 hi! link graphqlStructure Structure
 hi! link helpStructure Structure
 exe 'hi fugitiveUnstagedModifier guifg='.s:neutral_7.' guibg='.s:none
@@ -1122,24 +886,6 @@ hi! link vimSynKeyOpt Special
 hi! link vimSynMtchOpt Special
 hi! link vimSynRegOpt Special
 hi! link vimSynMtchGrp Special
-hi! link typescriptCastKeyword Special
-hi! link typescriptASCII Special
-hi! link typescriptSpecial Special
-exe 'hi typescriptImport guifg='.s:neutral_8.' guibg='.s:none
-exe 'hi typescriptImportType guifg='.s:neutral_8.' guibg='.s:none
-exe 'hi typescriptExport guifg='.s:accent_3.' guibg='.s:none
-exe 'hi typescriptExportType guifg='.s:accent_5.' guibg='.s:none
-hi! link typescriptModule Special
-hi! link typescriptTry Special
-hi! link typescriptExceptions Special
-hi! link typescriptAmbientDeclaration Special
-hi! link typescriptAbstract Special
-hi! link typescriptMagicComment Special
-hi! link typescriptDocNotation Special
-hi! link typescriptDocTags Special
-hi! link typescriptFuncType Special
-hi! link typescriptDecorator Special
-hi! link typescriptMappedIn Special
 hi! link graphqlDirectiveLocation Special
 hi! link graphqlMetaFields Special
 hi! link graphqlBraces Special
@@ -1176,36 +922,21 @@ exe 'hi DiagnosticError guifg='.s:error.' guibg='.s:none
 hi! link DiagnosticVirtualTextError DiagnosticError
 hi! link DiagnosticFloatingError DiagnosticError
 hi! link DiagnosticSignError DiagnosticError
-hi! link CocErrorFloat DiagnosticError
-hi! link CocNotificationError DiagnosticError
-hi! link CocErrorSign DiagnosticError
-hi! link CocErrorVirtualText DiagnosticError
 
 exe 'hi DiagnosticWarn guifg='.s:warning.' guibg='.s:none
 hi! link DiagnosticVirtualTextWarn DiagnosticWarn
 hi! link DiagnosticFloatingWarn DiagnosticWarn
 hi! link DiagnosticSignWarn DiagnosticWarn
-hi! link CocWarningFloat DiagnosticWarn
-hi! link CocNotificationWarning DiagnosticWarn
-hi! link CocWarningSign DiagnosticWarn
-hi! link CocWarningVirtualText DiagnosticWarn
 
 exe 'hi DiagnosticInfo guifg='.s:neutral_3.' guibg='.s:none
 hi! link DiagnosticVirtualTextInfo DiagnosticInfo
 hi! link DiagnosticFloatingInfo DiagnosticInfo
 hi! link DiagnosticSignInfo DiagnosticInfo
-hi! link CocInfoFloat DiagnosticInfo
-hi! link CocNotificationInfo DiagnosticInfo
-hi! link CocInfoSign DiagnosticInfo
-hi! link CocInfoVirtualText DiagnosticInfo
 
 exe 'hi DiagnosticHint guifg='.s:warning.' guibg='.s:none
 hi! link DiagnosticVirtualTextHint DiagnosticHint
 hi! link DiagnosticFloatingHint DiagnosticHint
 hi! link DiagnosticSignHint DiagnosticHint
-hi! link CocHintSign DiagnosticHint
-hi! link CocHintVirtualText DiagnosticHint
-hi! link CocHintFloat DiagnosticHint
 
 exe 'hi DiagnosticOk guifg='.'#a0c4ff'.' guibg='.s:none
 hi! link DiagnosticVirtualTextOk DiagnosticOk
@@ -1213,16 +944,12 @@ hi! link DiagnosticFloatingOk DiagnosticOk
 hi! link DiagnosticSignOk DiagnosticOk
 
 exe 'hi DiagnosticUnderlineError guifg='.s:error.' guibg='.s:none.' gui=reverse'
-hi! link CocErrorHighlight DiagnosticUnderlineError
 
 exe 'hi DiagnosticUnderlineWarn guifg='.s:warning.' guibg='.s:none.' gui=reverse'
-hi! link CocWarningHighlight DiagnosticUnderlineWarn
 
 exe 'hi DiagnosticUnderlineInfo guifg='.s:neutral_7.' guibg='.s:none
-hi! link CocInfoHighlight DiagnosticUnderlineInfo
 
 exe 'hi DiagnosticUnderlineHint guifg='.s:none.' guibg='.s:none.' gui=none'
-hi! link CocHintHighlight DiagnosticUnderlineHint
 
 exe 'hi DiagnosticUnderlineOk guifg='.'#fdffb6'.' guibg='.s:none
 
@@ -1236,10 +963,6 @@ exe 'hi fugitiveUnstagedHeading guifg='.s:neutral_7.' guibg='.s:none
 exe 'hi fugitiveSymbolicRef guifg='.s:neutral_1.' guibg='.s:none
 exe 'hi fugitiveHeader guifg='.s:neutral_8.' guibg='.s:none
 exe 'hi fugitiveStagedHeading guifg='.s:neutral_5.' guibg='.s:none
-exe 'hi CocListPath guifg='.s:neutral_8.' guibg='.s:none
-exe 'hi CocTreeDescription guifg='.s:neutral_8.' guibg='.s:none
-exe 'hi CocPumDetail guifg='.s:neutral_8.' guibg='.s:none
-exe 'hi CocPumShortcut guifg='.s:neutral_8.' guibg='.s:none
 hi! link vimComment Comment
 hi! link vim9Comment Comment
 hi! link vimLineComment Comment
@@ -1251,9 +974,6 @@ hi! link vimScriptDelim Comment
 hi! link tsxBlockComment Comment
 hi! link tsxLineComment Comment
 hi! link shellbang Comment
-hi! link typescriptLineComment Comment
-hi! link typescriptComment Comment
-hi! link typescriptDocComment Comment
 hi! link graphqlComment Comment
 hi! link cssComment Comment
 hi! link cssVendor Comment
@@ -1336,82 +1056,6 @@ exe 'hi IblWhitespace guifg='.s:neutral_10.' guibg='.s:none
 
 exe 'hi IblIndent guifg='.s:neutral_10.' guibg='.s:none
 
-exe 'hi CocMenuSel guifg='.s:neutral_1.' guibg='.s:none.' gui=reverse'
-
-exe 'hi CocListLine guifg='.'#ff00ff'.' guibg='.s:none
-
-exe 'hi CocCursorTransparent guifg='.'#ff00ff'.' guibg='.s:none
-
-exe 'hi CocInlayHint guifg='.'#ff00ff'.' guibg='.s:none
-
-exe 'hi CocSymbolUnit guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolNumber guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolFunction guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolKey guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolKeyword guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolReference guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolFolder guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolVariable guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolNull guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolValue guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolConstant guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolText guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolModule guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolPackage guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolClass guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolOperator guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolStruct guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolObject guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolMethod guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolArray guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolEnum guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolField guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolInterface guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolProperty guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolColor guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolFile guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolEvent guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolTypeParameter guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolConstructor guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolSnippet guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolBoolean guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolNamespace guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolString guifg='.s:neutral_8.' guibg='.s:none
-
-exe 'hi CocSymbolEnumMember guifg='.s:neutral_8.' guibg='.s:none
-
 exe 'hi htmlTag guifg='.s:primary_5.' guibg='.s:none
 hi! link @tag.delimiter.tsx htmlTag
 
@@ -1419,7 +1063,6 @@ exe 'hi htmlTagName guifg='.s:primary_3.' guibg='.s:none
 
 exe 'hi floatBorder guifg='.s:neutral_8.' guibg='.s:none
 
-exe 'hi typescriptProperty guifg='.s:neutral_4.' guibg='.s:none
 
 exe 'hi fugitiveHunk guifg='.s:neutral_7.' guibg='.s:none
 
