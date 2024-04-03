@@ -140,8 +140,8 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export ANDROID_SDK_ROOT=~/Library/Android/sdk/
 PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
-# # rbenv
-eval "$(rbenv init - zsh)"
+# rbenv
+[[ -r rbenv ]] && eval "$(rbenv init - zsh)"
 
 PATH="$(brew --prefix ncurses)/bin:$PATH"
 

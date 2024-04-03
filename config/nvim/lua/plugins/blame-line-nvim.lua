@@ -8,6 +8,9 @@ return {
       -- whether the blame line should be shown in insert mode
       show_in_insert = false,
 
+      -- the string to prefix the blame line with
+      prefix = "        ", -- " ",
+
       -- String specifying the the blame line format.
       -- Any combination of the following specifiers, along with any additional text.
       --     - `"<author>"` - the author of the change.

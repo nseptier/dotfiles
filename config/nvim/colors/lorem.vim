@@ -47,15 +47,6 @@ let s:secondary_4 = '#fb878e'
 let s:error = '#ff6361'
 let s:warning = '#ffea60'
 
-
-
-
-
-
-
-
-
-
 let s:branch_1 = '#7c5f9f'
 let s:branch_2 = '#5776b5'
 let s:branch_3 = '#338dcb'
@@ -192,7 +183,7 @@ hi! link HopCursor Cursor
 
 exe 'hi lCursor guifg='.'#caffbf'.' guibg='.s:none
 
-exe 'hi Normal guifg='.s:neutral_1.' guibg='.s:none
+exe 'hi Normal guifg='.s:neutral_1.' guibg='.s:background
 hi! link NvimSpacing Normal
 hi! link vimUserFunc Normal
 hi! link vimEmbedError Normal
