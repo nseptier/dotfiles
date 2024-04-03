@@ -13,7 +13,6 @@
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.tmux.conf: tmux.conf
-    ~/.tmuxp: tmuxp
     ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zsh: zsh
