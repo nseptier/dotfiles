@@ -51,6 +51,10 @@ set signcolumn=no
 " keymaps
 " ------------------------------------------------------------------------------
 
+" quickfix list navigation
+noremap <silent> [q :cprev<cr>
+noremap <silent> ]q :cnext<cr>
+
 " Sort selection
 noremap <silent> <leader>s :sort i<cr>
 
@@ -87,11 +91,11 @@ set statusline+=%#Filename#%{g:actual_curwin!=win_getid()?'\ \ '.(expand('%:~')=
 set statusline+=%{g:actual_curwin!=win_getid()?(&modified?'\ ✱\ ':''):''}
 set statusline+=%{g:actual_curwin!=win_getid()?(&readonly?'\ \ ':''):''}
 set statusline+=%#FilenameArrow#%{g:actual_curwin!=win_getid()?'\ ':''}
-set statusline+=%*\ %l:%c
+set statusline+=%*\ %l:%c\ (%p%%)
 set statusline+=%*
 set statusline+=\ 
 set statusline+=%*
-set statusline+=%=
+set statusline+=%=[%{&filetype}]\ [%{&fileencoding?&fileencoding:&encoding}]
 
 " ------------------------------------------------------------------------------
 " Miscellaneous
@@ -101,6 +105,11 @@ set statusline+=%=
 set termguicolors
 syntax enable
 color lorem
+
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+autocmd BufReadPost *.{js,jsx,ts,tsx} set filetype=typescriptreact
 
 " Auto resize buffers size on window resize
 autocmd VimResized * wincmd =

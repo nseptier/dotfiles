@@ -47,15 +47,15 @@ let s:secondary_4 = '#fb878e'
 let s:error = '#ff6361'
 let s:warning = '#ffea60'
 
-let s:branch_1 = '#7c5f9f'
-let s:branch_2 = '#5776b5'
-let s:branch_3 = '#338dcb'
-let s:branch_4 = '#65b184'
-let s:branch_5 = '#95d03d'
-let s:branch_6 = '#cad146'
-let s:branch_7 = '#ffd250'
-let s:branch_8 = '#ffa160'
-let s:branch_9 = '#ff6b6d'
+let s:branch_1 = '#8187c7'
+let s:branch_2 = '#5daad8'
+let s:branch_3 = '#a5de94'
+let s:branch_4 = '#d7e586'
+let s:branch_5 = '#feea80'
+let s:branch_6 = '#fec979'
+let s:branch_7 = '#fea671'
+let s:branch_8 = '#fb8066'
+let s:branch_9 = '#f65356'
 
 " ------------------------------------------------------------------------------
 " ------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ exe 'hi Question guifg='.s:neutral_1.' guibg='.s:none
 exe 'hi StatusLine guifg='.s:background_dark.' guibg='.s:neutral_0
 hi! link MsgSeparator StatusLine
 
-exe 'hi StatusLineNC guifg='.s:background_dark.' guibg='.s:neutral_2
+exe 'hi StatusLineNC guifg='.s:background_dark.' guibg='.s:neutral_7
 
 exe 'hi VertSplit guifg='.s:background_dark.' guibg='.s:none
 hi! link WinSeparator VertSplit
@@ -1088,7 +1088,7 @@ hi! link flogBranch1AfterMerge flogBranch1
 hi! link flogBranch1ComplexMerge flogBranch1
 hi! link flogBranch1ComplexMergeStart flogBranch1
 hi! link flogBranch1MergeStart flogBranch1
-hi! link flogMerge1Horizontal flogBranch1
+" syn clear flogMerge1Horizontal
 
 exe 'hi flogBranch2 guifg='.s:branch_2.' guibg='.s:none
 hi! link flogBranch2AfterCommit flogBranch2
@@ -1096,7 +1096,7 @@ hi! link flogBranch2AfterMerge flogBranch2
 hi! link flogBranch2ComplexMerge flogBranch2
 hi! link flogBranch2ComplexMergeStart flogBranch2
 hi! link flogBranch2MergeStart flogBranch2
-hi! link flogMerge2Horizontal flogBranch2
+" syn clear flogMerge2Horizontal
 hi! link flogMerge1Branch2 flogBranch2
 hi! link flogMerge1Branch2End flogBranch2
 hi! link flogMerge2Branch2 flogBranch2
@@ -1122,7 +1122,7 @@ hi! link flogBranch3AfterMerge flogBranch3
 hi! link flogBranch3ComplexMerge flogBranch3
 hi! link flogBranch3ComplexMergeStart flogBranch3
 hi! link flogBranch3MergeStart flogBranch3
-hi! link flogMerge3Horizontal flogBranch3
+" syn clear flogMerge3Horizontal
 hi! link flogMerge1Branch3 flogBranch3
 hi! link flogMerge1Branch3End flogBranch3
 hi! link flogMerge2Branch3 flogBranch3
@@ -1148,7 +1148,7 @@ hi! link flogBranch4AfterMerge flogBranch4
 hi! link flogBranch4ComplexMerge flogBranch4
 hi! link flogBranch4ComplexMergeStart flogBranch4
 hi! link flogBranch4MergeStart flogBranch4
-hi! link flogMerge4Horizontal flogBranch4
+" syn clear flogMerge4Horizontal
 hi! link flogMerge1Branch4 flogBranch4
 hi! link flogMerge1Branch4End flogBranch4
 hi! link flogMerge2Branch4 flogBranch4
@@ -1174,7 +1174,7 @@ hi! link flogBranch5AfterMerge flogBranch5
 hi! link flogBranch5ComplexMerge flogBranch5
 hi! link flogBranch5ComplexMergeStart flogBranch5
 hi! link flogBranch5MergeStart flogBranch5
-hi! link flogMerge5Horizontal flogBranch5
+" syn clear flogMerge5Horizontal
 hi! link flogMerge1Branch5 flogBranch5
 hi! link flogMerge1Branch5End flogBranch5
 hi! link flogMerge2Branch5 flogBranch5
@@ -1200,7 +1200,7 @@ hi! link flogBranch6AfterMerge flogBranch6
 hi! link flogBranch6ComplexMerge flogBranch6
 hi! link flogBranch6ComplexMergeStart flogBranch6
 hi! link flogBranch6MergeStart flogBranch6
-hi! link flogMerge6Horizontal flogBranch6
+" syn clear flogMerge6Horizontal
 hi! link flogMerge1Branch6 flogBranch6
 hi! link flogMerge1Branch6End flogBranch6
 hi! link flogMerge2Branch6 flogBranch6
@@ -1226,7 +1226,7 @@ hi! link flogBranch7AfterMerge flogBranch7
 hi! link flogBranch7ComplexMerge flogBranch7
 hi! link flogBranch7ComplexMergeStart flogBranch7
 hi! link flogBranch7MergeStart flogBranch7
-hi! link flogMerge7Horizontal flogBranch7
+" syn clear flogMerge7Horizontal
 hi! link flogMerge1Branch7 flogBranch7
 hi! link flogMerge1Branch7End flogBranch7
 hi! link flogMerge2Branch7 flogBranch7
@@ -1252,7 +1252,7 @@ hi! link flogBranch8AfterMerge flogBranch8
 hi! link flogBranch8ComplexMerge flogBranch8
 hi! link flogBranch8ComplexMergeStart flogBranch8
 hi! link flogBranch8MergeStart flogBranch8
-hi! link flogMerge8Horizontal flogBranch8
+" syn clear flogMerge8Horizontal
 hi! link flogMerge1Branch8 flogBranch8
 hi! link flogMerge1Branch8End flogBranch8
 hi! link flogMerge2Branch8 flogBranch8
@@ -1278,7 +1278,7 @@ hi! link flogBranch9AfterMerge flogBranch9
 hi! link flogBranch9ComplexMerge flogBranch9
 hi! link flogBranch9ComplexMergeStart flogBranch9
 hi! link flogBranch9MergeStart flogBranch9
-hi! link flogMerge9Horizontal flogBranch9
+" syn clear flogMerge9Horizontal
 hi! link flogMerge1Branch9 flogBranch9
 hi! link flogMerge1Branch9End flogBranch9
 hi! link flogMerge2Branch9 flogBranch9
@@ -1298,10 +1298,10 @@ hi! link flogMerge8Branch9End flogBranch9
 hi! link flogMerge9Branch9 flogBranch9
 hi! link flogMerge9Branch9End flogBranch9
 
-exe 'hi flogRef guifg='.s:accent_4.' guibg='.s:none
+exe 'hi flogRef guifg='.s:accent_2.' guibg='.s:none
 exe 'hi flogRefHead guifg='.s:accent_7.' guibg='.s:none
 exe 'hi flogRefTag guifg='.s:secondary_2.' guibg='.s:none
 exe 'hi flogRefHeadBranch guifg='.s:accent_7.' guibg='.s:none
-exe 'hi flogAuthor guifg='.s:primary_5.' guibg='.s:none
+exe 'hi flogAuthor guifg='.s:neutral_7.' guibg='.s:none
 exe 'hi flogDate guifg='.s:neutral_7.' guibg='.s:none
-exe 'hi flogHash guifg='.s:neutral_6.' guibg='.s:none
+exe 'hi flogHash guifg='.s:primary_5.' guibg='.s:none

@@ -28,7 +28,7 @@ return {
     init = function()
       vim.keymap.set('n', 'fc', ':Flog<CR>')
       vim.g.flog_permanent_default_opts = {
-        format = '[%h]%d %ad {%an} %s',
+        format = '[%h] %ad {%an}%d %s',
         date = 'short',
       }
     end

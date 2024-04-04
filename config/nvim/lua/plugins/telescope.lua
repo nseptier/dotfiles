@@ -19,8 +19,10 @@ return {
             -- e.g. git_{create, delete, ...}_branch for the git_branches picker
             ["<C-?>"] = actions.which_key,
             ["<esc>"] = actions.close,
-            ['<C-l>'] = actions.preview_scrolling_left,
-            ['<C-h>'] = actions.preview_scrolling_right,
+            ['<C-h>'] = actions.preview_scrolling_left,
+            ['<C-j>'] = actions.preview_scrolling_down,
+            ['<C-k>'] = actions.preview_scrolling_up,
+            ['<C-l>'] = actions.preview_scrolling_right,
           }
         },
       },
