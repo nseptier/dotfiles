@@ -51,6 +51,10 @@ set signcolumn=no
 " keymaps
 " ------------------------------------------------------------------------------
 
+" buffers navigation
+noremap <silent> [b :bprevious<cr>
+noremap <silent> ]b :bnext<cr>
+
 " quickfix list navigation
 noremap <silent> [q :cprev<cr>
 noremap <silent> ]q :cnext<cr>
