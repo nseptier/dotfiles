@@ -2,13 +2,8 @@ return {
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
   dependencies = {
-    {
-      'L3MON4D3/LuaSnip',
-      config = function ()
-        require("luasnip/loaders/from_vscode").lazy_load()
-      end
-    },
-    { 'onsails/lspkind.nvim' },
+    'L3MON4D3/LuaSnip',
+    'onsails/lspkind.nvim',
     'saadparwaiz1/cmp_luasnip',
   },
   config = function()
@@ -21,6 +16,9 @@ return {
     local cmp_action = lsp_zero.cmp_action()
     local lspkind = require('lspkind')
     local luasnip = require('luasnip')
+
+    luasnip.filetype_extend("typescriptreact", { "html" })
+    require("luasnip/loaders/from_vscode").lazy_load()
 
     local has_words_before = function()
       unpack = unpack or table.unpack
@@ -47,7 +45,7 @@ return {
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
             -- that way you will only jump inside the snippet region
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
@@ -79,7 +77,9 @@ return {
       },
       sources = cmp.config.sources({
         { name = 'luasnip' },
+        { name = 'buffer' },
         { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
         -- { name = 'rg' }
       })
     })

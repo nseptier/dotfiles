@@ -23,7 +23,7 @@ return {
     vim.diagnostic.config({ virtual_text = false })
 
     require('mason-lspconfig').setup({
-      ensure_installed = { 'tsserver', 'eslint' },
+      ensure_installed = { 'tsserver' },
       handlers = {
         lsp_zero.default_setup,
       }

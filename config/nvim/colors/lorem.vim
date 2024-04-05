@@ -13,23 +13,26 @@ let s:background_light = '#2a2e33'
 let s:none = 'NONE'
 
 let s:neutral_0 = '#ffffff'
-let s:neutral_1 = '#e8e1d9'
-let s:neutral_2 = '#dccbb7'
-let s:neutral_3 = '#ccbcab'
+let s:neutral_1 = '#e7e8eb'
+let s:neutral_2 = '#d0d2d5'
+let s:neutral_3 = '#b8bcc1'
 let s:neutral_4 = '#bfa68c'
 let s:neutral_5 = '#b69c83'
 let s:neutral_6 = '#ac937b'
+" let s:neutral_4 = '#a2a6ad'
+" let s:neutral_5 = '#8d9198'
+" let s:neutral_6 = '#787d86'
 let s:neutral_7 = '#6a6d6e'
 let s:neutral_8 = '#515a62'
 let s:neutral_9 = '#394856'
 let s:neutral_10 = '#2e3942'
 let s:neutral_11 = '#212427'
 
-let s:primary_1 = '#aeccae'
-let s:primary_2 = '#92ba92'
-let s:primary_3 = '#85a78e'
-let s:primary_4 = '#78938a'
-let s:primary_5 = '#657980'
+let s:primary_1 = '#91a6aa'
+let s:primary_2 = '#829d9b'
+let s:primary_3 = '#7a9399'
+let s:primary_4 = '#758797'
+let s:primary_5 = '#6a7991'
 
 let s:accent_1 = '#d9ed92'
 let s:accent_2 = '#b5e48c'
@@ -74,9 +77,9 @@ exe 'hi fugitiveHash guifg='.s:primary_5.' guibg='.s:none
 exe 'hi ErrorMsg guifg='.s:error.' guibg='.s:none
 hi! link NvimInvalidSpacing ErrorMsg
 
-exe 'hi IncSearch guifg='.s:accent_7.' guibg='.s:neutral_0.' gui=reverse'
+exe 'hi IncSearch guifg='.s:accent_7.' guibg='.s:neutral_0.' gui=none'
 
-exe 'hi Search guifg='.s:none.' guibg='.s:none.' gui=reverse'
+exe 'hi Search guifg='.s:none.' guibg='.s:none.' gui=none'
 hi! link CurSearch IncSearch
 hi! link QuickFixLine Search
 hi! link Substitute Search
@@ -191,9 +194,9 @@ hi! link cssMediaComma Normal
 hi! link dtdTag Normal
 exe 'hi @variable guifg='.s:neutral_1.' guibg='.s:none
 
-exe 'hi FloatShadow guifg='.'#a0c4ff'.' guibg='.s:error.' blend=90'
+exe 'hi FloatShadow guifg='.'#a0c4ff'.' guibg=#000000 blend=90'
 
-exe 'hi FloatShadowThrough guifg='.'#bdb2ff'.' guibg='.s:warning.' blend=90'
+exe 'hi FloatShadowThrough guifg='.'#bdb2ff'.' guibg='.s:background.' blend=90'
 
 exe 'hi RedrawDebugNormal guifg='.'#ffc6ff'.' guibg='.s:none
 
@@ -818,6 +821,7 @@ hi! link dtdAttrDef Type
 hi! link dtdParamEntityDecl Type
 hi! link dtdParamEntityPunct Type
 hi! link dtdEntityPunct Type
+hi! link @lsp.type.interface.typescriptreact Type
 
 exe 'hi Structure guifg='.s:primary_5.' guibg='.s:none
 hi! link luaTable Structure
@@ -829,9 +833,9 @@ exe 'hi Special guifg='.s:neutral_5.' guibg='.s:none
 exe 'hi @punctuation.bracket.tsx guifg='.s:neutral_5.' guibg='.s:none
 exe 'hi @punctuation.delimiter.tsx guifg='.s:neutral_6.' guibg='.s:none
 exe 'hi @punctuation.special.javascript guifg='.s:secondary_4.' guibg='.s:none
-exe 'hi @tag.builtin.tsx guifg='.s:primary_3.' guibg='.s:none
-exe 'hi @tag.tsx guifg='.s:accent_2.' guibg='.s:none
-exe 'hi @tag.attribute.tsx guifg='.s:neutral_4.' guibg='.s:none
+exe 'hi @tag.builtin.tsx guifg='.s:accent_7.' guibg='.s:none
+exe 'hi @tag.tsx guifg='.s:accent_7.' guibg='.s:none
+exe 'hi @tag.attribute.tsx guifg='.s:primary_3.' guibg='.s:none
 hi! link Tag Special
 hi! link SpecialChar Special
 hi! link Delimiter Special
@@ -1067,10 +1071,10 @@ exe 'hi IblWhitespace guifg='.s:neutral_10.' guibg='.s:none
 
 exe 'hi IblIndent guifg='.s:neutral_10.' guibg='.s:none
 
-exe 'hi htmlTag guifg='.s:primary_5.' guibg='.s:none
+exe 'hi htmlTag guifg='.s:neutral_7.' guibg='.s:none
 hi! link @tag.delimiter.tsx htmlTag
 
-exe 'hi htmlTagName guifg='.s:primary_3.' guibg='.s:none
+exe 'hi htmlTagName guifg='.s:accent_7.' guibg='.s:none
 
 exe 'hi floatBorder guifg='.s:neutral_8.' guibg='.s:none
 
@@ -1296,3 +1300,5 @@ exe 'hi flogRefHeadBranch guifg='.s:accent_7.' guibg='.s:none
 exe 'hi flogAuthor guifg='.s:neutral_7.' guibg='.s:none
 exe 'hi flogDate guifg='.s:neutral_7.' guibg='.s:none
 exe 'hi flogHash guifg='.s:primary_5.' guibg='.s:none
+
+exe 'hi LspSignatureActiveParameter guifg=none guibg='.s:neutral_11
