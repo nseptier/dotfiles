@@ -115,6 +115,8 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 autocmd BufReadPost *.{js,jsx,ts,tsx} set filetype=typescriptreact
 
+" autocmd Filetype floggraph :syn clear flogMerge1Horizontal flogMerge2Horizontal flogMerge3Horizontal flogMerge4Horizontal flogMerge5Horizontal flogMerge6Horizontal flogMerge7Horizontal flogMerge8Horizontal flogMerge9Horizontal
+
 " Auto resize buffers size on window resize
 autocmd VimResized * wincmd =
 

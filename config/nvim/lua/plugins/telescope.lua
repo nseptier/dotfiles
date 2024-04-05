@@ -30,6 +30,12 @@ return {
         find_files = {
           hidden = true
         },
+        grep_string = {
+          additional_args = { "--hidden" }
+        },
+        live_grep = {
+          additional_args = { "--hidden" }
+        },
       },
       extensions = {
         fzf = {
@@ -45,6 +51,7 @@ return {
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', 'ff', builtin.find_files, {})
     vim.keymap.set('n', 'ft', builtin.live_grep, {})
+    vim.keymap.set('n', 'fT', builtin.grep_string, {})
     vim.keymap.set('n', 'fb', builtin.buffers, {})
 
     require('telescope').load_extension('fzf')
