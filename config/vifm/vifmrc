@@ -16,7 +16,7 @@
 " Mind that due to `filetype * open` below by default the editor won't be used
 " for opening files via l/Enter keys.  Comment that line out to change the
 " behaviour.
-set vicmd=v
+set vicmd=nvim
 " if executable('vim')
 "     set vicmd=vim
 " elseif executable('nvim')
@@ -225,6 +225,10 @@ fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
           \<video/*>
          \ ffprobe -hide_banner -pretty %c 2>&1
 
+" dev
+filetype {*.js,*.jsx,*.ts,*.tsx},
+      \ nvim
+
 " Web
 filetype {*.xhtml,*.html,*.htm},<text/html>
        \ {Open in Safari}
@@ -345,7 +349,7 @@ fileviewer {*.docx},
 " :file[x]type commands above to ensure they don't interfere with system-wide
 " settings).  Use of the line below results in ignoring 'vi[x]cmd' option for
 " unknown file types on l/Enter keys.
-filetype * open
+" filetype * open
 
 " ------------------------------------------------------------------------------
 " Panel configuration examples

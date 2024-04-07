@@ -51,8 +51,15 @@ set signcolumn=no
 " keymaps
 " ------------------------------------------------------------------------------
 
+" Set space as leader key
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
+au TermOpen * tnoremap jj <c-\><c-n> 
+inoremap <silent> jj <Esc>
+
 " buffers navigation
-noremap <silent> [b :bprevious<cr>
+noremap <silent> [b :bprevious<cr> plop
 noremap <silent> ]b :bnext<cr>
 
 " quickfix list navigation
@@ -66,7 +73,8 @@ noremap <silent> <leader>s :sort i<cr>
 nnoremap <Leader>q :Bdelete<CR>
 nnoremap <silent> <leader>Q :DeleteHiddenBuffers<CR>
 nnoremap <silent> <leader>qq :Bdelete!<cr>
-nnoremap <silent><nowait> QQ :xa!<cr>
+command Quit wall | qa!
+nnoremap <silent><nowait> QQ :Quit<cr>
 
 " Remove search highlights
 nmap <silent> <Esc><Esc> :noh<cr>

@@ -970,7 +970,7 @@ exe 'hi DiagnosticUnderlineOk guifg='.'#fdffb6'.' guibg='.s:none
 
 exe 'hi DiagnosticDeprecated guifg='.'#caffbf'.' guibg='.s:none
 
-exe 'hi Comment guifg='.s:neutral_7.' guibg='.s:none
+exe 'hi Comment guifg='.s:neutral_7.' guibg='.s:none.' gui=standout'
 hi! link DiagnosticUnnecessary Comment
 hi! link Comment Comment
 hi! link gitDiff Comment
@@ -1302,3 +1302,12 @@ exe 'hi flogDate guifg='.s:neutral_7.' guibg='.s:none
 exe 'hi flogHash guifg='.s:primary_5.' guibg='.s:none
 
 exe 'hi LspSignatureActiveParameter guifg=none guibg='.s:neutral_11
+
+exe 'hi EyelinerPrimary guifg='.s:accent_3.' guibg='.s:none
+exe 'hi EyelinerSecondary guifg='.s:accent_6.' guibg='.s:none
+exe 'hi EyelinerDimmed guifg='.s:neutral_8.' guibg='.s:none
+
+exe 'hi TelescopeBorder guifg='.s:neutral_7.' guibg='.s:none
+hi! link TelescopeSelection CursorLine
+hi! link TelescopeMultiIcon TelescopeMultiSelection
+exe 'hi TelescopeMatching guifg='.s:neutral_2.' guibg='.s:accent_7

@@ -25,10 +25,17 @@ return {
             ['<C-l>'] = actions.preview_scrolling_right,
           }
         },
+        layout_config = {
+          horizontal = {
+            width = 0.90,
+            preview_width = 0.6
+          }
+          -- other layout configuration here
+        },
       },
       pickers = {
         find_files = {
-          hidden = true
+          hidden = true,
         },
         grep_string = {
           additional_args = { "--hidden" }
@@ -49,10 +56,10 @@ return {
     }
 
     local builtin = require('telescope.builtin')
-    vim.keymap.set('n', 'ff', builtin.find_files, {})
-    vim.keymap.set('n', 'ft', builtin.live_grep, {})
-    vim.keymap.set('n', 'fT', builtin.grep_string, {})
-    vim.keymap.set('n', 'fb', builtin.buffers, {})
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+    vim.keymap.set('n', '<leader>ft', builtin.live_grep, {})
+    vim.keymap.set('n', '<leader>fT', builtin.grep_string, {})
+    vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 
     require('telescope').load_extension('fzf')
   end
