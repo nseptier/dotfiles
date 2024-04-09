@@ -2,7 +2,6 @@ return {
   'arithran/vim-delete-hidden-buffers',
   'christoomey/vim-tmux-navigator',
   'gerw/vim-HiLinkTrace',
-  'haya14busa/incsearch.vim',
   'lukas-reineke/cmp-rg',
   'machakann/vim-sandwich',
   'michaeljsmith/vim-indent-object',
@@ -18,5 +17,4 @@ return {
   'tpope/vim-rhubarb',
   'vifm/vifm.vim',
   'vim-test/vim-test',
-  'wavded/vim-stylus',
 }

@@ -8,8 +8,8 @@ let colors_name = "lorem"
 " ------------------------------------------------------------------------------
 
 let s:background = '#252a2e'
-let s:background_dark = '#1e2026'
-let s:background_light = '#2a2e33'
+let s:background_dark = '#222429'
+let s:background_light = '#2e3236'
 let s:none = 'NONE'
 
 let s:neutral_0 = '#ffffff'
@@ -79,7 +79,7 @@ hi! link NvimInvalidSpacing ErrorMsg
 
 exe 'hi IncSearch guifg='.s:accent_7.' guibg='.s:neutral_0.' gui=none'
 
-exe 'hi Search guifg='.s:none.' guibg='.s:none.' gui=none'
+exe 'hi Search guifg='.s:neutral_1.' guibg='.s:accent_7.' gui=none'
 hi! link CurSearch IncSearch
 hi! link QuickFixLine Search
 hi! link Substitute Search
@@ -162,15 +162,15 @@ exe 'hi PmenuSbar guifg='.'#ffd6a5'.' guibg='.s:none.' gui=reverse'
 
 exe 'hi PmenuThumb guifg='.s:accent_3.' guibg='.s:none.' gui=reverse'
 
-exe 'hi TabLine guifg='.'#caffbf'.' guibg='.s:none
+exe 'hi TabLine guifg='.s:neutral_3.' guibg='.s:background_light.' gui=none'
 
-exe 'hi TabLineSel guifg='.'#9bf6ff'.' guibg='.s:none
+exe 'hi TabLineSel guifg='.'s:neutral_1'.' guibg='.s:none
 
-exe 'hi TabLineFill guifg='.'#a0c4ff'.' guibg='.s:none
+exe 'hi TabLineFill guifg='.s:background_light.' guibg='.s:background_light
 
 exe 'hi CursorColumn guifg='.s:none.' guibg='.s:none
 
-exe 'hi CursorLine guifg='.s:none.' guibg='.s:background_light
+exe 'hi CursorLine guifg='.s:none.' guibg='.s:neutral_11
 
 exe 'hi ColorColumn guifg='.'#ffadad'.' guibg='.s:none
 
@@ -1311,3 +1311,7 @@ exe 'hi TelescopeBorder guifg='.s:neutral_7.' guibg='.s:none
 hi! link TelescopeSelection CursorLine
 hi! link TelescopeMultiIcon TelescopeMultiSelection
 exe 'hi TelescopeMatching guifg='.s:neutral_2.' guibg='.s:accent_7
+
+hi! link gitcommitSummary Normal
+hi! link gitcommitFirstLine Normal
+exe 'hi gitcommitOverflow guifg='.s:neutral_3.' guibg='.s:none

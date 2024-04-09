@@ -22,10 +22,22 @@ return {
 
     vim.diagnostic.config({ virtual_text = false })
 
+    local lspconfig = require('lspconfig')
     require('mason-lspconfig').setup({
       ensure_installed = { 'tsserver' },
       handlers = {
         lsp_zero.default_setup,
+        ['lua_ls'] = function()
+          lspconfig.lua_ls.setup {
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { 'vim' }
+                }
+              }
+            }
+          }
+        end
       }
     })
   end
