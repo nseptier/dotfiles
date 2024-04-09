@@ -42,7 +42,7 @@ vim.keymap.set('', ']q', ':cnext<cr>', { silent = true })
 vim.keymap.set('v', '<leader>s', ':sort i<cr>', { silent = true })
 
 -- delete buffer
-vim.keymap.set('n', '<leader>q', ':Bdelete!<cr>', { silent = true })
+vim.keymap.set('n', '<leader>q', ':Bdelete!<cr>', { silent = true, nowait = true })
 
 -- delete all hidden buffers
 vim.keymap.set('n', '<leader>Q', ':DeleteHiddenBuffers<cr>', { silent = true })
@@ -59,7 +59,7 @@ for _, i in ipairs(bufs) do
 end
 
 -- Remove search highlights
-vim.keymap.set('n', '<esc><esc>', ':noh<cr>')
+vim.keymap.set('n', '<esc><esc>', ':noh<cr>', { silent = true })
 
 -- Others
 vim.keymap.set('n', 'H', '^', { silent = true })
@@ -95,13 +95,14 @@ vim.opt.laststatus = 3
 vim.opt.lcs = 'tab:|→'
 vim.opt.list = true
 vim.opt.listchars = 'eol:↲,tab:→ ,trail:×,precedes:‹,extends:›,nbsp:~,space: '
+vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.path = '$PWD/**'
 vim.opt.rtp:append '/usr/local/opt/fzf'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2
 vim.opt.shiftwidth = 2
-vim.opt.showtabline = 2
+vim.opt.showtabline = 0
 vim.opt.signcolumn = 'no'
 vim.opt.smartcase = true
 vim.opt.smarttab = true

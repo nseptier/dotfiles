@@ -47,18 +47,20 @@ let s:secondary_2 = '#fbd680'
 let s:secondary_3 = '#fbaf87'
 let s:secondary_4 = '#fb878e'
 
-let s:error = '#ff6361'
+let s:hint = s:primary_2
+let s:info = s:accent_7
 let s:warning = '#ffea60'
+let s:error = '#ff6361'
 
-let s:branch_1 = '#8187c7'
-let s:branch_2 = '#5daad8'
-let s:branch_3 = '#a5de94'
-let s:branch_4 = '#d7e586'
-let s:branch_5 = '#feea80'
-let s:branch_6 = '#fec979'
-let s:branch_7 = '#fea671'
-let s:branch_8 = '#fb8066'
-let s:branch_9 = '#f65356'
+let s:rainbow_1 = '#8187c7'
+let s:rainbow_2 = '#5daad8'
+let s:rainbow_3 = '#a5de94'
+let s:rainbow_4 = '#d7e586'
+let s:rainbow_5 = '#feea80'
+let s:rainbow_6 = '#fec979'
+let s:rainbow_7 = '#fea671'
+let s:rainbow_8 = '#fb8066'
+let s:rainbow_9 = '#f65356'
 
 " ------------------------------------------------------------------------------
 " ------------------------------------------------------------------------------
@@ -943,12 +945,12 @@ hi! link DiagnosticVirtualTextWarn DiagnosticWarn
 hi! link DiagnosticFloatingWarn DiagnosticWarn
 hi! link DiagnosticSignWarn DiagnosticWarn
 
-exe 'hi DiagnosticInfo guifg='.s:neutral_3.' guibg='.s:none
+exe 'hi DiagnosticInfo guifg='.s:info.' guibg='.s:none
 hi! link DiagnosticVirtualTextInfo DiagnosticInfo
 hi! link DiagnosticFloatingInfo DiagnosticInfo
 hi! link DiagnosticSignInfo DiagnosticInfo
 
-exe 'hi DiagnosticHint guifg='.s:warning.' guibg='.s:none
+exe 'hi DiagnosticHint guifg='.s:hint.' guibg='.s:none
 hi! link DiagnosticVirtualTextHint DiagnosticHint
 hi! link DiagnosticFloatingHint DiagnosticHint
 hi! link DiagnosticSignHint DiagnosticHint
@@ -1086,14 +1088,14 @@ exe 'hi BlameLineNvim guifg='.s:neutral_8.' guibg='.s:none
 " flog
 " ------------------------------------------------------------------------------
 
-exe 'hi flogBranch1 guifg='.s:branch_1.' guibg='.s:none
+exe 'hi flogBranch1 guifg='.s:rainbow_1.' guibg='.s:none
 hi! link flogBranch1AfterCommit flogBranch1
 hi! link flogBranch1AfterMerge flogBranch1
 hi! link flogBranch1ComplexMerge flogBranch1
 hi! link flogBranch1ComplexMergeStart flogBranch1
 hi! link flogBranch1MergeStart flogBranch1
 
-exe 'hi flogBranch2 guifg='.s:branch_2.' guibg='.s:none
+exe 'hi flogBranch2 guifg='.s:rainbow_2.' guibg='.s:none
 hi! link flogBranch2AfterCommit flogBranch2
 hi! link flogBranch2AfterMerge flogBranch2
 hi! link flogBranch2ComplexMerge flogBranch2
@@ -1118,7 +1120,7 @@ hi! link flogMerge8Branch2End flogBranch2
 hi! link flogMerge9Branch2 flogBranch2
 hi! link flogMerge9Branch2End flogBranch2
 
-exe 'hi flogBranch3 guifg='.s:branch_3.' guibg='.s:none
+exe 'hi flogBranch3 guifg='.s:rainbow_3.' guibg='.s:none
 hi! link flogBranch3AfterCommit flogBranch3
 hi! link flogBranch3AfterMerge flogBranch3
 hi! link flogBranch3ComplexMerge flogBranch3
@@ -1143,7 +1145,7 @@ hi! link flogMerge8Branch3End flogBranch3
 hi! link flogMerge9Branch3 flogBranch3
 hi! link flogMerge9Branch3End flogBranch3
 
-exe 'hi flogBranch4 guifg='.s:branch_4.' guibg='.s:none
+exe 'hi flogBranch4 guifg='.s:rainbow_4.' guibg='.s:none
 hi! link flogBranch4AfterCommit flogBranch4
 hi! link flogBranch4AfterMerge flogBranch4
 hi! link flogBranch4ComplexMerge flogBranch4
@@ -1168,7 +1170,7 @@ hi! link flogMerge8Branch4End flogBranch4
 hi! link flogMerge9Branch4 flogBranch4
 hi! link flogMerge9Branch4End flogBranch4
 
-exe 'hi flogBranch5 guifg='.s:branch_5.' guibg='.s:none
+exe 'hi flogBranch5 guifg='.s:rainbow_5.' guibg='.s:none
 hi! link flogBranch5AfterCommit flogBranch5
 hi! link flogBranch5AfterMerge flogBranch5
 hi! link flogBranch5ComplexMerge flogBranch5
@@ -1193,7 +1195,7 @@ hi! link flogMerge8Branch5End flogBranch5
 hi! link flogMerge9Branch5 flogBranch5
 hi! link flogMerge9Branch5End flogBranch5
 
-exe 'hi flogBranch6 guifg='.s:branch_6.' guibg='.s:none
+exe 'hi flogBranch6 guifg='.s:rainbow_6.' guibg='.s:none
 hi! link flogBranch6AfterCommit flogBranch6
 hi! link flogBranch6AfterMerge flogBranch6
 hi! link flogBranch6ComplexMerge flogBranch6
@@ -1218,7 +1220,7 @@ hi! link flogMerge8Branch6End flogBranch6
 hi! link flogMerge9Branch6 flogBranch6
 hi! link flogMerge9Branch6End flogBranch6
 
-exe 'hi flogBranch7 guifg='.s:branch_7.' guibg='.s:none
+exe 'hi flogBranch7 guifg='.s:rainbow_7.' guibg='.s:none
 hi! link flogBranch7AfterCommit flogBranch7
 hi! link flogBranch7AfterMerge flogBranch7
 hi! link flogBranch7ComplexMerge flogBranch7
@@ -1243,7 +1245,7 @@ hi! link flogMerge8Branch7End flogBranch7
 hi! link flogMerge9Branch7 flogBranch7
 hi! link flogMerge9Branch7End flogBranch7
 
-exe 'hi flogBranch8 guifg='.s:branch_8.' guibg='.s:none
+exe 'hi flogBranch8 guifg='.s:rainbow_8.' guibg='.s:none
 hi! link flogBranch8AfterCommit flogBranch8
 hi! link flogBranch8AfterMerge flogBranch8
 hi! link flogBranch8ComplexMerge flogBranch8
@@ -1268,7 +1270,7 @@ hi! link flogMerge8Branch8End flogBranch8
 hi! link flogMerge9Branch8 flogBranch8
 hi! link flogMerge9Branch8End flogBranch8
 
-exe 'hi flogBranch9 guifg='.s:branch_9.' guibg='.s:none
+exe 'hi flogBranch9 guifg='.s:rainbow_9.' guibg='.s:none
 hi! link flogBranch9AfterCommit flogBranch9
 hi! link flogBranch9AfterMerge flogBranch9
 hi! link flogBranch9ComplexMerge flogBranch9
