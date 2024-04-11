@@ -61,6 +61,8 @@ return {
     vim.keymap.set('n', '<leader>fT', builtin.grep_string, {})
     vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 
+    vim.keymap.set('n', '<leader>gb', builtin.git_branches, {})
+
     require('telescope').load_extension('fzf')
   end
 }

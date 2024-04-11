@@ -1,4 +1,4 @@
--- resize windows when host size changes
+-- resize windows when host window size changes
 local wr_group = vim.api.nvim_create_augroup('WinResize', { clear = true })
 vim.api.nvim_create_autocmd('VimResized', {
   group = wr_group,
@@ -51,12 +51,12 @@ vim.keymap.set('n', '<leader>Q', ':DeleteHiddenBuffers<cr>', { silent = true })
 vim.api.nvim_create_user_command('SaveAllandQuit', 'wall | qa!', {})
 vim.keymap.set('n', 'QQ', ':SaveAllandQuit<cr>', { silent = true, nowait = true })
 
-local bufs = vim.api.nvim_list_bufs()
-for _, i in ipairs(bufs) do
-  -- if i ~= current_buf then
-  --   vim.api.nvim_buf_delete(i, {})
-  -- end
-end
+-- local bufs = vim.api.nvim_list_bufs()
+-- for _, i in ipairs(bufs) do
+--   if i ~= current_buf then
+--     vim.api.nvim_buf_delete(i, {})
+--   end
+-- end
 
 -- Remove search highlights
 vim.keymap.set('n', '<esc><esc>', ':noh<cr>', { silent = true })
@@ -89,6 +89,7 @@ vim.opt.foldnestmax = 20
 vim.opt.foldopen:remove 'block'
 vim.opt.foldtext = ''
 vim.opt.hidden = true
+vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
 vim.opt.laststatus = 3
@@ -96,13 +97,13 @@ vim.opt.lcs = 'tab:|→'
 vim.opt.list = true
 vim.opt.listchars = 'eol:↲,tab:→ ,trail:×,precedes:‹,extends:›,nbsp:~,space: '
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.path = '$PWD/**'
+vim.opt.relativenumber = true
 vim.opt.rtp:append '/usr/local/opt/fzf'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2
 vim.opt.shiftwidth = 2
-vim.opt.showtabline = 0
+vim.opt.showtabline = 2
 vim.opt.signcolumn = 'no'
 vim.opt.smartcase = true
 vim.opt.smarttab = true
@@ -111,10 +112,10 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
 vim.opt.tabstop = 2
+vim.opt.termguicolors = true
 vim.opt.undodir = '~/.vim/undo//'
 vim.opt.wildignore:append '*/node_modules/**'
 vim.opt.wrap = false
-vim.opt.hlsearch = true
 
 --------------------------------------------------------------------------------
 -- lazy.nvim
@@ -142,10 +143,10 @@ vim.api.nvim_create_autocmd("Filetype", {
 -- colorscheme
 --------------------------------------------------------------------------------
 
-vim.opt.termguicolors = true
-vim.cmd 'color lorem'
+vim.cmd 'color ipsum'
 
-local hl_group = vim.api.nvim_create_augroup('WinResize', { clear = true })
+-- Force typescriptreact filetype
+local hl_group = vim.api.nvim_create_augroup('hl', { clear = true })
 vim.api.nvim_create_autocmd(
   { 'BufRead', 'BufNewFile' },
   {
@@ -156,20 +157,12 @@ vim.api.nvim_create_autocmd(
     end
   }
 )
-vim.api.nvim_create_autocmd(
-  'WinLeave',
-  {
-    group = hl_group,
-    pattern = '*',
-    callback = function()
-      vim.wo.cursorline = false
-    end
-  }
-)
+
+-- Show cursor line for active buffer only
 vim.api.nvim_create_autocmd(
   'WinEnter',
   {
-    group = hl_group,
+    -- group = hl_group,
     pattern = '*',
     callback = function()
       vim.wo.cursorline = true
@@ -179,7 +172,7 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   'WinLeave',
   {
-    group = hl_group,
+    -- group = hl_group,
     pattern = '*',
     callback = function()
       vim.wo.cursorline = false
@@ -187,8 +180,11 @@ vim.api.nvim_create_autocmd(
   }
 )
 
--- diagnostics
+--------------------------------------------------------------------------------
+-- Misc
+--------------------------------------------------------------------------------
 
+-- diagnostics options
 vim.diagnostic.config({
   virtual_text = {
     source = "if_many",
