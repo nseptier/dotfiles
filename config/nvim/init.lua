@@ -10,6 +10,18 @@ vim.api.nvim_create_autocmd('VimResized', {
 -- keymaps
 --------------------------------------------------------------------------------
 
+function ClearTerm()
+  vim.opt_local.scrollback = 1
+
+  vim.api.nvim_command("startinsert")
+  vim.api.nvim_feedkeys("clear", 't', false)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+
+  vim.opt_local.scrollback = 10000
+end
+
+vim.keymap.set('t', 'zz', '<c-\\><c-n>:lua ClearTerm()<cr>')
+
 -- Set space as leader key
 vim.keymap.set('n', '<space><nop>', vim.lsp.buf.rename)
 vim.g.mapleader = " "
@@ -103,7 +115,7 @@ vim.opt.rtp:append '/usr/local/opt/fzf'
 vim.opt.ruler = true
 vim.opt.scrolloff = 2
 vim.opt.shiftwidth = 2
-vim.opt.showtabline = 2
+vim.opt.showtabline = 1
 vim.opt.signcolumn = 'no'
 vim.opt.smartcase = true
 vim.opt.smarttab = true
@@ -145,12 +157,34 @@ vim.api.nvim_create_autocmd("Filetype", {
 
 vim.cmd 'color ipsum'
 
+--------------------------------------------------------------------------------
+-- autocmd
+--------------------------------------------------------------------------------
 -- Force typescriptreact filetype
-local hl_group = vim.api.nvim_create_augroup('hl', { clear = true })
+vim.api.nvim_create_autocmd(
+  'TermOpen',
+  {
+    callback = function()
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+    end
+  }
+)
+
+vim.api.nvim_create_autocmd(
+  'BufEnter',
+  {
+    callback = function()
+      vim.cmd("startinsert")
+    end,
+    pattern = "term://*",
+  }
+)
+
+-- Force typescriptreact filetype
 vim.api.nvim_create_autocmd(
   { 'BufRead', 'BufNewFile' },
   {
-    group = hl_group,
     pattern = { '*.js', '*.ts', '*.jsx', '*.tsx' },
     callback = function()
       vim.opt_local.filetype = 'typescriptreact'
@@ -162,7 +196,6 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   'WinEnter',
   {
-    -- group = hl_group,
     pattern = '*',
     callback = function()
       vim.wo.cursorline = true
@@ -172,7 +205,6 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   'WinLeave',
   {
-    -- group = hl_group,
     pattern = '*',
     callback = function()
       vim.wo.cursorline = false

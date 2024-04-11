@@ -20,6 +20,10 @@ return {
       lsp_zero.buffer_autoformat()
     end)
 
+    -- keymaps
+    vim.keymap.set('n', ',d', vim.diagnostic.open_float)
+
+    -- disable diagnostic virtual text
     vim.diagnostic.config({ virtual_text = false })
 
     local lspconfig = require('lspconfig')

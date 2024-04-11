@@ -7,7 +7,7 @@ return {
         icons_enabled = true,
         theme = 'auto',
         component_separators = { left = '', right = '' },
-        section_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
           statusline = {},
           winbar = {},
@@ -22,7 +22,11 @@ return {
         }
       },
       sections = {
-        lualine_a = { 'filename' },
+        lualine_a = {
+          {
+            'filename', path = 1,
+          },
+        },
         lualine_b = { 'location', 'progress' },
         lualine_c = {
           'mode',
@@ -42,13 +46,33 @@ return {
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = { 'filename' },
+        lualine_b = {
+          {
+            'filename', path = 1,
+          },
+        },
         lualine_c = { 'location' },
         lualine_x = {},
         lualine_y = {},
         lualine_z = {}
       },
-      tabline = {},
+      tabline = {
+        lualine_x = {
+          {
+            'tabs',
+            cond = function()
+              return #vim.fn.gettabinfo() > 1
+            end,
+            use_mode_colors = false,
+            show_modified_status = false,
+            tabs_color = {
+              -- Same values as the general color option can be used here.
+              active = 'ActiveTab', -- Color for active tab.
+              -- inactive = '', -- Color for inactive tab.
+            },
+          }
+        },
+      },
       winbar = {},
       inactive_winbar = {},
       extensions = {}

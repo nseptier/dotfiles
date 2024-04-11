@@ -23,6 +23,9 @@ return {
       --     - `"<commit-short>"` - short portion of the commit hash.
       --     - `"<commit-long>"` - the full commit hash.
       template = "<author>, <author-time> • <summary>",
+
+      -- keymap
+      vim.keymap.set('n', '<leader>b', ':BlameLineToggle<cr>', {})
     }
   end
 }
