@@ -20,6 +20,7 @@ local punctuation = '#6a7991'
 local secondary_2 = '#52b69a'
 local operator = '#d9ed92'
 local comment = '#515a62'
+local line_nr = '#515a62'
 local type = '#99d98c'
 
 local host = {
@@ -55,7 +56,7 @@ local host = {
 
   -- line number
   CursorLineNr = { fg = text_light, bg = background_dark },
-  LineNr = { fg = comment },
+  LineNr = { fg = line_nr },
 
   -- cursor
   CursorColumn = { fg = none },
@@ -89,7 +90,7 @@ local host = {
 }
 
 local syntax = {
-  BlameLineNvim = { fg = comment },
+  BlameLineNvim = { fg = line_nr },
   Comment = { fg = comment, standout = true },
   Constant = { fg = accent },
   Cursor = { fg = text_light },
