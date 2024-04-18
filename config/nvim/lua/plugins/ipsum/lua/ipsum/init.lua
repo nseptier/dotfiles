@@ -31,6 +31,7 @@ local host = {
   -- search
   IncSearch = { fg = highlight, bg = text_light },
   Search = { fg = text_light, bg = highlight },
+  CurSearch = { link = 'IncSearch' },
 
   -- spelling
   SpellBad = { fg = undefined },
@@ -84,7 +85,7 @@ local host = {
   SpecialKey = { fg = undefined },
   TermCursor = { fg = background, bg = text_light },
   Title = { fg = text_medium },
-  VertSplit = { fg = background_dark },
+  VertSplit = { fg = background_dark, bg = background_dark },
   Visual = { fg = text_light, bg = highlight },
   WildMenu = { fg = undefined },
 }
@@ -114,10 +115,10 @@ local syntax = {
   FloatShadowThrough = { fg = undefined, bg = background, blend = 90 },
   fugitiveHunk = { fg = text_medium },
   Function = { fg = text_light },
-  HopNextKey = { fg = accent },
+  HopNextKey = { fg = operator },
   HopNextKey1 = { fg = accent },
-  HopNextKey2 = { fg = accent },
-  HopUnmatched = { fg = text_medium },
+  HopNextKey2 = { fg = accent_2 },
+  HopUnmatched = { fg = text_dark },
   htmlTag = { fg = punctuation },
   htmlTagName = { fg = accent },
   IblIndent = { fg = background_light, default = true },
@@ -168,7 +169,7 @@ local syntax = {
   ['@keyword.return.tsx'] = { fg = accent_2 },
   ['@keyword.conditional.tsx'] = { fg = accent_3 },
   ['@keyword.coroutine.tsx'] = { fg = accent_2 },
-  ['@constant.builtin.tsx'] = { fg = accent_2 },
+  -- ['@constant.builtin.tsx'] = { fg = accent_2 },
   ['@punctuation.bracket.tsx'] = { fg = punctuation },
   ['@punctuation.delimiter.tsx'] = { fg = punctuation },
   ['@punctuation.special.javascript'] = { fg = punctuation },
@@ -184,7 +185,7 @@ local syntax = {
   LspSignatureActiveParameter = { fg = accent, bg = text_light },
   EyelinerPrimary = { fg = operator },
   EyelinerSecondary = { fg = accent },
-  EyelinerDimmed = { fg = text_medium },
+  EyelinerDimmed = { fg = text_dark },
   TelescopeBorder = { fg = text_dark },
   TelescopeMatching = { link = 'Search' },
   gitcommitOverflow = { fg = text_light },
