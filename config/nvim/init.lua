@@ -10,17 +10,20 @@ vim.api.nvim_create_autocmd('VimResized', {
 -- keymaps
 --------------------------------------------------------------------------------
 
-function ClearTerm()
-  vim.opt_local.scrollback = 1
+-- function ClearTerm()
+--   vim.opt_local.scrollback = 1
 
-  vim.api.nvim_command("startinsert")
-  vim.api.nvim_feedkeys("clear", 't', false)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
+--   vim.api.nvim_command("startinsert")
+--   vim.api.nvim_feedkeys("clear", 't', false)
+--   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
 
-  vim.opt_local.scrollback = 10000
-end
+--   vim.opt_local.scrollback = 10000
+-- end
 
-vim.keymap.set('t', 'zz', '<c-\\><c-n>:lua ClearTerm()<cr>')
+-- vim.keymap.set('t', 'zz', '<c-\\><c-n>:lua ClearTerm()<cr>')
+
+-- alias fugitive to lowercase g
+vim.cmd('cnoreabbrev g G')
 
 -- Set space as leader key
 vim.keymap.set('n', '<space><nop>', vim.lsp.buf.rename)
@@ -33,10 +36,10 @@ vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 
 -- Map jj to esc
-vim.keymap.set('i', 'jj', '<esc>', { silent = true })
+-- vim.keymap.set('i', 'jj', '<esc>', { silent = true })
 
 -- Map jj to esc insert mode in terminal
-vim.keymap.set('t', 'jj', '<c-\\><c-n>', { silent = true })
+vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>', { silent = true })
 
 -- buffers navigation
 vim.keymap.set('', '[b', ':bprevious<cr>', { silent = true })

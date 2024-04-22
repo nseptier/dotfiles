@@ -9,6 +9,7 @@ alias vim=v
 
 # -- ZSH Z ---------------------------------------------------------------------
 
+source "$(brew --prefix zsh-autocomplete)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 source "$(brew --prefix z)/etc/profile.d/z.sh"
 
 ZSHZ_CASE=smart

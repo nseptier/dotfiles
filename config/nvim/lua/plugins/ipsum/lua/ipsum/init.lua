@@ -4,6 +4,7 @@ local background_dark = '#222429'
 local undefined = '#ff00ff'
 local none = 'NONE'
 local text_light = '#dde4f2'
+local text_lighter = '#c7d2d4'
 local text_medium = '#91a6aa'
 local text_dark = '#758797'
 local hint = '#829d9b'
@@ -96,13 +97,13 @@ local syntax = {
   Constant = { fg = accent },
   Cursor = { fg = text_light },
   CursorLineConceal = { fg = undefined },
-  DiagnosticDeprecated = { fg = undefined },
+  DiagnosticDeprecated = { fg = none },
   DiagnosticError = { fg = error },
   DiagnosticHint = { fg = hint },
   DiagnosticInfo = { fg = info },
   DiagnosticOk = { fg = undefined },
   DiagnosticUnderlineError = { fg = error, reverse = true },
-  DiagnosticUnderlineHint = { fg = none },
+  DiagnosticUnderlineHint = { underline = true },
   DiagnosticUnderlineInfo = { fg = text_medium },
   DiagnosticUnderlineOk = { fg = undefined },
   DiagnosticUnderlineWarn = { fg = warning, reverse = true },
@@ -150,6 +151,8 @@ local syntax = {
 
 
   fugitiveHash = { fg = accent_2 },
+  fugitiveHeading = { fg = text_dark },
+  fugitiveCount = { fg = text_medium },
   fugitiveUntrackedSection = { fg = text_medium },
   fugitiveUnstagedSection = { fg = text_light },
   fugitiveStagedSection = { fg = add },
@@ -157,15 +160,21 @@ local syntax = {
   fugitiveUnstagedModifier = { fg = text_medium },
   fugitiveStagedModifier = { fg = secondary_2 },
   fugitiveHelpTag = { fg = accent_3 },
-  fugitiveUntrackedHeading = { fg = accent },
-  fugitiveUnstagedHeading = { fg = accent },
+  fugitiveUntrackedHeading = { fg = text_dark },
+  fugitiveUnstagedHeading = { fg = text_dark },
   fugitiveSymbolicRef = { fg = text_light },
-  fugitiveHeader = { fg = accent_2 },
-  fugitiveStagedHeading = { fg = accent },
+  fugitiveHeader = { fg = text_dark },
+  fugitiveStagedHeading = { fg = text_dark },
   ['@variable'] = { fg = text_light },
   ['@keyword.lua'] = { fg = text_medium },
-  ['@keyword.tsx'] = { fg = text_medium },
-  ['@keyword.import.tsx'] = { fg = text_medium },
+  ['@keyword.tsx'] = { fg = text_dark },
+  ['@keyword.import.tsx'] = { fg = text_dark },
+  ['@keyword.operator.tsx'] = { fg = text_medium },
+  -- ['@function.method.call.tsx'] = { fg = accent_3 },
+  -- ['@lsp.type.function.typescriptreact'] = { fg = accent_3 },
+  ['@lsp.type.class.typescriptreact'] = { fg = text_light },
+  ['@lsp.typemod.class.defaultLibrary.typescriptreact'] = { fg = text_medium },
+  ['@lsp.typemod.property.declaration.typescriptreact'] = { fg = text_lighter },
   ['@keyword.function.tsx'] = { fg = accent_2 },
   ['@keyword.return.tsx'] = { fg = accent_2 },
   ['@keyword.conditional.tsx'] = { fg = accent_3 },
@@ -178,11 +187,11 @@ local syntax = {
   ['@punctuation.special.javascript'] = { fg = punctuation },
   ['@punctuation.special.tsx'] = { fg = punctuation },
   ['@tag.builtin.tsx'] = { fg = accent },
-  ['@lsp.typemod.variable.defaultLibrary.typescriptreact'] = { fg = text_medium },
+  ['@lsp.typemod.variable.defaultLibrary.typescriptreact'] = { fg = text_dark },
   ['@string.escape.tsx'] = { fg = text_light },
   ['@tag.tsx'] = { fg = accent },
   ['@tag.attribute.tsx'] = { fg = text_medium },
-  ['@type.builtin.tsx'] = { fg = accent },
+  ['@type.builtin.tsx'] = { fg = type },
   tsxTagName = { fg = accent },
   tsxAttrib = { fg = text_medium },
   LspSignatureActiveParameter = { fg = accent, bg = text_light },
@@ -204,9 +213,9 @@ local syntax = {
 
   -- flog
   flogRef = { fg = accent },
-  flogRefHead = { fg = operator },
+  flogRefHead = { fg = type },
   flogRefTag = { fg = operator },
-  flogRefHeadBranch = { fg = operator },
+  flogRefHeadBranch = { fg = type },
   flogAuthor = { fg = text_dark },
   flogDate = { fg = accent_2 },
   flogHash = { fg = text_dark },
