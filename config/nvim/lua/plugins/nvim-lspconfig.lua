@@ -23,8 +23,12 @@ return {
     -- keymaps
     vim.keymap.set('n', ',d', vim.diagnostic.open_float)
 
-    -- disable diagnostic virtual text
-    vim.diagnostic.config({ virtual_text = false })
+    -- diagnostic
+    vim.diagnostic.config({
+      virtual_text = {
+        prefix = '',
+      },
+    })
 
     local lspconfig = require('lspconfig')
     require('mason-lspconfig').setup({

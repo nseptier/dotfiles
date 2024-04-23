@@ -2,14 +2,24 @@
 
 # alias python='python3'
 alias ls="ls -lhG"
-alias G="git"
+alias g="git"
 alias vv="vifm"
 alias vim=v
 
 
-# -- ZSH Z ---------------------------------------------------------------------
+# -- ZSH autocomplete ---------------------------------------------------------------------
 
 source "$(brew --prefix zsh-autocomplete)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+
+# Make ← and → always move the cursor on the command line
+bindkey -M menuselect  '^[[D' .backward-char  '^[OD' .backward-char
+bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
+
+# Make Enter always submit the command line
+bindkey -M menuselect '^M' .accept-line
+
+# -- ZSH Z ---------------------------------------------------------------------
+
 source "$(brew --prefix z)/etc/profile.d/z.sh"
 
 ZSHZ_CASE=smart
