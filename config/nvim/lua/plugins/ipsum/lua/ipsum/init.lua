@@ -210,6 +210,7 @@ local syntax = {
   gitcommitFirstLine = { link = 'Normal' },
   ActiveTab = { fg = background, bg = text_dark },
   jsonKeywordMatch = { fg = punctuation },
+  WhiteSpace = { fg = none, standout = true },
 
   -- flog
   flogRef = { fg = accent },
