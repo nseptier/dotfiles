@@ -25,9 +25,7 @@ return {
 
     -- diagnostic
     vim.diagnostic.config({
-      virtual_text = {
-        prefix = '',
-      },
+      virtual_text = false -- { prefix = '', },
     })
 
     local lspconfig = require('lspconfig')
