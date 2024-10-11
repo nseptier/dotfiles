@@ -4,6 +4,11 @@ return {
   config = function()
     require("ibl").setup {
       indent = { char = "▏" },
+      whitespace = {
+        highlight = {
+          "Whitespace",
+        },
+      },
       scope = {
         enabled = true,
       },
