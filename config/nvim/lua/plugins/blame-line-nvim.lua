@@ -24,8 +24,14 @@ return {
       --     - `"<commit-long>"` - the full commit hash.
       template = "<author>, <author-time> • <summary>",
 
+      -- The highlight group to highlight the blame line with.
+      -- The highlight of this group defaults to `Comment`.
+      hl_group = "BlameLineNvim",
+
       -- keymap
-      vim.keymap.set('n', '<leader>b', ':BlameLineToggle<cr>', {})
+      vim.keymap.set('n', '<leader>b', ':BlameLineToggle<cr>', {}),
+
+      delay = 100,
     }
   end
 }

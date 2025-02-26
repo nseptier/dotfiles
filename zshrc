@@ -9,18 +9,19 @@ alias vim=v
 
 # -- ZSH autocomplete ---------------------------------------------------------------------
 
-source "$(brew --prefix zsh-autocomplete)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
+# source "$(brew --prefix zsh-autocomplete)/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh"
 
 # Make ← and → always move the cursor on the command line
-bindkey -M menuselect  '^[[D' .backward-char  '^[OD' .backward-char
-bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
+# bindkey -M menuselect  '^[[D' .backward-char  '^[OD' .backward-char
+# bindkey -M menuselect  '^[[C'  .forward-char  '^[OC'  .forward-char
 
 # Make Enter always submit the command line
-bindkey -M menuselect '^M' .accept-line
+# bindkey -M menuselect '^M' .accept-line
 
 # -- ZSH Z ---------------------------------------------------------------------
 
-source "$(brew --prefix z)/etc/profile.d/z.sh"
+# source "$(brew --prefix z)/etc/profile.d/z.sh"
+source ~/.zsh/zsh-z/zsh-z.plugin.zsh
 
 ZSHZ_CASE=smart
 ZSHZ_TILDE=1
@@ -107,10 +108,10 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+# [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 
@@ -121,8 +122,9 @@ export NNN_PLUG='f:fzplug'
 
 # -- SPACESHIP PROMPT ----------------------------------------------------------
 
+source "$HOME/.zsh/spaceship/spaceship.zsh"
 autoload -U promptinit; promptinit
-prompt spaceship
+# prompt spaceship
 
 SPACESHIP_PROMPT_ORDER=(char)
 SPACESHIP_CHAR_SYMBOL="$ "
@@ -133,28 +135,28 @@ SPACESHIP_CHAR_SYMBOL="$ "
 #brew
 CPU=$(uname -p)
 if [[ "$CPU" == "arm" ]]; then
-    export PATH="/opt/homebrew/bin:$PATH"
+    # export PATH="/opt/homebrew/bin:$PATH"
 else
     export PATH="/usr/local/bin:$PATH"
 fi
 
 #node
 export NVM_DIR="$HOME/.nvm"
-[ -s "$(brew --prefix nvm)/nvm.sh" ] && \. "$(brew --prefix nvm)/nvm.sh"  # This loads nvm
-[ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# [ -s "$(brew --prefix nvm)/nvm.sh" ] && \. "$(brew --prefix nvm)/nvm.sh"  # This loads nvm
+# [ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # android
 # export CPPFLAGS="-I$(brew --prefix openjdk@11)/include"
-export PATH="$(brew --prefix openjdk@11)/bin:$PATH"
+# export PATH="$(brew --prefix openjdk@11)/bin:$PATH"
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 11)
+# export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export ANDROID_SDK_ROOT=~/Library/Android/sdk/
 PATH=$PATH:~/Library/Android/sdk/platform-tools/
 
 # rbenv
 [[ -f $(command -v rbenv) ]] && eval "$(rbenv init - zsh)"
 
-PATH="$(brew --prefix ncurses)/bin:$PATH"
+# PATH="$(brew --prefix ncurses)/bin:$PATH"
 
 # flutter
 PATH="$PATH:/Users/nico/fvm/default/bin"
@@ -163,8 +165,11 @@ PATH="/Users/nico/fvm/versions/stable/bin:$PATH"
 PATH="$PATH:/Volumes/class-dump-3.5/class-dump"
 
 export REACT_EDITOR=vim
-export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+# export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
 
 export PATH=$PATH
 
 export TERM=screen-256color-bce
+
+export EDITOR='nvim'
+export VISUAL='nvim'

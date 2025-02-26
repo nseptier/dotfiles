@@ -8,7 +8,8 @@
   graph = log --abbrev-commit --color=always --author-date-order --date=relative --decorate --format=format:'%C(white bold)%h%C(reset) %s %C(white bold)by%C(reset) %C(cyan bold)%an%C(reset)%C(white bold), %cr%C(reset)%C(auto)%d%C(reset)' --graph
 [core]
 	editor = nvim
-	excludesfile = /Users/nico/.gitignore
+	excludesFile = ~/.gitignore
+	longpaths = true
 [filter "media"]
 	required = true
 	clean = git media clean %f

@@ -53,11 +53,14 @@ vim.keymap.set('', ']t', ':tabnext<cr>', { silent = true })
 vim.keymap.set('', '[q', ':cprev<cr>', { silent = true })
 vim.keymap.set('', ']q', ':cnext<cr>', { silent = true })
 
+-- Open Oil
+vim.keymap.set('n', '<leader>oo', ':Oil<cr>', { silent = true, nowait = true })
+
 -- Sort selection
 vim.keymap.set('v', '<leader>s', ':sort i<cr>', { silent = true })
 
 -- delete buffer
-vim.keymap.set('n', '<leader>q', ':Bdelete!<cr>', { silent = true, nowait = true })
+vim.keymap.set('n', '<leader>qq', ':Bdelete!<cr>', { silent = true, nowait = true })
 
 -- delete all hidden buffers
 vim.keymap.set('n', '<leader>Q', ':DeleteHiddenBuffers<cr>', { silent = true })
@@ -95,11 +98,11 @@ vim.opt.cursorline = true
 vim.opt.directory = '~/.vim/swap//'
 vim.opt.encoding = 'utf-8'
 vim.opt.expandtab = true
-vim.opt.fillchars = 'fold:-,vert:▏'
+vim.opt.fillchars = 'fold:-,vert: '
 vim.opt.foldcolumn = '0'
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
-vim.opt.foldmethod = 'indent'
+-- vim.opt.foldmethod = 'syntax'
 vim.opt.foldnestmax = 20
 vim.opt.foldopen:remove 'block'
 vim.opt.foldtext = ''
@@ -121,6 +124,11 @@ vim.opt.shiftwidth = 2
 vim.opt.showmode = false
 vim.opt.showtabline = 1
 vim.opt.signcolumn = 'no'
+vim.opt.shell = 'bash'
+vim.opt.shellcmdflag = '-c'
+vim.opt.shellquote = ''
+vim.opt.shellxquote = ''
+vim.opt.shellslash = true
 vim.opt.smartcase = true
 vim.opt.smarttab = true
 vim.opt.softtabstop = 2
@@ -139,7 +147,8 @@ vim.opt.wrap = false
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+    lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
@@ -164,6 +173,21 @@ vim.cmd 'color ipsum'
 --------------------------------------------------------------------------------
 -- autocmd
 --------------------------------------------------------------------------------
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  callback = function()
+    -- check if treesitter has parser
+    if require("nvim-treesitter.parsers").has_parser() then
+      -- use treesitter folding
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    else
+      -- use alternative foldmethod
+      vim.opt.foldmethod = "indent"
+    end
+  end,
+})
+
 -- Force typescriptreact filetype
 vim.api.nvim_create_autocmd(
   'TermOpen',
@@ -222,6 +246,14 @@ vim.api.nvim_create_autocmd(
 
 -- diagnostics options
 vim.diagnostic.config({
+  signs = {
+    numhl = {
+      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+    },
+  },
   virtual_text = {
     source = "if_many",
     prefix = '● ',

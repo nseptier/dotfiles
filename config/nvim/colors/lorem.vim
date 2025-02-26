@@ -1075,7 +1075,7 @@ hi! link @tag.delimiter.tsx htmlTag
 
 exe 'hi htmlTagName guifg='.s:accent_7.' guibg='.s:none
 
-exe 'hi floatBorder guifg='.s:neutral_8.' guibg='.s:none
+exe 'hi floatBorder guifg='.s:accent_3.' guibg='.s:none
 
 exe 'hi fugitiveHunk guifg='.s:neutral_7.' guibg='.s:none
 

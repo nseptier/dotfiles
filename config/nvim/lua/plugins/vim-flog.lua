@@ -1,8 +1,9 @@
 return {
   'rbong/vim-flog',
+  commit = "55742e2",
   init = function()
     -- keymaps
-    vim.keymap.set('n', '<leader>gg', ':Flog<CR>')
+    vim.keymap.set('n', '<leader>gt', ':Flogsplit<CR>')
 
     -- options
     vim.g.flog_permanent_default_opts = {

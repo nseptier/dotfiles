@@ -4,6 +4,7 @@ return {
   branch = 'master',
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "desdic/telescope-rooter.nvim",
   },
   config = function()
     local actions = require("telescope.actions")
@@ -51,7 +52,11 @@ return {
           override_file_sorter = true,    -- override the file sorter
           case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
           -- the default case_mode is "smart_case"
-        }
+        },
+        rooter = {
+          enable = true,
+          patterns = { ".git", "package.json" }
+        },
       }
     }
 
@@ -64,5 +69,6 @@ return {
     vim.keymap.set('n', '<leader>gb', builtin.git_branches, {})
 
     require('telescope').load_extension('fzf')
+    require "telescope".load_extension("rooter")
   end
 }
