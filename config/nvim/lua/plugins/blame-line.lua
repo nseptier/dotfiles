@@ -1,7 +1,9 @@
 return {
   "braxtons12/blame_line.nvim",
   config = function()
-    require("blame_line").setup {
+    local blameline = require('blame_line')
+
+    blameline.setup {
       -- whether the blame line should be shown in visual modes
       show_in_visual = false,
 
@@ -9,7 +11,7 @@ return {
       show_in_insert = false,
 
       -- the string to prefix the blame line with
-      prefix = "        ", -- " ",
+      prefix = "  ",
 
       -- String specifying the the blame line format.
       -- Any combination of the following specifiers, along with any additional text.
@@ -22,7 +24,7 @@ return {
       --     - `"<summary>"` - the commit summary/message.
       --     - `"<commit-short>"` - short portion of the commit hash.
       --     - `"<commit-long>"` - the full commit hash.
-      template = "<author>, <author-time> • <summary>",
+      template = "<author>, <author-time>   <summary>",
 
       -- The highlight group to highlight the blame line with.
       -- The highlight of this group defaults to `Comment`.
@@ -33,5 +35,7 @@ return {
 
       delay = 100,
     }
+
+    blameline.disable()
   end
 }

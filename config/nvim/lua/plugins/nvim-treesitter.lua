@@ -12,11 +12,21 @@ return {
     })
   end,
   init = function()
-    vim.api.nvim_create_autocmd("BufEnter", {
-      pattern = {
-        'Fastfile', 'Appfile', 'Matchfile', 'Pluginfile',
-      },
-      command = "set filetype=ruby",
-    })
+    -- vim.api.nvim_create_trueautocmd("BufEnter", {
+    --   pattern = {
+    --     'Fastfile', 'Appfile', 'Matchfile', 'Pluginfile',
+    --   },
+    --   command = "set filetype=ruby",
+    -- })
+
+    -- local treesitter_parsers = require('nvim-treesitter.parsers')
+
+    -- if treesitter_parsers.has_parser "tsx" then
+    -- vim.treesitter.query.set("tsx", "highlights",
+    --   [[; extends
+
+    --   ((identifier) @variable (#set! priority 110))]]
+    -- )
+    -- end
   end
 }

@@ -10,18 +10,6 @@ vim.api.nvim_create_autocmd('VimResized', {
 -- keymaps
 --------------------------------------------------------------------------------
 
--- function ClearTerm()
---   vim.opt_local.scrollback = 1
-
---   vim.api.nvim_command("startinsert")
---   vim.api.nvim_feedkeys("clear", 't', false)
---   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<cr>', true, false, true), 't', true)
-
---   vim.opt_local.scrollback = 10000
--- end
-
--- vim.keymap.set('t', 'zz', '<c-\\><c-n>:lua ClearTerm()<cr>')
-
 -- alias fugitive to lowercase g
 vim.cmd('cnoreabbrev g G')
 
@@ -34,9 +22,6 @@ vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
 
 -- code actions
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
-
--- Map jj to esc
--- vim.keymap.set('i', 'jj', '<esc>', { silent = true })
 
 -- Map jj to esc insert mode in terminal
 vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>', { silent = true })
@@ -56,11 +41,8 @@ vim.keymap.set('', ']q', ':cnext<cr>', { silent = true })
 -- Open Oil
 vim.keymap.set('n', '<leader>oo', ':Oil<cr>', { silent = true, nowait = true })
 
--- Sort selection
-vim.keymap.set('v', '<leader>s', ':sort i<cr>', { silent = true })
-
 -- delete buffer
-vim.keymap.set('n', '<leader>qq', ':Bdelete!<cr>', { silent = true, nowait = true })
+vim.keymap.set('n', '<leader>qq', ':lua MiniBufremove.delete()<cr>', { silent = true, nowait = true })
 
 -- delete all hidden buffers
 vim.keymap.set('n', '<leader>Q', ':DeleteHiddenBuffers<cr>', { silent = true })
@@ -68,13 +50,6 @@ vim.keymap.set('n', '<leader>Q', ':DeleteHiddenBuffers<cr>', { silent = true })
 -- quit nvim
 vim.api.nvim_create_user_command('SaveAllandQuit', 'wall | qa!', {})
 vim.keymap.set('n', 'QQ', ':SaveAllandQuit<cr>', { silent = true, nowait = true })
-
--- local bufs = vim.api.nvim_list_bufs()
--- for _, i in ipairs(bufs) do
---   if i ~= current_buf then
---     vim.api.nvim_buf_delete(i, {})
---   end
--- end
 
 -- Remove search highlights
 vim.keymap.set('n', '<esc><esc>', ':noh<cr>', { silent = true })
@@ -87,59 +62,91 @@ vim.keymap.set('n', 'L', '$', { silent = true })
 -- options
 --------------------------------------------------------------------------------
 
-vim.opt.autoindent = true
-vim.opt.autoread = true
-vim.opt.backupdir = '/c/Users/nsepier/.vim/backup/'
-vim.opt.clipboard = 'unnamedplus'
-vim.opt.cmdheight = 1
-vim.opt.compatible = false
-vim.opt.cursorcolumn = false
-vim.opt.cursorline = true
-vim.opt.directory = '~/.vim/swap//'
-vim.opt.encoding = 'utf-8'
-vim.opt.expandtab = true
-vim.opt.fillchars = 'fold:-,vert: '
-vim.opt.foldcolumn = '0'
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
--- vim.opt.foldmethod = 'syntax'
-vim.opt.foldnestmax = 20
+vim.o.autoindent = true
+vim.o.autoread = true
+vim.o.backupdir = vim.fn.expand('~/.vim/backup/')
+vim.o.clipboard = 'unnamedplus'
+vim.o.cmdheight = 1
+vim.o.compatible = false
+vim.o.cursorcolumn = false
+vim.o.cursorline = true
+vim.o.directory = vim.fn.expand('~/.vim/swap/')
+vim.o.encoding = 'utf-8'
+vim.o.expandtab = true
+vim.o.fillchars =
+'eob: ,fold:⧸,foldopen:,foldclose:,foldsep: ,horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋'
+vim.o.foldcolumn = 'auto'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldmethod = 'expr'
+vim.o.foldnestmax = 20
 vim.opt.foldopen:remove 'block'
-vim.opt.foldtext = ''
-vim.opt.hidden = true
-vim.opt.hlsearch = true
-vim.opt.ignorecase = true
-vim.opt.incsearch = true
-vim.opt.laststatus = 3
-vim.opt.lcs = 'tab:|→'
-vim.opt.list = true
-vim.opt.listchars = 'eol:↲,tab:→ ,trail:×,precedes:‹,extends:›,nbsp:~,space: '
-vim.opt.number = true
-vim.opt.path = '$PWD/**'
-vim.opt.relativenumber = true
+vim.o.foldtext = ''
+vim.o.hidden = true
+vim.o.hlsearch = true
+vim.o.ignorecase = true
+vim.o.incsearch = true
+vim.o.laststatus = 3
+vim.o.lcs = 'tab:|→'
+vim.o.list = true
+vim.o.listchars = 'eol:↲,tab:→ ,trail:×,precedes:‹,extends:›,nbsp:␣,space: '
+vim.o.number = true
+vim.o.path = '$PWD/**'
+vim.o.relativenumber = true
 vim.opt.rtp:append '/usr/local/opt/fzf'
-vim.opt.ruler = true
-vim.opt.scrolloff = 2
-vim.opt.shiftwidth = 2
-vim.opt.showmode = false
-vim.opt.showtabline = 1
-vim.opt.signcolumn = 'no'
-vim.opt.shell = 'bash'
-vim.opt.shellcmdflag = '-c'
-vim.opt.shellquote = ''
-vim.opt.shellxquote = ''
-vim.opt.shellslash = true
-vim.opt.smartcase = true
-vim.opt.smarttab = true
-vim.opt.softtabstop = 2
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.swapfile = false
-vim.opt.tabstop = 2
-vim.opt.termguicolors = true
-vim.opt.undodir = '~/.vim/undo//'
+vim.o.ruler = true
+vim.o.scrolloff = 2
+vim.o.shiftwidth = 2
+vim.o.showmode = false
+vim.o.showtabline = 1
+vim.o.signcolumn = 'no'
+vim.o.smartcase = true
+vim.o.smarttab = true
+vim.o.softtabstop = 2
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.swapfile = false
+vim.o.tabstop = 2
+vim.o.termguicolors = true
+vim.o.updatetime = 1000
+vim.o.undodir = vim.fn.expand('~/.vim/undo/')
 vim.opt.wildignore:append '*/node_modules/**'
-vim.opt.wrap = false
+vim.o.wrap = false
+vim.o.sessionoptions = 'buffers,curdir,folds,tabpages,winsize'
+
+-- Prefer LSP folding if client supports it
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client:supports_method('textDocument/foldingRange') then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('LspProgress', {
+  callback = function(ev)
+    -- vim.print(ev)
+
+    if ev.data.params.value.kind == 'end' and ev.data.params.token == 'TSSERVER_LOADING' then
+      local seen = {}
+
+      vim.tbl_map(function(winid)
+        local bufnr = vim.api.nvim_win_get_buf(winid)
+
+        if not seen[bufnr] and vim.lsp.buf_is_attached(bufnr, ev.data.client_id) then
+          vim.api.nvim_buf_call(bufnr, function()
+            vim.lsp.semantic_tokens.force_refresh(0)
+          end)
+          seen[bufnr] = true
+        end
+      end, vim.api.nvim_tabpage_list_wins(0))
+    end
+  end,
+})
+
 
 --------------------------------------------------------------------------------
 -- lazy.nvim
@@ -159,7 +166,7 @@ require("lazy").setup("plugins")
 
 vim.api.nvim_create_autocmd("Filetype", {
   callback = function()
-    vim.opt.textwidth = 72
+    vim.o.textwidth = 72
   end,
   pattern = 'gitcommit'
 })
@@ -174,18 +181,11 @@ vim.cmd 'color ipsum'
 -- autocmd
 --------------------------------------------------------------------------------
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
+vim.api.nvim_create_autocmd("Filetype", {
   callback = function()
-    -- check if treesitter has parser
-    if require("nvim-treesitter.parsers").has_parser() then
-      -- use treesitter folding
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    else
-      -- use alternative foldmethod
-      vim.opt.foldmethod = "indent"
-    end
+    vim.o.cursorline = false
   end,
+  pattern = 'TelescopePrompt'
 })
 
 -- Force typescriptreact filetype
@@ -193,8 +193,8 @@ vim.api.nvim_create_autocmd(
   'TermOpen',
   {
     callback = function()
-      vim.opt_local.number = false
-      vim.opt_local.relativenumber = false
+      vim.o.number = false
+      vim.o.relativenumber = false
     end
   }
 )
@@ -213,16 +213,17 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   { 'BufRead', 'BufNewFile' },
   {
-    pattern = { '*.js', '*.ts', '*.jsx', '*.tsx' },
+    -- pattern = { '*.js', '*.ts', '*.jsx', '*.tsx' },
+    pattern = { '*.js', '*.jsx', '*.tsx' },
     callback = function()
-      vim.opt_local.filetype = 'typescriptreact'
+      vim.o.filetype = 'typescript.tsx'
     end
   }
 )
 
 -- Show cursor line for active buffer only
 vim.api.nvim_create_autocmd(
-  'WinEnter',
+  { 'WinEnter' },
   {
     pattern = '*',
     callback = function()
@@ -231,7 +232,7 @@ vim.api.nvim_create_autocmd(
   }
 )
 vim.api.nvim_create_autocmd(
-  'WinLeave',
+  { 'WinLeave' },
   {
     pattern = '*',
     callback = function()
@@ -245,22 +246,12 @@ vim.api.nvim_create_autocmd(
 --------------------------------------------------------------------------------
 
 -- diagnostics options
+
+vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end)
+vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
+vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
+
 vim.diagnostic.config({
-  signs = {
-    numhl = {
-      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
-      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
-    },
-  },
-  virtual_text = {
-    source = "if_many",
-    prefix = '● ',
-  },
-  update_in_insert = true,
-  underline = true,
-  severity_sort = true,
   float = {
     focusable = false,
     style = 'minimal',
@@ -269,4 +260,20 @@ vim.diagnostic.config({
     header = '',
     prefix = '',
   },
+  signs = {
+    numhl = {
+      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+    },
+  },
+  update_in_insert = true,
+  underline = true,
+  severity_sort = true,
+  virtual_text = false,
+  -- virtual_text = {
+  --   source = "if_many",
+  --   prefix = '● ',
+  -- },
 })

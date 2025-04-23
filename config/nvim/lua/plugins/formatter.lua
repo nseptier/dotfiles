@@ -9,28 +9,17 @@ return {
       command = ":FormatWrite",
     })
 
-    -- local prettier = function(parser)
-    --   return
-    --     {
-    --       exe = "prettier",
-    --       args = {
-    --         "--stdin-filepath",
-    --         vim.fs.normalize(vim.api.nvim_buf_get_name(0)),
-    --       },
-    --       stdin = true,
-    --       try_node_modules = true,
-    --     }
-    -- end
-
-
     require('formatter').setup({
       filetype = {
         javascript = require("formatter.filetypes.javascript").prettier,
         javascriptreact = require("formatter.filetypes.javascript").prettier,
+        ['javascript.jsx'] = require("formatter.filetypes.javascript").prettier,
         typescript = require("formatter.filetypes.typescript").prettier,
         typescriptreact = require("formatter.filetypes.typescript").prettier,
+        ['typescript.tsx'] = require("formatter.filetypes.typescript").prettier,
         vue = require("formatter.filetypes.vue").prettier,
-      }
+      },
+      logging = false,
     })
   end
 }

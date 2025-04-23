@@ -3,15 +3,14 @@ return {
   main = "ibl",
   config = function()
     require("ibl").setup {
-      indent = { char = "▏" },
+      indent = { highlight = { 'Whitespace' }, char = "┊" },
       whitespace = {
-        highlight = {
-          "Whitespace",
-        },
+        highlight = { "Whitespace" },
       },
-      scope = {
-        enabled = true,
-      },
+      -- scope = {
+      --   char = '│',
+      --   enabled = true,
+      -- },
     }
 
     vim.api.nvim_create_autocmd(
@@ -23,12 +22,11 @@ return {
         end
       }
     )
-    vim.api.nvim_set_hl(0, '@ibl.scope.underline.1', { bg = '#ff00ff' })
 
-    local hooks = require("ibl.hooks")
-    hooks.register(
-      hooks.type.WHITESPACE,
-      hooks.builtin.hide_first_space_indent_level
-    )
+    -- local hooks = require("ibl.hooks")
+    -- hooks.register(
+    --   hooks.type.WHITESPACE,
+    --   -- hooks.builtin.hide_first_space_indent_level
+    -- )
   end,
 }
