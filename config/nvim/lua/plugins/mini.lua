@@ -21,6 +21,9 @@ return {
       autoread = true,
     })
 
+    local function lorem()
+    end
+
     -- Appearance
     require('mini.colors').setup()
     require('mini.cursorword').setup()
@@ -34,8 +37,22 @@ return {
         indent_at_cursor = false,
       },
     })
-    require('mini.notify').setup()
-    require('mini.statusline').setup()
+    require('mini.notify').setup({
+      content = {
+        format = function(notif)
+          return notif.msg
+        end
+      },
+      window = {
+        config = {
+          title = '',
+        },
+        winblend = 0,
+      }
+    })
+    require('mini.statusline').setup({
+      use_icons = false,
+    })
 
     -- Others
     require('mini.test').setup()

@@ -1,12 +1,13 @@
 local Color = {
   BACKGROUND = '#252a2d',
-  BACKGROUND_DARK = '#1f2427',
+  BACKGROUND_DARK = '#1b2022',
   BACKGROUND_LIGHT = '#323940',
   BOOLEAN = '#ced4da',
   CLASS_DECL = '#76c893',
   COLOR = '#fffffff',
   COMMENT = '#4a5759',
   CONSTANT = '#90a8c3',
+  CURSOR_LINE = '#22272a',
   NULL = '#607890',
   CONSTRUCTOR = '#34a0a4',
   ERROR = '#ff6361',
@@ -38,8 +39,8 @@ local Colorscheme = {
   comment = { fg = Color.COMMENT, bg = Color.NONE, italic = true },
   constant = { fg = Color.CONSTANT },
   null = { fg = Color.NULL },
-  cursorLine = { fg = Color.NONE, bg = Color.BACKGROUND_DARK },
-  cursorLineNr = { fg = Color.TEXT, bg = Color.BACKGROUND_DARK },
+  cursorLine = { fg = Color.NONE, bg = Color.CURSOR_LINE },
+  cursorLineNr = { fg = Color.TEXT, bg = Color.CURSOR_LINE },
   -- classDecl = { fg = Color.CLASS_DECL },
   -- class = { fg = Color.CLASS },
   error = { fg = Color.ERROR },
@@ -98,7 +99,7 @@ local hlGroups = {
   WinSeparator = Colorscheme.winSeparator,
   htmlTag = Colorscheme.punctuation,
   htmlTagName = Colorscheme.statement,
-  FloatBorder = { fg = Color.BACKGROUND_DARK, reverse = true },
+  FloatBorder = { fg = Color.BACKGROUND_DARK, bg = Color.BACKGROUND_DARK },
   NormalFloat = { bg = Color.BACKGROUND_DARK },
   StatusLine = { fg = Color.VARIABLE, bg = Color.BACKGROUND },
   Visual = { bg = Color.VARIABLE, fg = Color.BACKGROUND_DARK },
@@ -153,10 +154,6 @@ local hlGroups = {
   TelescopePromptTitle = { fg = Color.BACKGROUND_DARK, bg = Color.TYPE },
   TelescopeSelection = Colorscheme.listSelect,
 
-  LualineA = { fg = Color.BACKGROUND_DARK, bg = Color.VARIABLE },
-  LualineB = { fg = Color.VARIABLE, bg = Color.BACKGROUND_DARK },
-  -- LualineC = { fg = OLD.line_nr, },
-
   -- LspInlayHint = { fg = '#415a77', italic = true },
 
   -- DiagnosticUnnecessary = { fg = OLD.comment, italic = false, undercurl = true },
@@ -175,7 +172,7 @@ local hlGroups = {
   FoldColumn = { fg = Color.KEYWORD },
   FoldColumnOpen = { fg = Color.COMMENT },
   FoldColumnClose = { fg = Color.CONSTANT },
-  CursorLineFold = { fg = Color.KEYWORD, bg = Color.BACKGROUND_DARK, italic = true },
+  CursorLineFold = { fg = Color.KEYWORD, bg = Color.CURSOR_LINE, italic = true },
   BlameLineNvim = Colorscheme.comment,
 
   -- fugitive
