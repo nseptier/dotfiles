@@ -14,18 +14,18 @@ local Color = {
   FUNC_CALL = '#99d98c',
   FUNC_DECL = '#76c893',
   FUNC_PARAM = '#d9ed92',
-  FUNC_PARAM_DECL = '#d9ed92',
+  FUNC_PARAM_DECL = '#b5e48c',
   HINT = '#98c9a3',
   INFO = '#82a1bf',
   KEYWORD = '#607890',
   KEYWORD_DARK = '#4f5d75',
   NONE = 'NONE',
-  NUMBER = '#ffdd00',
+  NUMBER = '#f7b267',
   OPERATOR = '#90a8c3',
   PUNCTUATION = '#607890',
   STRING = '#ffe97f',
   TEXT_DEFAULT = '#e8eddf',
-  TYPE_DECL = '#5390d9',
+  TYPE_DECL = '#5684d6',
   TYPE_BUILTIN = '#916dd5',
   TYPE = '#5e60ce',
   VARIABLE = '#ced4da',
@@ -100,6 +100,7 @@ local hlGroups = {
   htmlTag = Colorscheme.punctuation,
   htmlTagName = Colorscheme.statement,
   FloatBorder = { fg = Color.BACKGROUND_DARK, bg = Color.BACKGROUND_DARK },
+  FloatTitle = { fg = Color.BACKGROUND_DARK, bg = Color.BACKGROUND_DARK },
   NormalFloat = { bg = Color.BACKGROUND_DARK },
   StatusLine = { fg = Color.VARIABLE, bg = Color.BACKGROUND },
   Visual = { bg = Color.VARIABLE, fg = Color.BACKGROUND_DARK },
@@ -142,6 +143,18 @@ local hlGroups = {
 
   -- LspSignatureActiveParameter = { fg = OLD.accent, bg = OLD.text_light },
 
+  MiniCompletionActiveParameter = Colorscheme.search,
+  MiniCompletionInfoBorderOutdated = { fg = Color.BACKGROUND_DARK, bg = Color.BACKGROUND_DARK },
+
+  StatuslineReset = { fg = Color.VARIABLE, bg = Color.BACKGROUND },
+  StatuslineError = { fg = Color.ERROR, bg = Color.CURSOR_LINE },
+  StatuslineHint = { fg = Color.HINT, bg = Color.CURSOR_LINE },
+  StatuslineWarn = { fg = Color.WARNING, bg = Color.CURSOR_LINE },
+  StatuslineInfo = { fg = Color.INFO, bg = Color.CURSOR_LINE },
+  StatuslineFilename = { fg = Color.BACKGROUND_DARK, bg = Color.TYPE },
+  StatuslineFilenameSeparator = { fg = Color.TYPE, bg = Color.BACKGROUND },
+  StatuslineDiagnosticSeparator = { fg = Color.CURSOR_LINE, bg = Color.BACKGROUND },
+
   TelescopeBorder = { fg = Color.BACKGROUND_DARK, bg = Color.BACKGROUND_DARK },
   TelescopeMatching = { link = 'Search' },
   TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
@@ -163,16 +176,19 @@ local hlGroups = {
   CmpItemAbbrMatch = Colorscheme.search,
   CmpItemAbbrMatchFuzzy = Colorscheme.error,
 
-  MiniIndentscopeSymbol = Colorscheme.type,
+  MiniIndentscopeSymbol = { fg = Color.COMMENT },
+
   IblIndent = Colorscheme.silent,
   IblScope = Colorscheme.silent,
   IblWhitespace = Colorscheme.none,
 
   Folded = { fg = Color.BACKGROUND_LIGHT, italic = true },
   FoldColumn = { fg = Color.KEYWORD },
-  FoldColumnOpen = { fg = Color.COMMENT },
-  FoldColumnClose = { fg = Color.CONSTANT },
   CursorLineFold = { fg = Color.KEYWORD, bg = Color.CURSOR_LINE, italic = true },
+  FoldColumnOpen = { fg = Color.COMMENT },
+  CursorLineFoldOpen = { fg = Color.COMMENT, bg = Color.CURSOR_LINE, italic = true },
+  FoldColumnClose = { fg = Color.SEARCH },
+  CursorLineFoldClose = { fg = Color.SEARCH, bg = Color.CURSOR_LINE, italic = true },
   BlameLineNvim = Colorscheme.comment,
 
   -- fugitive
@@ -346,7 +362,7 @@ M.apply = function()
   if vim.g.colors_name then
     vim.cmd("hi clear")
   end
-  vim.g.colors_name = "ipsum"
+  vim.g.colors_name = "lemongrass"
 
   for group_name, description in pairs(hlGroups) do
     vim.api.nvim_set_hl(0, group_name, description)

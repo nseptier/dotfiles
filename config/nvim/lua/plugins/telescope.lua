@@ -4,7 +4,7 @@ return {
   branch = 'master',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'desdic/telescope-rooter.nvim',
+    -- 'desdic/telescope-rooter.nvim',
   },
   config = function()
     local actions = require('telescope.actions')
@@ -99,10 +99,10 @@ return {
           },
         },
 
-        rooter = {
-          enable = true,
-          patterns = { '.git', 'package.json' }
-        },
+        -- rooter = {
+        --   enable = true,
+        --   patterns = { '.git' }
+        -- },
       },
     }
 
@@ -116,6 +116,6 @@ return {
 
     require('telescope').load_extension('fzf')
     require('telescope').load_extension('live_grep_args')
-    require('telescope').load_extension('rooter')
+    -- require('telescope').load_extension('rooter')
   end
 }

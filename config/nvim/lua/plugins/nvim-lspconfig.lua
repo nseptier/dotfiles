@@ -17,6 +17,24 @@ return {
       end,
     }
 
+    local border = {
+      { "╭", "FloatBorder" },
+      { "─", "FloatBorder" },
+      { "╮", "FloatBorder" },
+      { "│", "FloatBorder" },
+      { "╯", "FloatBorder" },
+      { "─", "FloatBorder" },
+      { "╰", "FloatBorder" },
+      { "│", "FloatBorder" },
+    }
+
+    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+      opts = opts or {}
+      opts.border = opts.border or border
+      return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    end
+
     -- vim.lsp.config('eslint', {
     --   on_attach = function()
     --     vim.keymap.set('n', '[e',
@@ -43,8 +61,25 @@ return {
     --   end
     -- })
 
+    vim.lsp.config('ts_ls', {
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "vue",
+      },
+
+      on_attach = function(client, bufnr)
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end,
+    })
+
     vim.lsp.config('lua_ls', {
-      -- capabilities = capabilities,
       on_attach = function(client, bufnr)
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         if client.supports_method("textDocument/formatting") then

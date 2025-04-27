@@ -15,15 +15,26 @@ return {
 
     -- branches colorscheme
     local rainbow = {
-      '#8187c7',
-      '#5daad8',
-      '#a5de94',
-      '#d7e586',
-      '#feea80',
-      '#fec979',
-      '#fea671',
-      '#fb8066',
-      '#f65356',
+      '#d9ed92',
+      '#b5e48c',
+      '#99d98c',
+      '#76c893',
+      '#52b69a',
+      '#34a0a4',
+      '#168aad',
+      '#1a759f',
+      '#1e6091',
+      '#184e77',
+
+      -- '#8187c7',
+      -- '#5daad8',
+      -- '#a5de94',
+      -- '#d7e586',
+      -- '#feea80',
+      -- '#fec979',
+      -- '#fea671',
+      -- '#fb8066',
+      -- '#f65356',
     }
 
     local branch_highlights = {
@@ -53,7 +64,7 @@ return {
       'ColorScheme',
       {
         callback = function()
-          for index = 1, 9 do
+          for index = 0, 9 do
             local opts = { link = 'flogBranch' .. index }
 
             vim.api.nvim_set_hl(0, 'flogBranch' .. index, { fg = rainbow[index] })

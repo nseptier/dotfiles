@@ -158,7 +158,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  change_detection = {
+    notify = false,
+  },
+})
 
 --------------------------------------------------------------------------------
 -- git commits
@@ -170,12 +174,6 @@ vim.api.nvim_create_autocmd("Filetype", {
   end,
   pattern = 'gitcommit'
 })
-
---------------------------------------------------------------------------------
--- colorscheme
---------------------------------------------------------------------------------
-
-vim.cmd 'color ipsum'
 
 --------------------------------------------------------------------------------
 -- autocmd
@@ -262,11 +260,17 @@ vim.diagnostic.config({
   },
   signs = {
     numhl = {
-      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
       [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
     },
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󱟬',
+      [vim.diagnostic.severity.WARN] = '󱟭',
+      [vim.diagnostic.severity.INFO] = '󱟮',
+      [vim.diagnostic.severity.HINT] = '󱟯',
+    }
   },
   update_in_insert = true,
   underline = true,

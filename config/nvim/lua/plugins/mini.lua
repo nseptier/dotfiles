@@ -2,41 +2,34 @@ return {
   'echasnovski/mini.nvim',
   version = false,
   config = function()
-    -- Text editing
-    require('mini.ai').setup()
-    require('mini.comment').setup()
-    require('mini.completion').setup()
-    require('mini.pairs').setup()
-    require('mini.snippets').setup()
-    require('mini.splitjoin').setup()
-    require('mini.surround').setup()
-
-    -- General workflow
-    require('mini.bracketed').setup()
-    require('mini.bufremove').setup()
-    require('mini.jump').setup()
-    require('mini.jump2d').setup()
-    require('mini.misc').setup()
-    require('mini.sessions').setup({
-      autoread = true,
-    })
-
-    local function lorem()
+    local imap_expr = function(lhs, rhs)
+      vim.keymap.set('i', lhs, rhs, { expr = true })
     end
 
-    -- Appearance
-    require('mini.colors').setup()
+    imap_expr("<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]])
+    imap_expr("<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]])
+
+    -- require('mini.pairs').setup()
+    require('mini.ai').setup()
+    require('mini.bracketed').setup()
+    require('mini.bufremove').setup()
+    require('mini.comment').setup()
+    require('mini.completion').setup()
     require('mini.cursorword').setup()
     require('mini.hipatterns').setup()
     require('mini.icons').setup()
     require('mini.indentscope').setup({
       draw = {
-        animation = function() return 0 end
+        animation = function()
+          return 0
+        end
       },
       options = {
         indent_at_cursor = false,
       },
     })
+    require('mini.jump').setup()
+    require('mini.misc').setup()
     require('mini.notify').setup({
       content = {
         format = function(notif)
@@ -50,11 +43,11 @@ return {
         winblend = 0,
       }
     })
-    require('mini.statusline').setup({
-      use_icons = false,
-    })
-
-    -- Others
+    require('mini.operators').setup()
+    require('mini.sessions').setup({ autoread = true, })
+    require('mini.snippets').setup()
+    require('mini.splitjoin').setup()
+    require('mini.surround').setup()
     require('mini.test').setup()
   end
 }
