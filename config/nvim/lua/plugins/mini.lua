@@ -15,7 +15,7 @@ return {
     require('mini.bufremove').setup()
     require('mini.comment').setup()
     require('mini.completion').setup()
-    require('mini.cursorword').setup()
+    require('mini.cursorword').setup({ delay = 500 })
     require('mini.hipatterns').setup()
     require('mini.icons').setup()
     require('mini.indentscope').setup({

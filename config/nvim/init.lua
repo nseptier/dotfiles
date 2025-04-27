@@ -113,7 +113,7 @@ vim.o.updatetime = 1000
 vim.o.undodir = vim.fn.expand('~/.vim/undo/')
 vim.opt.wildignore:append '*/node_modules/**'
 vim.o.wrap = false
-vim.o.sessionoptions = 'buffers,curdir,folds,tabpages,winsize'
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,terminal'
 
 -- Prefer LSP folding if client supports it
 vim.api.nvim_create_autocmd('LspAttach', {

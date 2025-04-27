@@ -7,7 +7,6 @@ wezterm.plugin.update_all()
 
 local theme = {
   foreground = '#ced4da',
-  -- background = '#880088',
   background = '#252A2E',
 
   cursor_bg = '#f8f9fa',
@@ -239,7 +238,7 @@ local config = {
     { key = "l", mods = "LEADER", action = wezterm.action { ActivatePaneDirection = "Right" } },
   },
   leader                         = { key = "a", mods = "CTRL" },
-  line_height                    = 1.1,
+  line_height                    = 1.2,
   -- set_environment_variables      = {
   --   TERM = 'xterm-256color',
   -- },
@@ -270,8 +269,29 @@ local function cwd_component(win)
     local url = wezterm.url.parse(str)
     local path = url.file_path:gsub('^/(%w:)', '%1')
 
-    return ' ' .. path:gsub(wezterm.home_dir:gsub('\\', '/'), '~'):gsub('^%u', string.lower) .. ' '
+    local success, git_root = wezterm.run_child_process({ 'git', '-C', path, 'rev-parse', '--show-toplevel' })
+
+    local result = path:gsub(wezterm.home_dir:gsub('\\', '/'), '~'):gsub('^%u', string.lower) .. ' '
+
+    if success then
+      git_root = git_root:match('/([^/]*)$'):gsub('[\n\r]', '')
+      local before, after = result:match('^(.+)' .. git_root:gsub('%-', '%%-') .. '(.+)$')
+
+      return wezterm.format {
+        { Foreground = { Color = '#5684d6' } },
+        { Text = ' 󰍎  ' },
+        { Foreground = { Color = '#4a5759' } },
+        { Text = before },
+        { Foreground = { Color = '#5684d6' } },
+        { Text = git_root },
+        { Foreground = { Color = '#5e60ce' } },
+        { Text = after },
+      }
+    else
+      return ' 󰍎  ' .. result
+    end
   end
+  return ''
 end
 
 local function git_branch_component(win)
@@ -283,7 +303,7 @@ local function git_branch_component(win)
 
     local _, git_branch_raw = wezterm.run_child_process { 'git', '-C', path, 'branch', '--show-current' }
     local git_branch = git_branch_raw:gsub('[\n\r]', '')
-    return git_branch ~= '' and ('  ' .. git_branch .. ' ') or ''
+    return git_branch ~= '' and ('   ' .. git_branch .. ' ') or ''
   end
   return ''
 end
@@ -295,37 +315,37 @@ local tablineconfig = {
     theme = config.colors,
     theme_overrides = {
       normal_mode = {
-        a = { fg = '#588157', bg = '#1b2022' },
-        b = { fg = '#3a5a40', bg = '#22272a' },
+        a = { fg = '#5684d6', bg = '#1b2022' },
+        b = { fg = '#202528', bg = '#f25c54' },
         -- c = { fg = '#252a2d', bg = '#252a2d' },
       },
       copy_mode = {
-        a = { fg = '#55828b', bg = '#1b2022' },
-        b = { fg = '#87bba2', bg = '#22272a' },
+        a = { fg = '#5684d6', bg = '#1b2022' },
+        b = { fg = '#202528', bg = '#f25c54' },
         -- c = { fg = '#252a2d', bg = '#252a2d' },
       },
       search_mode = {
-        a = { fg = '#55828b', bg = '#1b2022' },
-        b = { fg = '#87bba2', bg = '#22272a' },
+        a = { fg = '#5684d6', bg = '#1b2022' },
+        b = { fg = '#202528', bg = '#f25c54' },
         -- c = { fg = '#252a2d', bg = '#252a2d' },
       },
       tab = {
-        active = { fg = '#252a2d', bg = '#5e60ce' },
-        inactive = { fg = '#ced4da', bg = '#252a2d' },
-        inactive_hover = { fg = '#ced4da', bg = '#252a2d' },
+        active = { fg = '#ced4da', bg = '#252a2d' },
+        inactive = { fg = '#4a5759', bg = '#252a2d' },
+        inactive_hover = { fg = '#4a5759', bg = '#252a2d' },
       },
     },
     section_separators = {
-      left = '',
-      right = '',
+      left = '',
+      right = '',
     },
     component_separators = {
       left = '',
       right = '',
     },
     tab_separators = {
-      left = '',
-      right = '',
+      left = '',
+      right = '',
     },
   },
   sections = {
@@ -346,7 +366,7 @@ local tablineconfig = {
     tab_inactive = {
       {
         'tab',
-        icon = { wezterm.nerdfonts.md_tab .. ' ' },
+        icon = { '󰓪 ' },
       },
     },
     tabline_x = {},
