@@ -12,4 +12,3 @@ return {
     require("litee.gh").setup()
   end,
 }
-

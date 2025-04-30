@@ -14,7 +14,7 @@ return {
     require('mini.bracketed').setup()
     require('mini.bufremove').setup()
     require('mini.comment').setup()
-    require('mini.completion').setup()
+    -- require('mini.completion').setup()
     require('mini.cursorword').setup({ delay = 500 })
     require('mini.hipatterns').setup()
     require('mini.icons').setup()
@@ -44,7 +44,9 @@ return {
       }
     })
     require('mini.operators').setup()
-    require('mini.sessions').setup({ autoread = true, })
+    require('mini.sessions').setup({
+      autoread = true,
+    })
     require('mini.snippets').setup()
     require('mini.splitjoin').setup()
     require('mini.surround').setup()

@@ -3,4 +3,5 @@ return {
     require('statusline').setup()
   end,
   dir = '~/dev/dotfiles/config/nvim/lua/statusline',
+  -- event = { 'SessionLoadPost' },
 }

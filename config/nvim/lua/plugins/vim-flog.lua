@@ -7,7 +7,7 @@ return {
     -- options
     vim.g.flog_enable_dynamic_branch_hl = false
     vim.g.flog_enable_dynamic_commit_hl = true
-    -- vim.g.flog_enable_extended_chars = true
+    vim.g.flog_enable_extended_chars = true
     vim.g.flog_permanent_default_opts = {
       format = '%ad %h %an%d %s',
       date = 'short',

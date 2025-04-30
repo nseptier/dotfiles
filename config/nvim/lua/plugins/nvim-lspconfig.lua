@@ -3,17 +3,12 @@ return {
   cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
-    -- { 'hrsh7th/cmp-nvim-lsp' },
     { 'williamboman/mason-lspconfig.nvim' },
   },
   config = function()
-    -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
     require("mason-lspconfig").setup_handlers {
       function(name)
-        if name ~= 'volar' and name ~= 'eslint' then
-          vim.lsp.enable(name)
-        end
+        vim.lsp.enable(name)
       end,
     }
 
@@ -35,31 +30,9 @@ return {
       return orig_util_open_floating_preview(contents, syntax, opts, ...)
     end
 
-    -- vim.lsp.config('eslint', {
-    --   on_attach = function()
-    --     vim.keymap.set('n', '[e',
-    --       function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
-    --     vim.keymap.set('n', ']e',
-    --       function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
-    --   end,
-
-    --   root_dir = function()
-    --     return vim.loop.cwd()
-    --   end,
-    -- })
-
-    -- vim.lsp.config('volar', {
-    --   init_options = {
-    --     vue = {
-    --       hybrideMode = false
-    --     }
-    --   },
-    --   on_attach = function(client)
-    --     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
-    --     client.server_capabilities.documentFormattingProvider = false
-    --     client.server_capabilities.documentRangeFormattingProvider = false
-    --   end
-    -- })
+    local mason_registry = require 'mason-registry'
+    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+        '/node_modules/@vue/language-server'
 
     vim.lsp.config('ts_ls', {
       filetypes = {
@@ -72,15 +45,72 @@ return {
         "vue",
       },
 
-      on_attach = function(client, bufnr)
+      init_options = {
+        plugins = {
+          {
+            name = "@vue/typescript-plugin",
+            location = vue_language_server_path,
+            languages = { "vue" },
+          },
+        },
+      },
+
+      on_attach = function(client)
         vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+
+        vim.api.nvim_buf_create_user_command(0, 'LspTypescriptSourceAction', function()
+          local source_actions = vim.tbl_filter(function(action)
+            return vim.startswith(action, 'source.')
+          end, client.server_capabilities.codeActionProvider.codeActionKinds)
+
+          vim.lsp.buf.code_action({
+            context = {
+              only = source_actions,
+            },
+          })
+        end, {})
+
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
       end,
+
+      preferences = {
+        allowRenameOfImportPath = true,
+        allowTextChangesInNewFiles = true,
+        importModuleSpecifierEnding = 'minimal',
+        importModuleSpecifierPreference = 'non-relative',
+        includeAutomaticOptionalChainCompletions = true,
+        includeCompletionsForImportStatements = true,
+        includeCompletionsForModuleExports = true,
+        includeCompletionsWithClassMemberSnippets = true,
+        includeCompletionsWithInsertText = true,
+        includeCompletionsWithObjectLiteralMethodSnippets = true,
+        includeCompletionsWithSnippetText = true,
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = false,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        interactiveInlayHints = true,
+        provideRefactorNotApplicableReason = true,
+        quotePreference = 'single',
+        useLabelDetailsInCompletionEntries = true,
+      },
+
+      settings = {
+        completions = {
+          completeFunctionCalls = true,
+        },
+      },
     })
 
     vim.lsp.config('lua_ls', {
       on_attach = function(client, bufnr)
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
@@ -102,43 +132,26 @@ return {
       }
     })
 
-    local lspconfig = require('lspconfig')
+    vim.lsp.config('eslint', {
+      on_attach = function()
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+      end,
 
-    require('mason-lspconfig').setup({
-      handlers = {
+      settings = {
+        codeActionOnSave = {
+          enable = true,
+          mode = "all"
+        },
+      },
+    })
 
-        ['eslint'] = function()
-          lspconfig.eslint.setup({
-            on_attach = function(client)
-              client.server_capabilities.documentFormattingProvider = true
-              if client.server_capabilities.documentFormattingProvider then
-                local au_lsp = vim.api.nvim_create_augroup("eslint_lsp", { clear = true })
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                  pattern = "*",
-                  command = 'silent! EslintFixAll',
-                  group = au_lsp,
-                })
-              end
-            end,
-          })
-        end,
+    vim.lsp.config('volar', {
+      on_attach = function(client)
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
 
-        ['volar'] = function()
-          lspconfig.volar.setup({
-            init_options = {
-              vue = {
-                hybrideMode = false,
-              },
-            },
-            on_attach = function(client)
-              vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
-              client.server_capabilities.documentFormattingProvider = false
-              client.server_capabilities.documentRangeFormattingProvider = false
-            end,
-          })
-        end,
-
-      }
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end,
     })
   end
 }

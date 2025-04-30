@@ -9,7 +9,9 @@ return {
       command = ":FormatWrite",
     })
 
-    require('formatter').setup({
+    local formatter = require('formatter')
+
+    formatter.setup({
       filetype = {
         javascript = require("formatter.filetypes.javascript").prettier,
         javascriptreact = require("formatter.filetypes.javascript").prettier,

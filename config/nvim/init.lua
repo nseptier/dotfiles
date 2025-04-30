@@ -73,8 +73,22 @@ vim.o.cursorline = true
 vim.o.directory = vim.fn.expand('~/.vim/swap/')
 vim.o.encoding = 'utf-8'
 vim.o.expandtab = true
-vim.o.fillchars =
-'eob: ,fold:⧸,foldopen:,foldclose:,foldsep: ,horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋'
+vim.opt.fillchars = {
+  eob = ' ',
+  fold = '⧸',
+  foldopen = '',
+  foldclose = '',
+  foldsep = ' ',
+  horiz = '▄', -- '━',
+  horizup = '┻',
+  horizdown = '┳',
+  stl = ' ',
+  stlnc = ' ',
+  vert = '█', -- '┃',
+  vertleft = '█', -- '┫',
+  vertright = '█', -- '┣',
+  verthoriz = '█', --  '╋',
+}
 vim.o.foldcolumn = 'auto'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldlevel = 99
@@ -113,7 +127,7 @@ vim.o.updatetime = 1000
 vim.o.undodir = vim.fn.expand('~/.vim/undo/')
 vim.opt.wildignore:append '*/node_modules/**'
 vim.o.wrap = false
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,terminal'
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,localoptions,options,tabpages,winsize,terminal'
 
 -- Prefer LSP folding if client supports it
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -126,27 +140,57 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.api.nvim_create_autocmd('LspProgress', {
-  callback = function(ev)
-    -- vim.print(ev)
+local function wait_for_lsp_folds(bufnr)
+  local client = vim.lsp.get_clients({ bufnr, method = 'textDocument/foldingRange' })[1]
+  if client ~= nil then
+    local requests = vim.tbl_filter(function(request)
+      return request.method == 'textDocument/foldingRange'
+    end, client.requests)
 
-    if ev.data.params.value.kind == 'end' and ev.data.params.token == 'TSSERVER_LOADING' then
-      local seen = {}
+    return #requests == 0
+  end
 
-      vim.tbl_map(function(winid)
-        local bufnr = vim.api.nvim_win_get_buf(winid)
+  return false
+end
 
-        if not seen[bufnr] and vim.lsp.buf_is_attached(bufnr, ev.data.client_id) then
-          vim.api.nvim_buf_call(bufnr, function()
-            vim.lsp.semantic_tokens.force_refresh(0)
-          end)
-          seen[bufnr] = true
-        end
-      end, vim.api.nvim_tabpage_list_wins(0))
+local function wait_and_loadview(winid)
+  vim.api.nvim_win_call(winid, function()
+    local bufnr = vim.api.nvim_win_get_buf(winid)
+
+    if vim.wait(2000, function() return wait_for_lsp_folds(bufnr) end) then
+      vim.wait(1000, function() vim.cmd 'silent! loadview' end)
     end
+  end)
+end
+
+vim.api.nvim_create_autocmd('WinEnter', {
+  callback = function(args)
+    local winid = vim.fn.win_getid()
+    vim.schedule(function() wait_and_loadview(winid) end)
   end,
 })
 
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.schedule(function()
+      vim.tbl_map(wait_and_loadview, vim.api.nvim_tabpage_list_wins(0))
+    end)
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWinLeave', {
+  callback = function(args)
+    if args.match == '' then return end
+
+    vim.cmd 'mkview'
+  end,
+})
+
+vim.api.nvim_create_autocmd('VimLeavePre', {
+  callback = function()
+    vim.cmd 'mkview'
+  end,
+})
 
 --------------------------------------------------------------------------------
 -- lazy.nvim
@@ -249,6 +293,13 @@ vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end)
 vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
 
+local diagnostic_icons = {
+  [vim.diagnostic.severity.ERROR] = '󱟬',
+  [vim.diagnostic.severity.WARN] = '󱟭',
+  [vim.diagnostic.severity.INFO] = '󱟮',
+  [vim.diagnostic.severity.HINT] = '󱟯',
+}
+
 vim.diagnostic.config({
   float = {
     focusable = false,
@@ -265,19 +316,23 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
       [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
     },
-    text = {
-      [vim.diagnostic.severity.ERROR] = '󱟬',
-      [vim.diagnostic.severity.WARN] = '󱟭',
-      [vim.diagnostic.severity.INFO] = '󱟮',
-      [vim.diagnostic.severity.HINT] = '󱟯',
-    }
+    text = diagnostic_icons,
   },
-  update_in_insert = true,
+  update_in_insert = false,
   underline = true,
   severity_sort = true,
+  -- virtual_lines = {
+  --   source = 'if_many',
+  --   prefix = function(diagnostic)
+  --     return diagnostic_icons[diagnostic.severity]
+  --   end,
+  -- },
   virtual_text = false,
   -- virtual_text = {
-  --   source = "if_many",
-  --   prefix = '● ',
+  --   source = 'if_many',
+  --   prefix = function(diagnostic)
+  --     return diagnostic_icons[diagnostic.severity]
+  --   end,
+  --   virt_text_pos = 'eol_right_align',
   -- },
 })
