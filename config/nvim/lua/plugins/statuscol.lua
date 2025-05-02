@@ -60,13 +60,20 @@ return {
         },
         {
           text = {
-            foldfunc
+            foldfunc,
+          },
+          sign = {
+            maxwidth = 99,
+            colwidth = 99,
           },
         },
         {
           text = { builtin.lnumfunc, " " },
           condition = { true, builtin.not_empty },
           click = "v:lua.ScLa",
+        },
+        {
+          text = { " " },
         },
       },
       -- clickmod = "c",   -- modifier used for certain actions in the builtin clickhandlers:

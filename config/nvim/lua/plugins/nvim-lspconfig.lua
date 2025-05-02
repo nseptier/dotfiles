@@ -34,6 +34,19 @@ return {
     local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
         '/node_modules/@vue/language-server'
 
+    local function show_global_code_actions(client)
+      local source_actions = vim.tbl_filter(function(action)
+        return vim.startswith(action, 'source.')
+      end, client.server_capabilities.codeActionProvider.codeActionKinds)
+
+      vim.print(source_actions)
+      vim.lsp.buf.code_action({
+        context = {
+          only = source_actions,
+        },
+      })
+    end
+
     vim.lsp.config('ts_ls', {
       filetypes = {
         "javascript",
@@ -53,52 +66,42 @@ return {
             languages = { "vue" },
           },
         },
+
+        preferences = {
+          allowRenameOfImportPath = true,
+          allowTextChangesInNewFiles = true,
+          importModuleSpecifierEnding = 'minimal',
+          importModuleSpecifierPreference = 'non-relative',
+          includeAutomaticOptionalChainCompletions = true,
+          includeCompletionsForImportStatements = true,
+          includeCompletionsForModuleExports = true,
+          includeCompletionsWithClassMemberSnippets = true,
+          includeCompletionsWithInsertText = true,
+          includeCompletionsWithObjectLiteralMethodSnippets = true,
+          includeCompletionsWithSnippetText = true,
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = false,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          interactiveInlayHints = true,
+          provideRefactorNotApplicableReason = true,
+          quotePreference = 'single',
+          useLabelDetailsInCompletionEntries = true,
+        },
+
       },
 
-      on_attach = function(client)
-        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
-
-        vim.api.nvim_buf_create_user_command(0, 'LspTypescriptSourceAction', function()
-          local source_actions = vim.tbl_filter(function(action)
-            return vim.startswith(action, 'source.')
-          end, client.server_capabilities.codeActionProvider.codeActionKinds)
-
-          vim.lsp.buf.code_action({
-            context = {
-              only = source_actions,
-            },
-          })
-        end, {})
+      on_attach = function(client, bufnr)
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action)
+        vim.keymap.set({ 'n', 'v' }, '<leader>cA', function() show_global_code_actions(client) end)
 
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
       end,
-
-      preferences = {
-        allowRenameOfImportPath = true,
-        allowTextChangesInNewFiles = true,
-        importModuleSpecifierEnding = 'minimal',
-        importModuleSpecifierPreference = 'non-relative',
-        includeAutomaticOptionalChainCompletions = true,
-        includeCompletionsForImportStatements = true,
-        includeCompletionsForModuleExports = true,
-        includeCompletionsWithClassMemberSnippets = true,
-        includeCompletionsWithInsertText = true,
-        includeCompletionsWithObjectLiteralMethodSnippets = true,
-        includeCompletionsWithSnippetText = true,
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = false,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = false,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-        interactiveInlayHints = true,
-        provideRefactorNotApplicableReason = true,
-        quotePreference = 'single',
-        useLabelDetailsInCompletionEntries = true,
-      },
 
       settings = {
         completions = {

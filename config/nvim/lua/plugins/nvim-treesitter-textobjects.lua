@@ -17,6 +17,8 @@ return {
             ["if"] = "@function.inner",
             ["ac"] = "@class.outer",
             ["ic"] = "@class.inner",
+            ["a/"] = "@comment.outer",
+            ["i/"] = "@comment.inner",
           },
           -- You can choose the select mode (default is charwise 'v')
           --

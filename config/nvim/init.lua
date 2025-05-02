@@ -78,16 +78,16 @@ vim.opt.fillchars = {
   fold = '⧸',
   foldopen = '',
   foldclose = '',
-  foldsep = ' ',
-  horiz = '▄', -- '━',
-  horizup = '┻',
-  horizdown = '┳',
+  foldsep = '▕',
+  horiz = '═', -- ━
+  horizup = '╩', -- ┻
+  horizdown = '╦', -- ┳
   stl = ' ',
   stlnc = ' ',
-  vert = '█', -- '┃',
-  vertleft = '█', -- '┫',
-  vertright = '█', -- '┣',
-  verthoriz = '█', --  '╋',
+  vert = '║', -- ┃
+  vertleft = '╣', -- ┫
+  vertright = '╠', -- ┣
+  verthoriz = '╬', -- ╋
 }
 vim.o.foldcolumn = 'auto'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -127,7 +127,7 @@ vim.o.updatetime = 1000
 vim.o.undodir = vim.fn.expand('~/.vim/undo/')
 vim.opt.wildignore:append '*/node_modules/**'
 vim.o.wrap = false
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,localoptions,options,tabpages,winsize,terminal'
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,terminal'
 
 -- Prefer LSP folding if client supports it
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -140,57 +140,57 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-local function wait_for_lsp_folds(bufnr)
-  local client = vim.lsp.get_clients({ bufnr, method = 'textDocument/foldingRange' })[1]
-  if client ~= nil then
-    local requests = vim.tbl_filter(function(request)
-      return request.method == 'textDocument/foldingRange'
-    end, client.requests)
+-- local function wait_for_lsp_folds(bufnr)
+--   local client = vim.lsp.get_clients({ bufnr, method = 'textDocument/foldingRange' })[1]
+--   if client ~= nil then
+--     local requests = vim.tbl_filter(function(request)
+--       return request.method == 'textDocument/foldingRange'
+--     end, client.requests)
+--
+--     return #requests == 0
+--   end
+--
+--   return false
+-- end
 
-    return #requests == 0
-  end
+-- local function wait_and_loadview(winid)
+--   vim.api.nvim_win_call(winid, function()
+--     local bufnr = vim.api.nvim_win_get_buf(winid)
+--
+--     if vim.wait(2000, function() return wait_for_lsp_folds(bufnr) end) then
+--       vim.wait(1000, function() vim.cmd 'silent! loadview' end)
+--     end
+--   end)
+-- end
 
-  return false
-end
+-- vim.api.nvim_create_autocmd('WinEnter', {
+--   callback = function(args)
+--     local winid = vim.fn.win_getid()
+--     vim.schedule(function() wait_and_loadview(winid) end)
+--   end,
+-- })
 
-local function wait_and_loadview(winid)
-  vim.api.nvim_win_call(winid, function()
-    local bufnr = vim.api.nvim_win_get_buf(winid)
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   callback = function()
+--     vim.schedule(function()
+--       vim.tbl_map(wait_and_loadview, vim.api.nvim_tabpage_list_wins(0))
+--     end)
+--   end,
+-- })
 
-    if vim.wait(2000, function() return wait_for_lsp_folds(bufnr) end) then
-      vim.wait(1000, function() vim.cmd 'silent! loadview' end)
-    end
-  end)
-end
+-- vim.api.nvim_create_autocmd('BufWinLeave', {
+--   callback = function(args)
+--     if args.match == '' then return end
+--
+--     vim.cmd 'mkview'
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd('WinEnter', {
-  callback = function(args)
-    local winid = vim.fn.win_getid()
-    vim.schedule(function() wait_and_loadview(winid) end)
-  end,
-})
-
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.schedule(function()
-      vim.tbl_map(wait_and_loadview, vim.api.nvim_tabpage_list_wins(0))
-    end)
-  end,
-})
-
-vim.api.nvim_create_autocmd('BufWinLeave', {
-  callback = function(args)
-    if args.match == '' then return end
-
-    vim.cmd 'mkview'
-  end,
-})
-
-vim.api.nvim_create_autocmd('VimLeavePre', {
-  callback = function()
-    vim.cmd 'mkview'
-  end,
-})
+-- vim.api.nvim_create_autocmd('VimLeavePre', {
+--   callback = function()
+--     vim.cmd 'mkview'
+--   end,
+-- })
 
 --------------------------------------------------------------------------------
 -- lazy.nvim
@@ -222,6 +222,16 @@ vim.api.nvim_create_autocmd("Filetype", {
 --------------------------------------------------------------------------------
 -- autocmd
 --------------------------------------------------------------------------------
+
+vim.api.nvim_create_autocmd('LspNotify', {
+  callback = function(args)
+    if args.data.method == 'textDocument/didOpen' then
+      vim.tbl_map(function(winid)
+        vim.lsp.foldclose('imports', winid)
+      end, vim.api.nvim_tabpage_list_wins(0))
+    end
+  end,
+})
 
 vim.api.nvim_create_autocmd("Filetype", {
   callback = function()
@@ -294,11 +304,13 @@ vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.d
 vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
 
 local diagnostic_icons = {
-  [vim.diagnostic.severity.ERROR] = '󱟬',
-  [vim.diagnostic.severity.WARN] = '󱟭',
-  [vim.diagnostic.severity.INFO] = '󱟮',
-  [vim.diagnostic.severity.HINT] = '󱟯',
+  [vim.diagnostic.severity.ERROR] = '󰖖', --'󱟬',
+  [vim.diagnostic.severity.WARN] = '󰖕', --'󱟭',
+  [vim.diagnostic.severity.INFO] = '󰖙', --'󱟮',
+  [vim.diagnostic.severity.HINT] = '', --'󱟯',
 }
+
+vim.lsp.set_log_level("debug")
 
 vim.diagnostic.config({
   float = {
