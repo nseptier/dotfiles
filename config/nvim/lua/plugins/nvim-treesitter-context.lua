@@ -4,7 +4,8 @@ return {
     local treesitter_context = require("treesitter-context")
 
     treesitter_context.setup({
-      separator = '▄',
+      multiline_threshold = 1,
+      -- separator = '', -- '▄',
     })
 
     vim.keymap.set("n", "[C", function()

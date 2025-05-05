@@ -28,7 +28,12 @@ return {
         indent_at_cursor = false,
       },
     })
-    require('mini.jump').setup()
+    require('mini.jump').setup({
+      delay = {
+        highlight = 50,
+        idle_stop = 5000,
+      }
+    })
     require('mini.misc').setup()
     require('mini.notify').setup({
       content = {
@@ -51,5 +56,13 @@ return {
     require('mini.splitjoin').setup()
     require('mini.surround').setup()
     require('mini.test').setup()
+
+
+    vim.api.nvim_create_autocmd('Filetype', {
+      pattern = 'lazy',
+      callback = function()
+        vim.b.miniindentscope_disable = true
+      end,
+    })
   end
 }

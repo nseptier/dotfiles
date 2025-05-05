@@ -5,6 +5,25 @@ return {
   config = function()
     require 'nvim-treesitter.configs'.setup {
       textobjects = {
+
+
+        move = {
+          enable = true,
+
+          goto_next_start = {
+            [']]'] = '@function.outer',
+          },
+          goto_next_end = {
+            [']['] = '@function.outer',
+          },
+          goto_previous_start = {
+            ['[]'] = '@function.outer',
+          },
+          goto_previous_end = {
+            ['[['] = '@function.outer',
+          },
+        },
+
         select = {
           enable = true,
 

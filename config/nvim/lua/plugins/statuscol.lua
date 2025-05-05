@@ -62,10 +62,6 @@ return {
           text = {
             foldfunc,
           },
-          sign = {
-            maxwidth = 99,
-            colwidth = 99,
-          },
         },
         {
           text = { builtin.lnumfunc, " " },

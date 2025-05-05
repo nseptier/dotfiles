@@ -39,7 +39,6 @@ return {
         return vim.startswith(action, 'source.')
       end, client.server_capabilities.codeActionProvider.codeActionKinds)
 
-      vim.print(source_actions)
       vim.lsp.buf.code_action({
         context = {
           only = source_actions,
