@@ -294,7 +294,7 @@ return {
 
         vim.api.nvim_set_hl(0, backdropName, { bg = "#000000", default = true })
         vim.wo[winnr].winhighlight = "Normal:" .. backdropName
-        vim.wo[winnr].winblend = 20
+        vim.wo[winnr].winblend = 8
         vim.bo[backdropBufnr].buftype = "nofile"
 
         -- close backdrop when the reference buffer is closed

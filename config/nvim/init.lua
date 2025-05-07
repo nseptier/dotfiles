@@ -215,7 +215,7 @@ require("lazy").setup("plugins", {
     notify = false,
   },
   ui = {
-    backdrop = 20,
+    backdrop = 8,
     border = 'rounded',
   },
 })
