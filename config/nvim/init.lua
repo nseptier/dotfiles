@@ -79,15 +79,15 @@ vim.opt.fillchars = {
   foldopen = '',
   foldclose = '',
   foldsep = '▕',
-  horiz = '═', -- ━
-  horizup = '╩', -- ┻
-  horizdown = '╦', -- ┳
+  horiz = '━', --
+  horizup = '┻',
+  horizdown = '┳',
   stl = ' ',
   stlnc = ' ',
-  vert = '║', -- ┃
-  vertleft = '╣', -- ┫
-  vertright = '╠', -- ┣
-  verthoriz = '╬', -- ╋
+  vert = '┃',
+  vertleft = '┫',
+  vertright = '┣',
+  verthoriz = '╋',
 }
 vim.o.foldcolumn = 'auto'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -102,9 +102,16 @@ vim.o.hlsearch = true
 vim.o.ignorecase = true
 vim.o.incsearch = true
 vim.o.laststatus = 3
-vim.o.lcs = 'tab:|→'
 vim.o.list = true
-vim.o.listchars = 'eol:↲,tab:→ ,trail:×,precedes:‹,extends:›,nbsp:␣,space: '
+vim.opt.listchars = {
+  eol = '↲',
+  tab = '→ ',
+  trail = '×',
+  precedes = '‹',
+  extends = '›',
+  nbsp = '␣',
+  space = ' ',
+}
 vim.o.number = true
 vim.o.path = '$PWD/**'
 vim.o.relativenumber = true
@@ -133,6 +140,7 @@ vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,termina
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local unused
     if client:supports_method('textDocument/foldingRange') then
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
@@ -242,15 +250,15 @@ vim.api.nvim_create_autocmd("Filetype", {
 -- autocmd
 --------------------------------------------------------------------------------
 
-vim.api.nvim_create_autocmd('LspNotify', {
-  callback = function(args)
-    if args.data.method == 'textDocument/didOpen' then
-      vim.tbl_map(function(winid)
-        vim.lsp.foldclose('imports', winid)
-      end, vim.api.nvim_tabpage_list_wins(0))
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd('LspNotify', {
+--   callback = function(args)
+--     if args.data.method == 'textDocument/didOpen' then
+--       vim.tbl_map(function(winid)
+--         vim.lsp.foldclose('imports', winid)
+--       end, vim.api.nvim_tabpage_list_wins(0))
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("Filetype", {
   callback = function()

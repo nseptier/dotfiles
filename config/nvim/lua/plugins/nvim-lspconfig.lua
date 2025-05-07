@@ -87,6 +87,7 @@ return {
           includeInlayVariableTypeHints = false,
           includeInlayVariableTypeHintsWhenTypeMatchesName = false,
           interactiveInlayHints = true,
+          organizeImportsIgnoreCase = true,
           provideRefactorNotApplicableReason = true,
           quotePreference = 'single',
           useLabelDetailsInCompletionEntries = true,

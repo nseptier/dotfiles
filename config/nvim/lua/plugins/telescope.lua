@@ -123,6 +123,7 @@ return {
                 -- { width = 4 },
                 -- { width = icon_width },
                 { width = nil },
+                { width = nil },
                 { remaining = true },
               },
             }
@@ -133,7 +134,6 @@ return {
               -- col = tonumber(col),
               display = function()
                 local filename, tail = split_path(path)
-                print(filename .. ' ' .. tail)
                 return displayer {
                   '[' .. result.bufnr .. ']',
                   filename,
