@@ -61,10 +61,12 @@ M.ModeHighlights = {
   ['TERMINAL'] = '_terminal',
 }
 
-M.renderWinBar = function(is_inactive, winid, bufnr)
+M.renderWinBar = function(is_inactive, winid, bufnr, ft)
   local lsp_diagnostic = vim.w[winid].lsp_diagnostic or ''
+  local state = vim.w[winid].state or ''
   local path = vim.split(vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr)), '/')
   local folder = path[#path - 1] or ''
+  local fts = { fugitive = 'fugitive', floggraph = 'flog' }
 
   return '%='
       .. (is_inactive and '%#StatuslineInactiveDiagnosticSeparator#' or '%#StatuslineDiagnosticSeparator#')
@@ -80,16 +82,14 @@ M.renderWinBar = function(is_inactive, winid, bufnr)
       )
       .. ''
       .. (is_inactive and '%#StatuslineInactiveFolder#' or '%#StatuslineFolder#')
-      .. '   '
-      .. folder
-      .. '/'
+      .. state
+      .. (fts[ft] and '' or (folder .. '/'))
       .. (is_inactive and '%#StatuslineInactiveFilename#' or '%#StatuslineFilename#')
-      .. '%t'
-      .. '%M'
+      .. (fts[ft] or '%t')
       .. ' '
 end
 
-M.renderStatusLine = function(is_inactive, winid, bufnr)
+M.renderStatusLine = function(is_inactive, bufnr)
   local mode = vim.b[bufnr].mode or M.get_mode()
 
   local string = ''
@@ -98,36 +98,36 @@ M.renderStatusLine = function(is_inactive, winid, bufnr)
 
   if not is_inactive then
     string = string
-    .. '%#StatuslineFileInfo#'
-    .. ' ' .. vim.bo.filetype .. ' '
-    .. '%#StatuslineFileInfoSeparator#'
-    .. ''
-    .. '%#StatuslineFileInfo#'
-    .. ' ' .. vim.bo.fileformat .. ' '
-    .. '%#StatuslineFileInfoSeparator#'
-    .. ''
-    .. '%#StatuslineFileInfo#'
-    .. ' ' .. vim.bo.fileencoding .. ' '
+        .. '%#StatuslineFileInfo#'
+        .. ' ' .. vim.bo.filetype .. ' '
+        .. '%#StatuslineFileInfoSeparator#'
+        .. ''
+        .. '%#StatuslineFileInfo#'
+        .. ' ' .. vim.bo.fileformat .. ' '
+        .. '%#StatuslineFileInfoSeparator#'
+        .. ''
+        .. '%#StatuslineFileInfo#'
+        .. ' ' .. vim.bo.fileencoding .. ' '
 
-    .. '%#StatuslineLocationSeparator#'
-    .. ''
-    .. '%#StatuslineLocation#'
-    .. ' '
-    .. ''
-    .. '%#StatuslineLocationCurrent#'
-    .. '%l'
-    .. '%#StatuslineLocation#'
-    .. '/%L '
-    .. ''
-    .. '%#StatuslineLocationCurrent#'
-    .. '%v'
-    .. '%#StatuslineLocation#'
-    .. '/%-2{virtcol("$") - 1}'
+        .. '%#StatuslineLocationSeparator#'
+        .. ''
+        .. '%#StatuslineLocation#'
+        .. ' '
+        .. ''
+        .. '%#StatuslineLocationCurrent#'
+        .. '%l'
+        .. '%#StatuslineLocation#'
+        .. '/%L '
+        .. ''
+        .. '%#StatuslineLocationCurrent#'
+        .. '%v'
+        .. '%#StatuslineLocation#'
+        .. '/%-2{virtcol("$") - 1}'
 
-    .. '%#StatuslineModeSeparator#'
-    .. ''
-    .. '%#StatuslineMode#'
-    .. ' ' .. mode .. ' '
+        .. '%#StatuslineModeSeparator#'
+        .. ''
+        .. '%#StatuslineMode#'
+        .. ' ' .. mode .. ' '
   end
 
   return string
@@ -160,6 +160,12 @@ M.get_mode = function()
   return M.Mode[vim.api.nvim_get_mode().mode]
 end
 
+M.get_state = function(bufnr)
+  if vim.api.nvim_get_option_value('modified', { buf = bufnr }) then return '   ' end
+  if vim.api.nvim_get_option_value('readonly', { buf = bufnr }) then return '   ' end
+  return ' 󱂬  '
+end
+
 M.setup = function()
   local e_group = vim.api.nvim_create_augroup('statusline.events', { clear = true })
   vim.api.nvim_create_autocmd(
@@ -178,15 +184,16 @@ M.setup = function()
 
         vim.tbl_map(function(winid)
           local bufnr = vim.api.nvim_win_get_buf(winid)
-          local blacklist = { fugitive = true, lazy = true, TelescopePrompt = true }
+          local blacklist = { lazy = true, TelescopePrompt = true }
 
           vim.schedule(function()
             if bufnr == args.buf and vim.api.nvim_win_is_valid(winid) then
               if not blacklist[ft] and ft ~= '' then
                 local is_inactive = winid ~= vim.fn.win_getid()
 
+                vim.w[winid].state = M.get_state(bufnr)
                 vim.w[winid].lsp_diagnostic = M.get_lsp_diagnostic(bufnr, is_inactive)
-                vim.wo[winid][0].winbar = M.renderWinBar(is_inactive, winid, bufnr)
+                vim.wo[winid][0].winbar = M.renderWinBar(is_inactive, winid, bufnr, ft)
               else
                 vim.wo[winid].winbar = ''
               end
@@ -195,7 +202,7 @@ M.setup = function()
         end, vim.api.nvim_tabpage_list_wins(0))
 
         vim.b[args.buf].mode = M.get_mode()
-        vim.o.statusline = M.renderStatusLine(false, vim.api.nvim_get_current_win(), args.buf)
+        vim.o.statusline = M.renderStatusLine(false, args.buf)
       end,
       group = e_group,
     })
