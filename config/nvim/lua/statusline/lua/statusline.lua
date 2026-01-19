@@ -83,7 +83,7 @@ M.renderWinBar = function(is_inactive, winid, bufnr, ft)
       .. ''
       .. (is_inactive and '%#StatuslineInactiveFolder#' or '%#StatuslineFolder#')
       .. state
-      .. (fts[ft] and '' or (folder .. '/'))
+      .. ((fts[ft] or folder == '') and '' or (folder .. '/'))
       .. (is_inactive and '%#StatuslineInactiveFilename#' or '%#StatuslineFilename#')
       .. (fts[ft] or '%t')
       .. ' '
@@ -98,16 +98,24 @@ M.renderStatusLine = function(is_inactive, bufnr)
 
   if not is_inactive then
     string = string
-        .. '%#StatuslineFileInfo#'
-        .. ' ' .. vim.bo.filetype .. ' '
-        .. '%#StatuslineFileInfoSeparator#'
-        .. ''
+        .. (
+          vim.bo.filetype ~= ''
+          and ('%#StatuslineFileInfo#' .. ' ' .. vim.bo.filetype .. ' '
+            .. '%#StatuslineFileInfoSeparator#'
+            .. '')
+          or ''
+        )
         .. '%#StatuslineFileInfo#'
         .. ' ' .. vim.bo.fileformat .. ' '
         .. '%#StatuslineFileInfoSeparator#'
-        .. ''
-        .. '%#StatuslineFileInfo#'
-        .. ' ' .. vim.bo.fileencoding .. ' '
+        .. (
+          vim.bo.fileencoding ~= ''
+          and ('%#StatuslineFileInfoSeparator#'
+            .. ''
+            .. '%#StatuslineFileInfo#' .. ' ' .. vim.bo.fileencoding .. ' '
+            .. '')
+          or ''
+        )
 
         .. '%#StatuslineLocationSeparator#'
         .. ''

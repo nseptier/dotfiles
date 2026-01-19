@@ -6,7 +6,8 @@ return {
     { 'williamboman/mason-lspconfig.nvim' },
   },
   config = function()
-    require("mason-lspconfig").setup_handlers {
+    require("mason").setup()
+    require("mason-lspconfig").setup {
       function(name)
         vim.lsp.enable(name)
       end,
@@ -30,9 +31,8 @@ return {
       return orig_util_open_floating_preview(contents, syntax, opts, ...)
     end
 
-    local mason_registry = require 'mason-registry'
-    local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
-        '/node_modules/@vue/language-server'
+    local vue_ls_path = vim.fn.expand("$MASON/packages/vue-language-server")
+    local vue_language_server_path = vue_ls_path .. "/node_modules/@vue/language-server"
 
     local function show_global_code_actions(client)
       local source_actions = vim.tbl_filter(function(action)
@@ -99,6 +99,13 @@ return {
         vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action)
         vim.keymap.set({ 'n', 'v' }, '<leader>cA', function() show_global_code_actions(client) end)
 
+        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+        vim.keymap.set('n', 'gR', '<cmd>lua vim.lsp.buf.references()<cr>')
+        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
       end,
@@ -136,7 +143,7 @@ return {
     })
 
     vim.lsp.config('eslint', {
-      on_attach = function()
+      on_attach = function(client)
         vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
       end,
 
@@ -148,13 +155,26 @@ return {
       },
     })
 
-    vim.lsp.config('volar', {
-      on_attach = function(client)
-        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+    -- vim.lsp.config('stylelint_lsp', {
+    --   on_attach = function(client)
+    --     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+    --   end,
+    --
+    --   settings = {
+    --     codeActionOnSave = {
+    --       enable = true,
+    --       mode = "all"
+    --     },
+    --   },
+    -- })
 
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end,
-    })
+    -- vim.lsp.config('volar', {
+    --   on_attach = function(client)
+    --     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = true })
+    --
+    --     client.server_capabilities.documentFormattingProvider = false
+    --     client.server_capabilities.documentRangeFormattingProvider = false
+    --   end,
+    -- })
   end
 }
