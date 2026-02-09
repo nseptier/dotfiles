@@ -36,6 +36,6 @@ return {
       delay = 50,
     }
 
-    -- blameline.disable()
+    blameline.disable()
   end
 }
