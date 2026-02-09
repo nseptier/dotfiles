@@ -120,14 +120,9 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 export NNN_PLUG='f:fzplug'
 
 
-# -- SPACESHIP PROMPT ----------------------------------------------------------
+# -- STARSHIP PROMPT ----------------------------------------------------------
 
-source "$HOME/.zsh/spaceship/spaceship.zsh"
-autoload -U promptinit; promptinit
-# prompt spaceship
-
-SPACESHIP_PROMPT_ORDER=(char)
-SPACESHIP_CHAR_SYMBOL="$ "
+eval "$(starship init zsh)"
 
 
 # -- Paths ---------------------------------------------------------------------

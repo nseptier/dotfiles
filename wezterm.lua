@@ -93,7 +93,7 @@ local config = {
   -- command_palette_font_size      = 12,
   command_palette_rows           = 12,
   default_cwd                    = '~',
-  default_prog                   = { 'pwsh.exe' },
+  -- default_prog                   = { 'pwsh.exe' },
   font                           = wezterm.font { family = 'Iosevka Custom Semi-Extended' },
   font_size                      = 12,
   inactive_pane_hsb              = {
