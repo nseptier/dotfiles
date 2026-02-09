@@ -66,7 +66,7 @@ M.renderWinBar = function(is_inactive, winid, bufnr, ft)
   local state = vim.w[winid].state or ''
   local path = vim.split(vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr)), '/')
   local folder = path[#path - 1] or ''
-  local fts = { fugitive = 'fugitive', floggraph = 'flog' }
+  local fts = { fugitive = 'fugitive', floggraph = 'flog', NeogitStatus = 'NeogitStatus' }
 
   return '%='
       .. (is_inactive and '%#StatuslineInactiveDiagnosticSeparator#' or '%#StatuslineDiagnosticSeparator#')
@@ -183,6 +183,7 @@ M.setup = function()
       'TextChanged',
       'TextChangedI',
       'BufRead',
+      'BufWritePost',
       'WinEnter',
       'WinLeave',
     },
@@ -192,7 +193,7 @@ M.setup = function()
 
         vim.tbl_map(function(winid)
           local bufnr = vim.api.nvim_win_get_buf(winid)
-          local blacklist = { lazy = true, TelescopePrompt = true }
+          local blacklist = { lazy = true, nerdtree = true, TelescopePrompt = true }
 
           vim.schedule(function()
             if bufnr == args.buf and vim.api.nvim_win_is_valid(winid) then

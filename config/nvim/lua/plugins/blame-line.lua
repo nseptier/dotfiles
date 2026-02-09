@@ -33,9 +33,9 @@ return {
       -- keymap
       vim.keymap.set('n', '<leader>b', ':BlameLineToggle<cr>', {}),
 
-      delay = 100,
+      delay = 50,
     }
 
-    blameline.disable()
+    -- blameline.disable()
   end
 }

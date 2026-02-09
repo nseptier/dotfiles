@@ -17,8 +17,9 @@ return {
   },
   config = function()
     require('neogit').setup {
-      auto_refresh = false,
+      auto_refresh = true,
       disable_hint = true,
+      disable_signs = false,
       disable_context_highlighting = true,
       filewatcher = {
         interval = 10000,

@@ -11,7 +11,9 @@ return {
 
     -- require('mini.pairs').setup()
     require('mini.ai').setup()
-    require('mini.bracketed').setup()
+    require('mini.bracketed').setup({
+      diagnostic = { suffix = 'd', options = { float = false } },
+    })
     require('mini.bufremove').setup()
     require('mini.comment').setup()
     -- require('mini.completion').setup()

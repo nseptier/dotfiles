@@ -326,15 +326,25 @@ vim.api.nvim_create_autocmd(
 
 -- diagnostics options
 
-vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end)
-vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
-vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
+-- vim.keymap.set('n', 'gl', function() vim.diagnostic.open_float() end)
+-- vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
+-- vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
+vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end)
+vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end)
 
 local diagnostic_icons = {
-  [vim.diagnostic.severity.ERROR] = '󰖖', --'󱟬',
-  [vim.diagnostic.severity.WARN] = '󰖕', --'󱟭',
-  [vim.diagnostic.severity.INFO] = '󰖙', --'󱟮',
-  [vim.diagnostic.severity.HINT] = '', --'󱟯',
+  [vim.diagnostic.severity.ERROR] = '󰙾',
+  [vim.diagnostic.severity.WARN] = '󰖐',
+  [vim.diagnostic.severity.INFO] = '󰼰',
+  [vim.diagnostic.severity.HINT] = '󰖙',
+  -- [vim.diagnostic.severity.ERROR] = '󱟬',
+  -- [vim.diagnostic.severity.WARN] = '󱟭',
+  -- [vim.diagnostic.severity.INFO] = '󱟮',
+  -- [vim.diagnostic.severity.HINT] = '󱟯',
+  -- [vim.diagnostic.severity.ERROR] = '󰅗',
+  -- [vim.diagnostic.severity.WARN] = '󰿦',
+  -- [vim.diagnostic.severity.INFO] = '󰆢',
+  -- [vim.diagnostic.severity.HINT] = '󰒉',
 }
 
 vim.lsp.set_log_level("debug")
