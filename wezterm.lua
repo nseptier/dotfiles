@@ -95,7 +95,7 @@ local config = {
   default_cwd                    = '~',
   -- default_prog                   = { 'pwsh.exe' },
   font                           = wezterm.font { family = 'Iosevka Custom Semi-Extended' },
-  font_size                      = 12,
+  font_size                      = 13,
   inactive_pane_hsb              = {
     saturation = 0.7,
     brightness = 0.9,
